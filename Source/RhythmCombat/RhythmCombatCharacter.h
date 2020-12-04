@@ -6,6 +6,26 @@
 #include "GameFramework/Character.h"
 #include "RhythmCombatCharacter.generated.h"
 
+USTRUCT(BlueprintType)
+struct FCharacterStats {
+	GENERATED_BODY()
+		UPROPERTY(EditAnywhere, BlueprintReadWrite);
+	int Health;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite);
+	int AttackPower;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite);
+	int MagAttackPower;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite);
+	int DefensePower;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite);
+	int MagDefensePower;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite);
+	int Speed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite);
+	int Evasiveness;
+};
+
+
 UCLASS(config=Game)
 class ARhythmCombatCharacter : public ACharacter
 {
@@ -28,6 +48,9 @@ public:
 	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FCharacterStats CharacterStats;
 
 protected:
 
