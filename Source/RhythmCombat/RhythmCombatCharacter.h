@@ -4,26 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Structs.h"
 #include "RhythmCombatCharacter.generated.h"
-
-USTRUCT(BlueprintType)
-struct FCharacterStats {
-	GENERATED_BODY()
-		UPROPERTY(EditAnywhere, BlueprintReadWrite);
-	int Health;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite);
-	int AttackPower;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite);
-	int MagAttackPower;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite);
-	int DefensePower;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite);
-	int MagDefensePower;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite);
-	int Speed;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite);
-	int Evasiveness;
-};
 
 
 UCLASS(config=Game)

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "RhythmCombatCharacter.h"
+#include "Structs.h"
 #include "EnemyCharacter.generated.h"
 
 /**
