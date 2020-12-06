@@ -43,4 +43,6 @@ struct FEnemyArrayWrapper {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FEnemyGenerationStats> EnemyStats;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		AActor* EncounterPos;
 };

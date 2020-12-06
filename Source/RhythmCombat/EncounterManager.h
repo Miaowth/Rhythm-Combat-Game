@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Structs.h"
+#include "Runtime/Engine/Classes/Engine/TargetPoint.h"
 #include "EncounterManager.generated.h"
 
 
@@ -31,6 +32,8 @@ public:
 		TArray<FEnemyArrayWrapper> EncounterArray;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TArray<TSubclassOf<class AActor>> PossibleEnemyClasses;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<AActor*> SpawnPoints;
 
 protected:
 	// Called when the game starts or when spawned
@@ -39,5 +42,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+private:
+	UFUNCTION()
+		ATargetPoint* GetRandomSpawnpoint();
 };

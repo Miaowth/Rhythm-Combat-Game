@@ -2,6 +2,7 @@
 
 
 #include "EncounterManager.h"
+#include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
 // Sets default values
 AEncounterManager::AEncounterManager()
@@ -10,14 +11,23 @@ AEncounterManager::AEncounterManager()
 	PrimaryActorTick.bCanEverTick = true;
 
 }
+ATargetPoint* AEncounterManager::GetRandomSpawnpoint() {
 
+	auto index = FMath::RandRange(0, (SpawnPoints.Num() - 1));
+
+	return Cast<ATargetPoint>(SpawnPoints[index]);
+}
 // Called when the game starts or when spawned
 void AEncounterManager::BeginPlay()
 {
 	Super::BeginPlay();
+
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATargetPoint::StaticClass(), SpawnPoints);
+
 	if (EncounterArray.Num() < EncounterMinQuantity) {
 
 		TArray<FEnemyArrayWrapper> AllEncounters;
+		
 
 		for (int32 i = EncounterArray.Num(); i < EncounterMinQuantity; i++) {
 
@@ -36,9 +46,12 @@ void AEncounterManager::BeginPlay()
 				};
 				SingleEncounter.Add(temp);
 			}
-			FEnemyArrayWrapper EnemyGenTemp = { SingleEncounter };
+
+			ATargetPoint* EncounterTempVector = GetRandomSpawnpoint();
+
+			FEnemyArrayWrapper EnemyGenTemp = { SingleEncounter, EncounterTempVector };
 			AllEncounters.Add(EnemyGenTemp);
-	
+
 		};
 		
 		EncounterArray.Append(AllEncounters);
@@ -51,4 +64,5 @@ void AEncounterManager::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
+
 
