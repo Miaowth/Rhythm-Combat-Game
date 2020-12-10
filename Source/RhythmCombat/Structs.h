@@ -12,7 +12,9 @@ struct FCharacterStats {
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Level;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 Health;
+	int32 HealthPoints;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 MagicPoints;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 AttackPower;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -27,6 +29,17 @@ struct FCharacterStats {
 	int32 Evasiveness;
 };
 
+//for storing information about an ability
+USTRUCT(BlueprintType)
+struct FAbilityStats {
+	GENERATED_BODY()
+		int32 Power;
+	int32 MagicPointsCost;
+	FString AbilityName;
+	FString Description;
+};
+
+//stores basic information about an enemy for generation
 USTRUCT(BlueprintType)
 struct FEnemyGenerationStats {
 	GENERATED_BODY()
@@ -36,8 +49,12 @@ struct FEnemyGenerationStats {
 	TSubclassOf<class AActor> EnemyClass;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FCharacterStats CharacterStats;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FAbilityStats> Abilities;
 };
 
+//behaves as a wrapper for storing additional information about an encounter
+//within the level area
 USTRUCT(BlueprintType)
 struct FEnemyArrayWrapper {
 	GENERATED_BODY()
@@ -45,4 +62,9 @@ struct FEnemyArrayWrapper {
 	TArray<FEnemyGenerationStats> EnemyStats;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		AActor* EncounterPos;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FVector CurrentPos;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool CanMove;
 };
+

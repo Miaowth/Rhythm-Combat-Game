@@ -16,6 +16,8 @@ public:
 	AEncounter();
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	//	TArray<AEnemyCharacter> EncounterEnemies;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		AActor* EncounterManager;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

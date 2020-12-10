@@ -134,3 +134,5 @@ void ARhythmCombatCharacter::MoveRight(float Value)
 		AddMovementInput(Direction, Value);
 	}
 }
+
+

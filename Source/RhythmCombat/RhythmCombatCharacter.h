@@ -34,6 +34,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FCharacterStats CharacterStats;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray< FAbilityStats> Abilities;
+
 protected:
 
 	/** Resets HMD orientation in VR. */
