@@ -21,4 +21,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<ARhythmCombatCharacter*> OtherPartyMembers;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 CurrentXP;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 XPForNextLevel;
 };

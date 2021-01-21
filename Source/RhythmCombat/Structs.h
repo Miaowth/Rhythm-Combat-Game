@@ -9,8 +9,8 @@ USTRUCT(BlueprintType)
 struct FCharacterStats {
 	GENERATED_BODY()
 	public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 Level;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//int32 Level;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 HealthPoints;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -47,24 +47,11 @@ struct FEnemyGenerationStats {
 	int32 EnemyLevel;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class AActor> EnemyClass;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FCharacterStats CharacterStats;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//FCharacterStats CharacterStats;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
+		UStaticMesh* CharacterMesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FAbilityStats> Abilities;
-};
-
-//behaves as a wrapper for storing additional information about an encounter
-//within the level area
-USTRUCT(BlueprintType)
-struct FEnemyArrayWrapper {
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FEnemyGenerationStats> EnemyStats;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		AActor* EncounterPos;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		FVector CurrentPos;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool CanMove;
 };
 

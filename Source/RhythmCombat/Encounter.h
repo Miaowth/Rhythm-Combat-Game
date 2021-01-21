@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/BoxComponent.h"
+#include "Structs.h"
+
 #include "Encounter.generated.h"
 
 UCLASS()
@@ -14,10 +17,17 @@ class RHYTHMCOMBAT_API AEncounter : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AEncounter();
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//	TArray<AEnemyCharacter> EncounterEnemies;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		USceneComponent* MyRootComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		AActor* EncounterManager;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
+		UStaticMeshComponent* EncounterMesh;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool CanMove = true;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<FEnemyGenerationStats> EnemyStats;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

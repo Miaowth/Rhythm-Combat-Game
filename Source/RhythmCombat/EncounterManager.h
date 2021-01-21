@@ -7,6 +7,7 @@
 #include "Structs.h"
 #include "Runtime/Engine/Classes/Engine/TargetPoint.h"
 #include "Encounter.h"
+#include "CombatManager.h"
 #include "EncounterManager.generated.h"
 
 
@@ -30,14 +31,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int32 EncounterMaxEnemies;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TArray<FEnemyArrayWrapper> EncounterArray;
+		TArray<AEncounter*> EncounterArray;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TArray<TSubclassOf<class AActor>> PossibleEnemyClasses;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TArray<AActor*> SpawnPoints;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		AActor* CombatManagerRef;
+		ACombatManager* CombatManagerRef;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		USceneComponent* MyRootComponent;
 
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<class AEncounter> BP_Encounter;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -46,7 +51,11 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void BeginCombat(AActor* StartedEncounter);
+	UFUNCTION(BlueprintCallable)
+	void DisableEncounters(AActor* StartedEncounter);
+
+	UFUNCTION(BlueprintCallable)
+	void EnableEncounters();
 private:
 	UFUNCTION()
 		ATargetPoint* GetRandomSpawnpoint();

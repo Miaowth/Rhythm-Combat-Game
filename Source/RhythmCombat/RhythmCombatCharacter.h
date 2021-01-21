@@ -4,12 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "BaseCharacter.h"
 #include "Structs.h"
 #include "RhythmCombatCharacter.generated.h"
 
 
 UCLASS(config=Game)
-class ARhythmCombatCharacter : public ACharacter
+class ARhythmCombatCharacter : public ABaseCharacter
 {
 	GENERATED_BODY()
 
@@ -30,12 +31,6 @@ public:
 	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FCharacterStats CharacterStats;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray< FAbilityStats> Abilities;
 
 protected:
 
