@@ -22,7 +22,20 @@ public:
 		FCharacterStats CharacterStats;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TArray< FAbilityStats> Abilities;
+		TArray<FAbilityStats> Abilities;
+
+	//this should never have more than 4 elements
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<FAction> ActiveActions;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FAction ChosenAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<ABaseCharacter*> TargetList;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<FItem> Inventory;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

@@ -71,5 +71,12 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+	virtual void BattleAction1();
+	virtual void BattleAction2();
+	virtual void BattleAction3();
+	virtual void BattleAction4();
+	virtual void NavigateUp();
+	virtual void NavigateDown();
 };
 

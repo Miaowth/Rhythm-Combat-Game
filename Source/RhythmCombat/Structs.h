@@ -29,14 +29,78 @@ struct FCharacterStats {
 	int32 Evasiveness;
 };
 
+UENUM(BlueprintType)
+enum ENoteType {
+	Breve,
+	SemiBreve,
+	Minim,
+	Crotchet,
+	Quaver,
+	SemiQuaver
+};
+
+
+USTRUCT(BlueprintType)
+struct FMyNote {
+	GENERATED_BODY()
+	int32 ButtonIndex;
+	int32 NotePosInBar;
+	ENoteType TypeOfNote;
+};
+
+UENUM(BlueprintType)
+enum ETargetType {
+	Ally,
+	Enemy,
+	Self
+};
+
+UENUM(BlueprintType)
+enum EButtonPressed {
+	None,
+	Left,
+	Top,
+	Right,
+	Bottom
+};
+
 //for storing information about an ability
 USTRUCT(BlueprintType)
 struct FAbilityStats {
 	GENERATED_BODY()
-		int32 Power;
+	int32 Power;
 	int32 MagicPointsCost;
 	FString AbilityName;
 	FString Description;
+	TArray<FMyNote> NotePattern;
+	int32 Range;
+	ETargetType TargetGroup;
+};
+
+USTRUCT(BlueprintType)
+struct FItem {
+	//TODO - finish
+	GENERATED_BODY()
+	int32 QuantityHeld;
+	FString ItemName;
+	FString Description;
+	int32 Range;
+	ETargetType TargetGroup;
+};
+
+UENUM(BlueprintType)
+enum EActionType {
+	BasicAttack,
+	BasicDefend,
+	UseItem,
+	UseAbility
+};
+
+USTRUCT(BlueprintType)
+struct FAction {
+	GENERATED_BODY()
+	EActionType Type;
+	int32 index;
 };
 
 //stores basic information about an enemy for generation

@@ -59,6 +59,13 @@ void ARhythmCombatCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
+	//inputs for combat
+	PlayerInputComponent->BindAction("BattleAction1", IE_Pressed, this, &ARhythmCombatCharacter::BattleAction1);
+	PlayerInputComponent->BindAction("BattleAction2", IE_Pressed, this, &ARhythmCombatCharacter::BattleAction2);
+	PlayerInputComponent->BindAction("BattleAction3", IE_Pressed, this, &ARhythmCombatCharacter::BattleAction3);
+	PlayerInputComponent->BindAction("BattleAction4", IE_Pressed, this, &ARhythmCombatCharacter::BattleAction4);
+
+
 	PlayerInputComponent->BindAxis("MoveForward", this, &ARhythmCombatCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ARhythmCombatCharacter::MoveRight);
 
@@ -78,6 +85,22 @@ void ARhythmCombatCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &ARhythmCombatCharacter::OnResetVR);
 }
 
+
+void ARhythmCombatCharacter::BattleAction1() {
+
+}
+void ARhythmCombatCharacter::BattleAction2() {
+
+}
+void ARhythmCombatCharacter::BattleAction3() {
+
+}
+void ARhythmCombatCharacter::BattleAction4() {
+
+}
+
+void ARhythmCombatCharacter::NavigateUp() {};
+void ARhythmCombatCharacter::NavigateDown() {};
 
 void ARhythmCombatCharacter::OnResetVR()
 {

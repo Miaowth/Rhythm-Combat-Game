@@ -5,6 +5,9 @@
 #include "CoreMinimal.h"
 #include "RhythmCombatCharacter.h"
 #include "BaseItemClass.h"
+#include "CombatManager.h"
+#include "BaseCharacter.h"
+
 #include "PlayerCharacter.generated.h"
 
 /**
@@ -16,15 +19,38 @@ class RHYTHMCOMBAT_API APlayerCharacter : public ARhythmCombatCharacter
 	GENERATED_BODY()
 public:
 	//stores party inventory
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<UBaseItemClass*> Inventory;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//TArray<UBaseItemClass*> Inventory;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<ARhythmCombatCharacter*> OtherPartyMembers;
+	TArray<ABaseCharacter*> OtherPartyMembers;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int32 CurrentXP;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int32 XPForNextLevel;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 CharacterIndex;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		ACombatManager* CombatManagerRef;
+	
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//	int32 Activemoveindex;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TEnumAsByte<EButtonPressed> LastPressedButton = None;
+public:
+
+	UFUNCTION(BlueprintCallable)
+		void UpdateTargetType(int32 moveindex, ABaseCharacter* Targetter);
+	
+	virtual void NavigateUp() override;
+	virtual void NavigateDown() override;
+	virtual void BattleAction1() override;
+	virtual void BattleAction2() override;
+	virtual void BattleAction3() override;
+	virtual void BattleAction4() override;
 };

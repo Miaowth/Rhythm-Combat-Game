@@ -24,9 +24,9 @@ ATargetPoint* AEncounterManager::GetRandomSpawnpoint() {
 void AEncounterManager::BeginPlay()
 {
 	Super::BeginPlay();
-	//gets all target points (places an encounter can be spawned)
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATargetPoint::StaticClass(), SpawnPoints);
-
+	//gets all target points with Encounter tag(places an encounter can be spawned)
+	//UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATargetPoint::StaticClass(), SpawnPoints);
+	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName(TEXT("Encounter")), SpawnPoints);
 	//set path to find mesh object
 	//TODO - make this neater
 
