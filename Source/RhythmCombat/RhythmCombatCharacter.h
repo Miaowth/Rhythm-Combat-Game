@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "BaseCharacter.h"
 #include "Structs.h"
+#include "CombatManager.h"
 #include "RhythmCombatCharacter.generated.h"
 
 
@@ -23,6 +24,9 @@ class ARhythmCombatCharacter : public ABaseCharacter
 	class UCameraComponent* FollowCamera;
 public:
 	ARhythmCombatCharacter();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		ACombatManager* CombatManagerRef;
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)

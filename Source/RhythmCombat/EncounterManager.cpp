@@ -61,6 +61,7 @@ void AEncounterManager::BeginPlay()
 
 			TempStorage->CanMove = true;
 			TempStorage->EnemyStats = EncounterEnemies;
+			TempStorage->EncounterManager = this;
 			//assign a mesh from one of the enemies in the encounter
 			int32 total_enemies = TempStorage->EnemyStats.Num();
 			int32 random_mesh_num = FMath::RandRange(0, total_enemies - 1);
@@ -97,11 +98,13 @@ void AEncounterManager::DisableEncounters(AActor* StartedEncounter)
 			StartedEncounterIndex = i;
 		}
 		else {
+			
+			UE_LOG(LogTemp, Warning, TEXT("Index"));
 			EncounterArray[i]->CanMove = false;
-			//set encounter mesh to invisible and turn off collision
-			EncounterArray[i]->EncounterMesh->SetVisibility(false);
+			////set encounter mesh to invisible and turn off collision
+			//EncounterArray[i]->EncounterMesh->SetVisibility(false);
 			EncounterArray[i]->SetActorEnableCollision(false);
-			EncounterArray[i]->CanMove = false;
+			//EncounterArray[i]->CanMove = false;
 		}
 	}
 	EncounterArray.RemoveAt(StartedEncounterIndex);

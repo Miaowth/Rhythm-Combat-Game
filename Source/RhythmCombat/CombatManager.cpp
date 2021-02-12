@@ -55,7 +55,9 @@ void ACombatManager::ChangeETargetType(ETargetType NewType, ABaseCharacter* Targ
 	}
 }
 void ACombatManager::CreateTurnOrder() {
-	BattleOrder.Append(PlayerCharacter->OtherPartyMembers);
+	if (PlayerCharacter->OtherPartyMembers.Num() > 0) {
+		BattleOrder.Append(PlayerCharacter->OtherPartyMembers);
+	}
 	BattleOrder.Append(EnemyParty);
 	BattleOrder.Add(PlayerCharacter);
 	MergeSortTurnOrder(BattleOrder, 0, BattleOrder.Num() - 1);

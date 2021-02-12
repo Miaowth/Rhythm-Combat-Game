@@ -109,29 +109,37 @@ void ARhythmCombatCharacter::OnResetVR()
 
 void ARhythmCombatCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
 {
+	if (!CombatManagerRef->InCombat) {
 		Jump();
+	}
 }
 
 void ARhythmCombatCharacter::TouchStopped(ETouchIndex::Type FingerIndex, FVector Location)
 {
+	if (!CombatManagerRef->InCombat) {
 		StopJumping();
+	}
 }
 
 void ARhythmCombatCharacter::TurnAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
-	AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds());
+	if (!CombatManagerRef->InCombat) {
+		AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds());
+	}
 }
 
 void ARhythmCombatCharacter::LookUpAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
-	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
+	if (!CombatManagerRef->InCombat) {
+		AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
+	}
 }
 
 void ARhythmCombatCharacter::MoveForward(float Value)
 {
-	if ((Controller != NULL) && (Value != 0.0f))
+	if (((Controller != NULL) && (Value != 0.0f))&& !CombatManagerRef->InCombat)
 	{
 		// find out which way is forward
 		const FRotator Rotation = Controller->GetControlRotation();
@@ -145,7 +153,7 @@ void ARhythmCombatCharacter::MoveForward(float Value)
 
 void ARhythmCombatCharacter::MoveRight(float Value)
 {
-	if ( (Controller != NULL) && (Value != 0.0f) )
+	if ( ((Controller != NULL) && (Value != 0.0f)) && !CombatManagerRef->InCombat)
 	{
 		// find out which way is right
 		const FRotator Rotation = Controller->GetControlRotation();

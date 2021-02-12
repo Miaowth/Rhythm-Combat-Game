@@ -6,8 +6,9 @@
 #include "GameFramework/Actor.h"
 #include "Components/BoxComponent.h"
 #include "Structs.h"
-
 #include "Encounter.generated.h"
+
+class AEncounterManager;
 
 UCLASS()
 class RHYTHMCOMBAT_API AEncounter : public AActor
@@ -20,7 +21,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		USceneComponent* MyRootComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		AActor* EncounterManager;
+		AEncounterManager* EncounterManager;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
 		UStaticMeshComponent* EncounterMesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

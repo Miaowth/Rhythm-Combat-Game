@@ -34,8 +34,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int32 CharacterIndex;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		ACombatManager* CombatManagerRef;
+
 	
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	//	int32 Activemoveindex;
