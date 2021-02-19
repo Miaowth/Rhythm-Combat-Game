@@ -96,10 +96,12 @@ enum EActionType {
 	UseAbility
 };
 
-USTRUCT(BlueprintType)
+USTRUCT(BlueprintType, Blueprintable)
 struct FAction {
 	GENERATED_BODY()
-	EActionType Type;
+	UPROPERTY(BlueprintReadWrite)
+	TEnumAsByte<EActionType> Type;
+	UPROPERTY(BlueprintReadWrite)
 	int32 index;
 };
 

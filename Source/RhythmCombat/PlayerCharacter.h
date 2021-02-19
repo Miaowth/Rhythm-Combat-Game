@@ -34,7 +34,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int32 CharacterIndex;
 
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FTransform PosInWorld;
 	
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	//	int32 Activemoveindex;
@@ -46,6 +47,10 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void UpdateTargetType(int32 moveindex, ABaseCharacter* Targetter);
 	
+	UFUNCTION(BlueprintCallable)
+		void UpdateActiveActions(FAction NewAction, EButtonPressed ButtonToAssign, ABaseCharacter* CharacterToUpdate);
+
+
 	virtual void NavigateUp() override;
 	virtual void NavigateDown() override;
 	virtual void BattleAction1() override;

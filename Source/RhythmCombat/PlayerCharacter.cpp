@@ -244,3 +244,25 @@ void APlayerCharacter::NavigateDown() {
 	};
 };
 
+void APlayerCharacter::UpdateActiveActions(FAction NewAction, EButtonPressed ButtonToAssign, ABaseCharacter* CharacterToUpdate) {
+	//if () {
+
+	//}
+	switch (ButtonToAssign)
+	{
+	case Left:
+		CharacterToUpdate->ActiveActions[0] = NewAction;
+		break;
+	case Top:
+		CharacterToUpdate->ActiveActions[1] = NewAction;
+		break;
+	case Right:
+		CharacterToUpdate->ActiveActions[2] = NewAction;
+		break;
+	case Bottom:
+		CharacterToUpdate->ActiveActions[3] = NewAction;
+		break;
+	}
+};
+
+

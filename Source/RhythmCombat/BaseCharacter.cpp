@@ -15,7 +15,12 @@ ABaseCharacter::ABaseCharacter()
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	ActiveActions.Add({ BasicAttack, 0 });
+	ActiveActions.Add({ BasicAttack, 0 });
+	ActiveActions.Add({ BasicDefend, 0 });
+	ActiveActions.Add({ BasicDefend, 0 });
+
 }
 
 // Called every frame
