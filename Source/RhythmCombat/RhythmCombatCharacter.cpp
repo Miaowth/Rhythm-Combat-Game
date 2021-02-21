@@ -8,6 +8,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Structs.h"
+
 
 //////////////////////////////////////////////////////////////////////////
 // ARhythmCombatCharacter
@@ -57,6 +59,13 @@ void ARhythmCombatCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
+	//inputs for combat
+	PlayerInputComponent->BindAction("BattleAction1", IE_Pressed, this, &ARhythmCombatCharacter::BattleAction1);
+	PlayerInputComponent->BindAction("BattleAction2", IE_Pressed, this, &ARhythmCombatCharacter::BattleAction2);
+	PlayerInputComponent->BindAction("BattleAction3", IE_Pressed, this, &ARhythmCombatCharacter::BattleAction3);
+	PlayerInputComponent->BindAction("BattleAction4", IE_Pressed, this, &ARhythmCombatCharacter::BattleAction4);
+
+
 	PlayerInputComponent->BindAxis("MoveForward", this, &ARhythmCombatCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ARhythmCombatCharacter::MoveRight);
 
@@ -77,6 +86,22 @@ void ARhythmCombatCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 }
 
 
+void ARhythmCombatCharacter::BattleAction1() {
+
+}
+void ARhythmCombatCharacter::BattleAction2() {
+
+}
+void ARhythmCombatCharacter::BattleAction3() {
+
+}
+void ARhythmCombatCharacter::BattleAction4() {
+
+}
+
+void ARhythmCombatCharacter::NavigateUp() {};
+void ARhythmCombatCharacter::NavigateDown() {};
+
 void ARhythmCombatCharacter::OnResetVR()
 {
 	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
@@ -84,29 +109,37 @@ void ARhythmCombatCharacter::OnResetVR()
 
 void ARhythmCombatCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
 {
+	if (!CombatManagerRef->InCombat) {
 		Jump();
+	}
 }
 
 void ARhythmCombatCharacter::TouchStopped(ETouchIndex::Type FingerIndex, FVector Location)
 {
+	if (!CombatManagerRef->InCombat) {
 		StopJumping();
+	}
 }
 
 void ARhythmCombatCharacter::TurnAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
-	AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds());
+	if (!CombatManagerRef->InCombat) {
+		AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds());
+	}
 }
 
 void ARhythmCombatCharacter::LookUpAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
-	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
+	if (!CombatManagerRef->InCombat) {
+		AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
+	}
 }
 
 void ARhythmCombatCharacter::MoveForward(float Value)
 {
-	if ((Controller != NULL) && (Value != 0.0f))
+	if (((Controller != NULL) && (Value != 0.0f))&& !CombatManagerRef->InCombat)
 	{
 		// find out which way is forward
 		const FRotator Rotation = Controller->GetControlRotation();
@@ -120,7 +153,7 @@ void ARhythmCombatCharacter::MoveForward(float Value)
 
 void ARhythmCombatCharacter::MoveRight(float Value)
 {
-	if ( (Controller != NULL) && (Value != 0.0f) )
+	if ( ((Controller != NULL) && (Value != 0.0f)) && !CombatManagerRef->InCombat)
 	{
 		// find out which way is right
 		const FRotator Rotation = Controller->GetControlRotation();
@@ -132,3 +165,5 @@ void ARhythmCombatCharacter::MoveRight(float Value)
 		AddMovementInput(Direction, Value);
 	}
 }
+
+

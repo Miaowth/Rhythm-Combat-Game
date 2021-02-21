@@ -4,10 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "BaseCharacter.h"
+#include "Structs.h"
+#include "CombatManager.h"
 #include "RhythmCombatCharacter.generated.h"
 
+
 UCLASS(config=Game)
-class ARhythmCombatCharacter : public ACharacter
+class ARhythmCombatCharacter : public ABaseCharacter
 {
 	GENERATED_BODY()
 
@@ -20,6 +24,9 @@ class ARhythmCombatCharacter : public ACharacter
 	class UCameraComponent* FollowCamera;
 public:
 	ARhythmCombatCharacter();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		ACombatManager* CombatManagerRef;
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
@@ -68,5 +75,12 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+	virtual void BattleAction1();
+	virtual void BattleAction2();
+	virtual void BattleAction3();
+	virtual void BattleAction4();
+	virtual void NavigateUp();
+	virtual void NavigateDown();
 };
 
