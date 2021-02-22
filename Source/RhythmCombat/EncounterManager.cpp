@@ -3,6 +3,7 @@
 
 #include "EncounterManager.h"
 #include "EnemyCharacter.h"
+#include "../../../UE_4.25/Engine/Source/Runtime/Engine/Classes/Components/CapsuleComponent.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -57,8 +58,9 @@ void AEncounterManager::BeginPlay()
 
 			//Spawn a new encounter bp in world
 			FActorSpawnParameters TempSpawnParam;
+			TempSpawnParam.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 			AEncounter* TempStorage = GetWorld()->SpawnActor<AEncounter>(BP_Encounter, EncounterTempVector, FRotator(0.0f), TempSpawnParam);
-
+			
 			TempStorage->CanMove = true;
 			TempStorage->EnemyStats = EncounterEnemies;
 			TempStorage->EncounterManager = this;
