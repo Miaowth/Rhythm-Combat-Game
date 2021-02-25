@@ -67,7 +67,7 @@ void ACombatManager::MergeSortTurnOrder(TArray<ABaseCharacter*> arr, int32 l, in
 	if (l >= r) {
 		return;//returns recursively
 	}
-	int m = (l + r - 1) / 2;
+	int m = l + (r - 1) / 2;
 	MergeSortTurnOrder(arr, l, m);
 	MergeSortTurnOrder(arr, m + 1, r);
 	Merge(arr, l, m, r);

@@ -13,8 +13,8 @@
 				<Language Name="SFX" ID="{C1336085-4FD6-4E01-95C6-D1D63777169E}"/>
 			</LanguageList>
 			<PropertyList>
-				<Property Name="GenerateSoundBankXML" Type="bool" Value="False"/>
-				<Property Name="GenerateMainSoundBank" Type="bool" Value="False"/>
+				
+				
 				<Property Name="SoundBankGeneratePrintGUID" Type="bool" Value="True"/>
 				<Property Name="SoundBankGenerateMaxAttenuationInfo" Type="bool" Value="True"/>
 				<Property Name="SoundBankGenerateEstimatedDuration" Type="bool" Value="True"/>

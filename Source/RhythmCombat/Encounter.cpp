@@ -3,6 +3,8 @@
 
 #include "Encounter.h"
 
+#include "../../../UE_4.25/Engine/Source/Runtime/Engine/Classes/GameFramework/CharacterMovementComponent.h"
+
 // Sets default values
 AEncounter::AEncounter()
 {
@@ -17,6 +19,7 @@ AEncounter::AEncounter()
 void AEncounter::BeginPlay()
 {
 	Super::BeginPlay();
+	GetCharacterMovement()->SetActive(true,true);
 }
 
 // Called every frame
