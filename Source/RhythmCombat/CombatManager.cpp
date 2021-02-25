@@ -32,9 +32,9 @@ void ACombatManager::Tick(float DeltaTime)
 void ACombatManager::InitialiseCombat()
 {
 	//combine the enemy and player arrays into a turn order array using a mergesort function
-	//CreateTurnOrder();
+	CreateTurnOrder();
 	InCombat = true;
-	//SelectedTarget = EnemyParty[0];
+	SelectedTarget = EnemyParty[0];
 
 }
 
@@ -67,7 +67,7 @@ void ACombatManager::MergeSortTurnOrder(TArray<ABaseCharacter*> arr, int32 l, in
 	if (l >= r) {
 		return;//returns recursively
 	}
-	int m = (l + r - 1) / 2;
+	int m = l + (r - 1) / 2;
 	MergeSortTurnOrder(arr, l, m);
 	MergeSortTurnOrder(arr, m + 1, r);
 	Merge(arr, l, m, r);
