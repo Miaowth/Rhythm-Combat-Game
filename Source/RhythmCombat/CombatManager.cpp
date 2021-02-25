@@ -64,13 +64,16 @@ void ACombatManager::CreateTurnOrder() {
 }
 
 void ACombatManager::MergeSortTurnOrder(TArray<ABaseCharacter*> arr, int32 l, int32 r) {
-	if (l >= r) {
-		return;//returns recursively
+	//if (l >= r) {
+	//	return;//returns recursively
+	//}
+	
+	if (l < r) {
+		int m = l + (r - 1) / 2;
+		MergeSortTurnOrder(arr, l, m);
+		MergeSortTurnOrder(arr, m + 1, r);
+		Merge(arr, l, m, r);
 	}
-	int m = l + (r - 1) / 2;
-	MergeSortTurnOrder(arr, l, m);
-	MergeSortTurnOrder(arr, m + 1, r);
-	Merge(arr, l, m, r);
 };
 void ACombatManager::Merge(TArray<ABaseCharacter*> arr, int32 l, int32 m, int32 r) {
 	int32 n1 = m - l + 1;
@@ -79,10 +82,9 @@ void ACombatManager::Merge(TArray<ABaseCharacter*> arr, int32 l, int32 m, int32 
 	TArray<ABaseCharacter*> L, R;
 
 	// Copy data to temp arrays L[] and R[]
-	for (int i = 0; i < n1; i++)
-		L[i] = arr[l + i];
-	for (int j = 0; j < n2; j++)
-		R[j] = arr[m + 1 + j];
+	for (int i = 0; i < n1; i++) { L.Add(arr[l + i]); }
+	for (int j = 0; j < n2; j++) { R.Add(arr[m + 1 + j]); }
+		
 
 	// Merge the temp arrays back into arr[l..r]
 	// Initial index of each array
@@ -91,7 +93,7 @@ void ACombatManager::Merge(TArray<ABaseCharacter*> arr, int32 l, int32 m, int32 
 	int k = l;
 
 	while (i < n1 && j < n2) {
-		if (L[i]->CharacterStats.Speed <= R[j]->CharacterStats.Speed) {
+		if (L[i]->CharacterStats.Speed >= R[j]->CharacterStats.Speed) {
 			arr[k] = L[i];
 			i++;
 		}

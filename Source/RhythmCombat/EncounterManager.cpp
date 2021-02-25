@@ -73,7 +73,6 @@ void AEncounterManager::DisableEncounters(AActor* StartedEncounter)
 			////set encounter mesh to invisible and turn off collision
 			//EncounterArray[i]->EncounterMesh->SetVisibility(false);
 			EncounterArray[i]->SetActorEnableCollision(false);
-			//EncounterArray[i]->CanMove = false;
 		}
 	}
 	StartedEncounter->Destroy();
