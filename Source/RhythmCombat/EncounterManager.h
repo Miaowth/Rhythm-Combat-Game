@@ -56,7 +56,13 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void EnableEncounters();
+
+	UFUNCTION()
+	void RemoveAllEncounters();
+	
 private:
 	UFUNCTION()
-		ATargetPoint* GetRandomSpawnpoint();
+		ATargetPoint* GetNextSpawnpoint();
+	UFUNCTION()
+		void SpawnNewEncounters(int32 MaxQuantity);
 };

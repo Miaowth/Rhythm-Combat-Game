@@ -19,7 +19,61 @@ class RHYTHMCOMBAT_API AMyPlayerController : public APlayerController
 		APlayerCharacter* PlayerCharacter;
 
 private:
+
+	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
+	UPROPERTY(VisibleAnywhere, Category=Camera)
+	float BaseTurnRate = 45.f;
+
+	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
+	UPROPERTY(VisibleAnywhere, Category=Camera)
+	float BaseLookUpRate = 45.f;
+
+	
 	//Setting up the camera possession
 	UFUNCTION(BlueprintCallable)
 	virtual void OnPossess(APawn* InPawn) override;
+
+//INPUT STUFF
+
+	virtual void SetupInputComponent() override;
+
+	/** Called for forwards/backward input */
+	void MoveForward(float Value);
+
+	/** Called for side to side input */
+	void MoveRight(float Value);
+
+	/** 
+	* Called via input to turn at a given rate. 
+	* @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
+	*/
+	void TurnAtRate(float Rate);
+
+	/**
+	* Called via input to turn look up/down at a given rate. 
+	* @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
+	*/
+	void LookUpAtRate(float Rate);
+
+	/**
+	 *Does Jump
+	 *
+	 */
+	void DoJump();
+
+	/**
+	 *Stops Jump
+	 *
+	 */
+	void StopJump();
+
+	virtual void BattleAction1();
+	virtual void BattleAction2();
+	virtual void BattleAction3();
+	virtual void BattleAction4();
+	virtual void NavigateUp();
+	virtual void NavigateDown();
+	
 };
+
+
