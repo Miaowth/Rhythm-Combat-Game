@@ -4,6 +4,7 @@
 #include "EncounterManager.h"
 #include "EnemyCharacter.h"
 #include "../../../UE_4.25/Engine/Source/Runtime/Engine/Classes/Components/CapsuleComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -34,7 +35,11 @@ void AEncounterManager::BeginPlay()
 	Super::BeginPlay();
 	//gets all target points with Encounter tag(places an encounter can be spawned)
 	//UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATargetPoint::StaticClass(), SpawnPoints);
-	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName(TEXT("Encounter")), SpawnPoints);
+	
+	if(SpawnPoints.Num() == 0)
+	{
+		UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName(TEXT("Encounter")), SpawnPoints);
+	}
 
 	//Shuffle the list of Spawn Points
 	for (int32 i = SpawnPoints.Num() - 1; i > 0; i--)
@@ -45,7 +50,7 @@ void AEncounterManager::BeginPlay()
 		SpawnPoints[j] = temp;
 	}
 
-	SpawnNewEncounters(EncounterMaxQuantity);
+	//SpawnNewEncounters(EncounterMaxQuantity);
 	
 }
 
@@ -69,7 +74,7 @@ void AEncounterManager::DisableEncounters(AActor* StartedEncounter)
 		else {
 			
 			UE_LOG(LogTemp, Warning, TEXT("Index"));
-			EncounterArray[i]->CanMove = false;
+			EncounterArray[i]->GetCharacterMovement()->SetActive(false);
 			////set encounter mesh to invisible and turn off collision
 			//EncounterArray[i]->EncounterMesh->SetVisibility(false);
 			EncounterArray[i]->SetActorEnableCollision(false);
@@ -86,19 +91,31 @@ void AEncounterManager::EnableEncounters()
 	for (int32 i = 0; i < EncounterArray.Num(); i++) {
 		EncounterArray[i]->EncounterMesh->SetVisibility(true);
 		EncounterArray[i]->SetActorEnableCollision(true);
-		EncounterArray[i]->CanMove = false;
+		EncounterArray[i]->GetCharacterMovement()->SetActive(true);
 	}
+	SpawnNewEncounters(EncounterMinQuantity);
 }
 
 void AEncounterManager::RemoveAllEncounters()
 {
-	for(int i=0;i<EncounterArray.Max();i++)
+	//Destroys all encounter actors made by this encounter manager
+	for(int i=0;i<EncounterArray.Num();i++)
 	{
 		AEncounter* Encounter = EncounterArray[i];
 		Encounter->Destroy(true);
 	}
 	EncounterArray.Empty();
 	
+}
+
+void AEncounterManager::Enable()
+{
+	SpawnNewEncounters(EncounterMaxQuantity);
+}
+
+void AEncounterManager::Disable()
+{
+	RemoveAllEncounters();
 }
 
 void AEncounterManager::SpawnNewEncounters(int32 MaxQuantity)
