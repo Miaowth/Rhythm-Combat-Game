@@ -59,10 +59,18 @@ public:
 
 	UFUNCTION()
 	void RemoveAllEncounters();
+
+	UFUNCTION()
+	void Enable();
+
+	UFUNCTION()
+	void Disable();
+
+	UFUNCTION()
+        void SpawnNewEncounters(int32 MaxQuantity);
 	
 private:
 	UFUNCTION()
 		ATargetPoint* GetNextSpawnpoint();
-	UFUNCTION()
-		void SpawnNewEncounters(int32 MaxQuantity);
+	
 };
