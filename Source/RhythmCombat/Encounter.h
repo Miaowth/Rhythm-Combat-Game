@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+#include "BaseCharacter.h"
 #include "GameFramework/Actor.h"
 #include "Components/BoxComponent.h"
 #include "Structs.h"
@@ -38,5 +40,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	void CopySkelemeshandAnimBP(ABaseCharacter* Character);
 
 };
