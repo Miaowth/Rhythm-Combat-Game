@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine/DataTable.h"
 #include "Structs.generated.h"
 
 USTRUCT(BlueprintType)
@@ -65,16 +66,23 @@ enum EButtonPressed {
 };
 
 //for storing information about an ability
-USTRUCT(BlueprintType)
-struct FAbilityStats {
+USTRUCT(BlueprintType, Blueprintable)
+struct FAbilityStats : public FTableRowBase {
 	GENERATED_BODY()
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Power;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 MagicPointsCost;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString AbilityName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString Description;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FMyNote> NotePattern;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Range;
-	ETargetType TargetGroup;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TEnumAsByte<ETargetType> TargetGroup;
 };
 
 USTRUCT(BlueprintType)
