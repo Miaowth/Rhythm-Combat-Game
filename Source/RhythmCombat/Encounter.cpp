@@ -29,3 +29,10 @@ void AEncounter::Tick(float DeltaTime)
 
 }
 
+void AEncounter::CopySkelemeshandAnimBP(ABaseCharacter* Character)
+{
+	GetMesh()->SetSkeletalMesh(Character->GetMesh()->SkeletalMesh,true);
+}
+
+
+

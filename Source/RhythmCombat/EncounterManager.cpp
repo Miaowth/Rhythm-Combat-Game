@@ -158,9 +158,9 @@ void AEncounterManager::SpawnNewEncounters(int32 MaxQuantity)
 			int32 total_enemies = TempStorage->EnemyStats.Num();
 			int32 random_mesh_num = FMath::RandRange(0, total_enemies - 1);
 			//checks if mesh is valid before attempting assignment
-			if (TempStorage->EnemyStats[random_mesh_num].CharacterMesh) {
-				TempStorage->EncounterMesh->SetStaticMesh(TempStorage->EnemyStats[random_mesh_num].CharacterMesh);
-				TempStorage->EncounterMesh->SetupAttachment(MyRootComponent);
+			ABaseCharacter* bc = Cast<ABaseCharacter>(EncounterEnemies[random_mesh_num].EnemyClass.GetDefaultObject());
+			if (bc) {
+				TempStorage->CopySkelemeshandAnimBP(bc);
 			}
 			else {
 				UE_LOG(LogTemp, Warning, TEXT("I don't have a mesh and now I'm sad :("));
