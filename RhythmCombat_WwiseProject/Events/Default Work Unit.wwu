@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{C863AC27-B73B-4749-94DE-98CD717F241C}" SchemaVersion="97">
 	<Events>
-		<WorkUnit Name="Default Work Unit" ID="{C863AC27-B73B-4749-94DE-98CD717F241C}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{C863AC27-B73B-4749-94DE-98CD717F241C}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Play_ChangedChords" ID="{44FE91EA-FB2E-484D-A3D5-A4D1621D93CB}">
+					<ChildrenList>
+						<Action Name="" ID="{3C5A3142-040D-40EF-A233-5A898C199B8D}" ShortID="170048288">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ChangedChords" ID="{A39CAAC6-CD8A-464E-A30A-CF68FF220D35}" WorkUnitID="{20A002B0-16E2-4928-B8DD-5880A457FB8A}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
 	</Events>
 </WwiseDocument>

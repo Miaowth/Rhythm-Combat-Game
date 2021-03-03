@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "PlayerCharacter.h"
+
 #include "CombatManager.h"
+#include "PlayerCharacter.h"
 
 // Sets default values
 ACombatManager::ACombatManager()
@@ -64,16 +65,16 @@ void ACombatManager::CreateTurnOrder() {
 }
 
 void ACombatManager::MergeSortTurnOrder(TArray<ABaseCharacter*> arr, int32 l, int32 r) {
-	//if (l >= r) {
-	//	return;//returns recursively
-	//}
+	if (l >= r) {
+		return;//returns recursively
+	}
 	
-	if (l < r) {
+	//if (l < r) {
 		int m = l + (r - 1) / 2;
 		MergeSortTurnOrder(arr, l, m);
 		MergeSortTurnOrder(arr, m + 1, r);
 		Merge(arr, l, m, r);
-	}
+	//}
 };
 void ACombatManager::Merge(TArray<ABaseCharacter*> arr, int32 l, int32 m, int32 r) {
 	int32 n1 = m - l + 1;
@@ -127,7 +128,38 @@ void ACombatManager::GenerateEnemyActions() {
 	}
 }
 
-
+void ACombatManager::EnterRhythmPhase() {
+	//
+	for (int i = 0; i < BattleOrder.Num() - 1; i++) {
+		switch (BattleOrder[i]->ChosenAction.Type)
+		{
+		case 0:
+			//basicattack
+		case 1:
+			//basicdefend
+		case 2:
+			//Item
+		case 3:
+			//Ability
+			for (int j = 0; j < BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern.Num() - 1; j++) {
+				switch (BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j].ButtonIndex) {
+				case 0:
+					//square or x
+				case 1:
+					//triangle or y
+				case 2:
+					//circle or a
+				case 3:
+					//cross or b
+				}
+			};
+				
+		default:
+			break;
+		}
+		//put in a bars rest
+	}
+}
 
 //pretty sure these are defunct but oh well
 void ACombatManager::BasicAttack(ABaseCharacter* AttackingActor, ABaseCharacter* DefendingActor)

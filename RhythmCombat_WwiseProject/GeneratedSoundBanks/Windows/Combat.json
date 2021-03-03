@@ -1,0 +1,26 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "12",
+  "SoundbankVersion": "135",
+  "RootPaths": {
+   "ProjectRoot": "D:\\University\\RhythmCombat\\RhythmCombat_WwiseProject\\",
+   "SourceFilesRoot": "D:\\University\\RhythmCombat\\RhythmCombat_WwiseProject\\.cache\\Windows\\",
+   "SoundBanksRoot": "D:\\University\\RhythmCombat\\RhythmCombat_WwiseProject\\GeneratedSoundBanks\\Windows\\",
+   "ExternalSourcesInputFile": "",
+   "ExternalSourcesOutputRoot": "D:\\University\\RhythmCombat\\RhythmCombat_WwiseProject\\GeneratedSoundBanks\\Windows"
+  },
+  "SoundBanks": [
+   {
+    "Id": "2764240573",
+    "GUID": "{E0E5C88F-4C97-4773-9CBE-D545DBBE9D97}",
+    "Language": "SFX",
+    "Hash": "3041297399",
+    "ObjectPath": "\\SoundBanks\\Music\\Combat",
+    "ShortName": "Combat",
+    "Path": "Combat.bnk"
+   }
+  ]
+ }
+}

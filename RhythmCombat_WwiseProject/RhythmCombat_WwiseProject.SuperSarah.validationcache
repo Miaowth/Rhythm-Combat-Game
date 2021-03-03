@@ -3,11 +3,13 @@
 	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Virtual Acoustics\Default Work Unit.wwu" DateLow="1606843220" DateHigh="0"/>
 	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Triggers\Default Work Unit.wwu" DateLow="1606843220" DateHigh="0"/>
 	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Switches\Default Work Unit.wwu" DateLow="1606843220" DateHigh="0"/>
+	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\States\Music.wwu" DateLow="1614701914" DateHigh="0"/>
 	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\States\Default Work Unit.wwu" DateLow="1606843220" DateHigh="0"/>
 	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Soundcaster Sessions\Default Work Unit.wwu" DateLow="1606843220" DateHigh="0"/>
+	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\SoundBanks\Music.wwu" DateLow="1614779534" DateHigh="0"/>
 	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\SoundBanks\Default Work Unit.wwu" DateLow="1606843220" DateHigh="0"/>
-	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\RhythmCombat_WwiseProject.wproj" DateLow="1614276156" DateHigh="0"/>
-	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\RhythmCombat_WwiseProject.SuperSarah.wsettings" DateLow="1614520948" DateHigh="0"/>
+	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\RhythmCombat_WwiseProject.wproj" DateLow="1614780895" DateHigh="0"/>
+	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\RhythmCombat_WwiseProject.SuperSarah.wsettings" DateLow="1614780915" DateHigh="0"/>
 	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Queries\Factory Queries.wwu" DateLow="1606843051" DateHigh="0"/>
 	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Queries\Default Work Unit.wwu" DateLow="1606843220" DateHigh="0"/>
 	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Presets\Factory Spatial Audio.wwu" DateLow="1606843051" DateHigh="0"/>
@@ -15,9 +17,10 @@
 	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Modulators\Default Work Unit.wwu" DateLow="1606843220" DateHigh="0"/>
 	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Mixing Sessions\Default Work Unit.wwu" DateLow="1606843220" DateHigh="0"/>
 	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Master-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1606843220" DateHigh="0"/>
-	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Interactive Music Hierarchy\Default Work Unit.wwu" DateLow="1606843220" DateHigh="0"/>
+	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Interactive Music Hierarchy\Default Work Unit.wwu" DateLow="1614623279" DateHigh="0"/>
 	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Game Parameters\Default Work Unit.wwu" DateLow="1606843220" DateHigh="0"/>
-	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Events\Default Work Unit.wwu" DateLow="1606843220" DateHigh="0"/>
+	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Events\Music.wwu" DateLow="1614701914" DateHigh="0"/>
+	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Events\Default Work Unit.wwu" DateLow="1614701025" DateHigh="0"/>
 	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Effects\Factory Effects.wwu" DateLow="1606843051" DateHigh="0"/>
 	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Effects\Default Work Unit.wwu" DateLow="1606843220" DateHigh="0"/>
 	<ValidationCacheItem File="D:\University\RhythmCombat\RhythmCombat_WwiseProject\Dynamic Dialogue\Default Work Unit.wwu" DateLow="1606843220" DateHigh="0"/>

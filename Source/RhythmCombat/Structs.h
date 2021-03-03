@@ -39,14 +39,25 @@ enum ENoteType {
 	Quaver,
 	SemiQuaver
 };
-
+USTRUCT(BlueprintType)
+struct FPatternNote {
+	GENERATED_BODY()
+	FMyNote BaseNoteInfo;
+	bool IsFinal;
+	ABaseCharacter* OwningChar;
+};
 
 USTRUCT(BlueprintType)
 struct FMyNote {
 	GENERATED_BODY()
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 ButtonIndex;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 NotePosInBar;
-	ENoteType TypeOfNote;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 BarNumber;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TEnumAsByte<ENoteType> TypeOfNote;
 };
 
 UENUM(BlueprintType)

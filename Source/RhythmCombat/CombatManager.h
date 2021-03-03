@@ -36,6 +36,18 @@ public:
 		ABaseCharacter* SelectedTarget;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TEnumAsByte<ETargetType> TargetCategory;
+
+	//arrays for rhythm section
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<FPatternNote> Button1Array;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<FPatternNote> Button2Array;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<FPatternNote> Button3Array;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<FPatternNote> Button4Array;
+
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -62,6 +74,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool Escape(ABaseCharacter* EscapingCharacter, TArray<AActor*> Party);
 	
+	UFUNCTION(BlueprintCallable)
+		void EnterRhythmPhase();
+
 	UFUNCTION(BlueprintCallable)
 	bool GetChance(int32 min, int32 max, int32 boundary);
 	//UFUNCTION(BlueprintCallable)

@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "RhythmCombatCharacter.h"
 #include "PlayerCharacter.h"
+#include "RhythmCombatCharacter.h"
+
 
 //get 1 working then repeat for the rest
 void APlayerCharacter::BattleAction1() {
