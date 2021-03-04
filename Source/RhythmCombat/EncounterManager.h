@@ -43,6 +43,8 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<class AEncounter> BP_Encounter;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		UBoxComponent* RoamAreaBoxComponent;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -56,6 +58,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void EnableEncounters();
+
+	UFUNCTION(BlueprintCallable)
+	bool IsInRoamableRange(FVector Point);
 
 	UFUNCTION()
 	void RemoveAllEncounters();

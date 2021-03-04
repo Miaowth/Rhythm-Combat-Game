@@ -12,9 +12,12 @@ AEncounterManager::AEncounterManager()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	MyRootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root Component"));
+	//MyRootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root Component"));
 	//This is how to give an actor a root component.
-	MyRootComponent->SetupAttachment(RootComponent);
+	//MyRootComponent->SetupAttachment(RootComponent);
+	//Make and attach the roam area component to the newly made root
+	RoamAreaBoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("Roam Area"));
+	RoamAreaBoxComponent->SetupAttachment(RootComponent);
 }
 ATargetPoint* AEncounterManager::GetNextSpawnpoint() {
 
@@ -93,6 +96,11 @@ void AEncounterManager::EnableEncounters()
 		EncounterArray[i]->GetCharacterMovement()->SetActive(true);
 	}
 	SpawnNewEncounters(EncounterMinQuantity);
+}
+
+bool AEncounterManager::IsInRoamableRange(FVector Point)
+{
+	return RoamAreaBoxComponent->GetNavigationBounds().IsInside(Point);
 }
 
 void AEncounterManager::RemoveAllEncounters()

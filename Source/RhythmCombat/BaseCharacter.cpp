@@ -3,6 +3,8 @@
 
 #include "BaseCharacter.h"
 
+#include "InteractableInterface.h"
+
 // Sets default values
 ABaseCharacter::ABaseCharacter()
 {
@@ -28,6 +30,20 @@ void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+bool ABaseCharacter::InteractWith(AActor* Actor)
+{
+	IInteractableInterface* Interact = Cast<IInteractableInterface>(Actor);
+	if(Interact)
+	{
+		return Interact->DoInteract_Implementation(this);
+	}
+	if(Actor->Implements<UInteractableInterface>())
+	{
+		return IInteractableInterface::Execute_DoInteract(Actor,this);
+	}
+	return false;
 }
 
 // Called to bind functionality to input

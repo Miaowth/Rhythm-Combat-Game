@@ -67,6 +67,9 @@ private:
 	 */
 	void StopJump();
 
+	
+	void DoInteract();
+
 	virtual void BattleAction1();
 	virtual void BattleAction2();
 	virtual void BattleAction3();

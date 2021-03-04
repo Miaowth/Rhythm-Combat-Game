@@ -26,6 +26,7 @@ void AMyPlayerController::SetupInputComponent()
 	InputComponent->BindAction("BattleAction3", IE_Pressed, this, &AMyPlayerController::BattleAction3);
 	InputComponent->BindAction("BattleAction4", IE_Pressed, this, &AMyPlayerController::BattleAction4);
 
+	InputComponent->BindAction("Interact", IE_Pressed, this, &AMyPlayerController::DoInteract);
 
 	InputComponent->BindAxis("MoveForward", this, &AMyPlayerController::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &AMyPlayerController::MoveRight);
@@ -78,7 +79,7 @@ void AMyPlayerController::MoveRight(float Value)
 {
 	if (PlayerCharacter)
 	{
-		if ( Value != 0.0f && !PlayerCharacter->CombatManagerRef->InCombat)
+		if (Value != 0.0f)
 		{
 			// find out which way is right
 			const FRotator Rotation = GetControlRotation();
@@ -107,6 +108,17 @@ void AMyPlayerController::StopJump()
 	{
 		PlayerCharacter->StopJumping();
 	}
+}
+
+void AMyPlayerController::DoInteract()
+{
+	UE_LOG(LogTemp,Warning,TEXT("Interact?"))
+	AActor* Interact = PlayerCharacter->FindInteractActors();
+	if(Interact)
+	{
+		PlayerCharacter->InteractWith(Interact);
+	} 
+	
 }
 
 void AMyPlayerController::BattleAction1()
