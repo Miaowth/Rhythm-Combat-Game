@@ -1,0 +1,45 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "12",
+  "SoundbankVersion": "135",
+  "RootPaths": {
+   "ProjectRoot": "D:\\University\\RhythmCombat\\RhythmCombat_WwiseProject\\",
+   "SourceFilesRoot": "D:\\University\\RhythmCombat\\RhythmCombat_WwiseProject\\.cache\\Windows\\",
+   "SoundBanksRoot": "D:\\University\\RhythmCombat\\RhythmCombat_WwiseProject\\GeneratedSoundBanks\\Windows\\",
+   "ExternalSourcesInputFile": "",
+   "ExternalSourcesOutputRoot": "D:\\University\\RhythmCombat\\RhythmCombat_WwiseProject\\GeneratedSoundBanks\\Windows"
+  },
+  "SoundBanks": [
+   {
+    "Id": "586982346",
+    "GUID": "{22FCA3CA-A3CA-13CA-CACA-CACACACACACA}",
+    "Language": "SFX",
+    "Hash": "4036372215",
+    "ObjectPath": "\\SoundBanks\\Default Work Unit\\SB_44FE91EAFB2E484DA3D5A4D1621D93CB",
+    "ShortName": "SB_44FE91EAFB2E484DA3D5A4D1621D93CB",
+    "Path": "SB_44FE91EAFB2E484DA3D5A4D1621D93CB.bnk",
+    "IncludedEvents": [
+     {
+      "Id": "3093451911",
+      "Name": "Play_ChangedChords",
+      "ObjectPath": "\\Events\\Default Work Unit\\Play_ChangedChords",
+      "GUID": "{44FE91EA-FB2E-484D-A3D5-A4D1621D93CB}",
+      "DurationType": "OneShot",
+      "DurationMin": "42.000000",
+      "DurationMax": "42.000000",
+      "ExcludedMemoryFiles": [
+       {
+        "Id": "473504946",
+        "Language": "SFX",
+        "ShortName": "ChangedChords.wav",
+        "Path": "SFX\\ChangedChords_D79FB2B7.wem"
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

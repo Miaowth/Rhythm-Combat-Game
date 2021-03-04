@@ -6,6 +6,8 @@
 #include "Engine/DataTable.h"
 #include "Structs.generated.h"
 
+class ABaseCharacter;
+
 USTRUCT(BlueprintType)
 struct FCharacterStats {
 	GENERATED_BODY()
@@ -39,13 +41,6 @@ enum ENoteType {
 	Quaver,
 	SemiQuaver
 };
-USTRUCT(BlueprintType)
-struct FPatternNote {
-	GENERATED_BODY()
-	FMyNote BaseNoteInfo;
-	bool IsFinal;
-	ABaseCharacter* OwningChar;
-};
 
 USTRUCT(BlueprintType)
 struct FMyNote {
@@ -58,6 +53,14 @@ struct FMyNote {
 	int32 BarNumber;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TEnumAsByte<ENoteType> TypeOfNote;
+};
+
+USTRUCT(BlueprintType)
+struct FPatternNote {
+	GENERATED_BODY()
+	FMyNote BaseNoteInfo;
+	bool IsFinal;
+	ABaseCharacter* OwningChar;
 };
 
 UENUM(BlueprintType)

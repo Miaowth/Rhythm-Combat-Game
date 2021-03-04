@@ -135,42 +135,118 @@ void ACombatManager::EnterRhythmPhase() {
 		{
 		case 0:
 			//basicattack
+			//this pattern is the same for all characters
+			Button1Array.Add({
+				{0,0,0,Crotchet},
+				false,
+				BattleOrder[i]
+			});
+			Button1Array.Add({
+				{0,1,0,Crotchet},
+				true,
+				BattleOrder[i]
+			});
+			break;
 		case 1:
 			//basicdefend
+			//this pattern is the same for all characters
+			Button1Array.Add({
+				{0,0,0,Breve},
+				true,
+				BattleOrder[i]
+			});
+			break;
 		case 2:
 			//Item
+			//TODO - implement once items are fully functional
+			break;
 		case 3:
 			//Ability
 			for (int j = 0; j < BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern.Num() - 1; j++) {
-				switch (BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j].ButtonIndex) {
+				switch (BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j].ButtonIndex) 
+				{
 				case 0:
 					//square or x
+					if (j == BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern.Num() - 1) {
+						Button1Array.Add({
+							BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j],
+							true,
+							BattleOrder[i]
+							});
+					}
+					else {
+						Button1Array.Add({
+							BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j],
+							false,
+							BattleOrder[i]
+							});
+					}
+					break;
 				case 1:
 					//triangle or y
+					if (j == BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern.Num() - 1) {
+						Button2Array.Add({
+							BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j],
+							true,
+							BattleOrder[i]
+							});
+					}
+					else {
+						Button2Array.Add({
+							BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j],
+							false,
+							BattleOrder[i]
+							});
+					}
+					break;
 				case 2:
 					//circle or a
+					if (j == BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern.Num() - 1) {
+						Button3Array.Add({
+							BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j],
+							true,
+							BattleOrder[i]
+							});
+					}
+					else {
+						Button3Array.Add({
+							BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j],
+							false,
+							BattleOrder[i]
+							});
+					}
+					break;
 				case 3:
 					//cross or b
+					if (j == BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern.Num() - 1) {
+						Button4Array.Add({
+							BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j],
+							true,
+							BattleOrder[i]
+							});
+					}
+					else {
+						Button4Array.Add({
+							BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j],
+							false,
+							BattleOrder[i]
+							});
+					}
+					break;
+				default:
+					//this should never happen
+					break;
 				}
 			};
-				
+			break;
 		default:
 			break;
-		}
+		};
 		//put in a bars rest
 	}
 }
 
 //pretty sure these are defunct but oh well
-void ACombatManager::BasicAttack(ABaseCharacter* AttackingActor, ABaseCharacter* DefendingActor)
-{
-	//TODO - fix
-	DefendingActor->CharacterStats.HealthPoints -= AttackingActor->CharacterStats.AttackPower;
-	if (DefendingActor->CharacterStats.HealthPoints <= 0) {
-		//DefendingActor Dies
-		DefendingActor->CharacterStats.HealthPoints = 0;
-	}
-}
 bool ACombatManager::Escape(ABaseCharacter* EscapingCharacter, TArray<AActor*> Party)
 {
 	if (EscapingCharacter == PlayerCharacter) {

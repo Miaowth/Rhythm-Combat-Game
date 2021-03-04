@@ -1,0 +1,3 @@
+Event	ID	Name			Wwise Object Path	Notes
+	3093451911	Play_ChangedChords			\Default Work Unit\Play_ChangedChords	
+

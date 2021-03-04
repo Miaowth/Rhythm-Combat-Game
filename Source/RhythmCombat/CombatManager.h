@@ -69,9 +69,6 @@ public:
 	void CreateTurnOrder();
 
 	UFUNCTION(BlueprintCallable)
-	void BasicAttack(ABaseCharacter* AttackingActor, ABaseCharacter* DefendingActor);
-
-	UFUNCTION(BlueprintCallable)
 	bool Escape(ABaseCharacter* EscapingCharacter, TArray<AActor*> Party);
 	
 	UFUNCTION(BlueprintCallable)
