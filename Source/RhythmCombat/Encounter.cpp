@@ -4,6 +4,7 @@
 #include "Encounter.h"
 
 #include "../../../UE_4.25/Engine/Source/Runtime/Engine/Classes/GameFramework/CharacterMovementComponent.h"
+#include "EdGraph/EdGraphNode.h"
 
 // Sets default values
 AEncounter::AEncounter()
@@ -31,7 +32,13 @@ void AEncounter::Tick(float DeltaTime)
 
 void AEncounter::CopySkelemeshandAnimBP(ABaseCharacter* Character)
 {
-	GetMesh()->SetSkeletalMesh(Character->GetMesh()->SkeletalMesh,true);
+	GetMesh()->SetSkeletalMesh(Character->GetMesh()->SkeletalMesh,false);
+	GetMesh()->SetAnimClass(Character->GetMesh()->AnimClass);
+	for (int32 i = 0; i < Character->GetMesh()->GetMaterials().Num(); i++)
+	{
+		UMaterialInterface* mat = Character->GetMesh()->GetMaterials()[i];
+		GetMesh()->SetMaterial(i,mat);
+	}
 }
 
 

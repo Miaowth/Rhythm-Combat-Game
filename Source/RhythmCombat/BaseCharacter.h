@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Structs.h"
+#include "ItemsAndInventory/Inventory.h"
+
 #include "BaseCharacter.generated.h"
 
 UCLASS()
@@ -35,7 +37,7 @@ public:
 		TArray<ABaseCharacter*> TargetList;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TArray<FItem> Inventory;
+		UInventory* Inventory;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -43,6 +45,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintCallable)
+	bool InteractWith(AActor* Actor);
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

@@ -7,7 +7,7 @@
 #include "Structs.generated.h"
 
 class ABaseCharacter;
-
+class UBaseItemClass;
 USTRUCT(BlueprintType)
 struct FCharacterStats {
 	GENERATED_BODY()
@@ -100,14 +100,12 @@ struct FAbilityStats : public FTableRowBase {
 };
 
 USTRUCT(BlueprintType)
-struct FItem {
-	//TODO - finish
+struct FItemAmt {
 	GENERATED_BODY()
-	int32 QuantityHeld;
-	FString ItemName;
-	FString Description;
-	int32 Range;
-	ETargetType TargetGroup;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<UBaseItemClass> Item;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 Quantity;
 };
 
 UENUM(BlueprintType)

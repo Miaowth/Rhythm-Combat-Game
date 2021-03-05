@@ -4,6 +4,8 @@
 #include "CombatManager.h"
 #include "PlayerCharacter.h"
 
+#include "Kismet/GameplayStatics.h"
+
 // Sets default values
 ACombatManager::ACombatManager()
 {
@@ -21,6 +23,14 @@ ACombatManager::ACombatManager()
 void ACombatManager::BeginPlay()
 {
 	Super::BeginPlay();
+	APlayerCharacter* player = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(),0));
+	if(player)
+	{
+		PlayerCharacter = player;
+	}else
+	{
+		UE_LOG(LogTemp,Fatal,TEXT("Player Character not assignable, crashes imminent."))
+	}
 	
 }
 
