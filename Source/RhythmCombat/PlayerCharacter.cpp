@@ -179,8 +179,7 @@ AActor* APlayerCharacter::FindInteractActors()
 	{
 		//Loop through them all and find the closest Actor
 		FVector CurLoc = GetActorLocation();
-		FVector Closest;
-		float ClosestDistSquared;
+		float ClosestDistSquared = 0.0f;
 		for(int i=0; i < Actors.Num(); i++)
 		{
 			FVector Difference = CurLoc - Actors[i]->GetActorLocation();
@@ -218,7 +217,8 @@ void APlayerCharacter::UpdateTargetType(int32 moveindex, ABaseCharacter* Targett
 		CombatManagerRef->ChangeETargetType(Self, Targetter);
 	case UseItem:
 		//check targetable type of Item
-		CombatManagerRef->ChangeETargetType(Inventory[ActiveActions[moveindex].index].TargetGroup, Targetter);
+		//TODO: Change this to fit the new Item system
+		//CombatManagerRef->ChangeETargetType(Inventory[ActiveActions[moveindex].index].TargetGroup, Targetter);
 	case UseAbility:
 		//check targetable type of Ability
 		CombatManagerRef->ChangeETargetType(Abilities[ActiveActions[moveindex].index].TargetGroup, Targetter);

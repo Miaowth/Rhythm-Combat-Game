@@ -28,6 +28,7 @@ private:
 	UPROPERTY(VisibleAnywhere, Category=Camera)
 	float BaseLookUpRate = 45.f;
 
+	virtual void Tick(float DeltaSeconds) override;
 	
 	//Setting up the camera possession
 	UFUNCTION(BlueprintCallable)
@@ -70,12 +71,18 @@ private:
 	
 	void DoInteract();
 
+	void ResetCamera();
+
 	virtual void BattleAction1();
 	virtual void BattleAction2();
 	virtual void BattleAction3();
 	virtual void BattleAction4();
 	virtual void NavigateUp();
 	virtual void NavigateDown();
+
+private:
+	bool ResettingCamera = false;
+	FRotator CharacterRotation;
 	
 };
 

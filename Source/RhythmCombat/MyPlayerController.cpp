@@ -3,6 +3,19 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "MyPlayerController.h"
 
+void AMyPlayerController::Tick(float DeltaSeconds)
+{
+	if(ResettingCamera)
+	{
+		FRotator DesiredRotator = FMath::RInterpTo(GetControlRotation(),CharacterRotation,DeltaSeconds,100.0f);
+		SetControlRotation(DesiredRotator);
+		if(DesiredRotator.Equals(CharacterRotation))
+		{
+			ResettingCamera = false;
+		}
+	}
+}
+
 void AMyPlayerController::OnPossess(APawn* InPawn) {
 	Super::OnPossess(InPawn);
 	PlayerCharacter = Cast<APlayerCharacter>(InPawn);
@@ -21,12 +34,14 @@ void AMyPlayerController::SetupInputComponent()
 	InputComponent->BindAction("Jump", IE_Released, this, &AMyPlayerController::StopJump);
 
 	//inputs for combat
+	
 	InputComponent->BindAction("BattleAction1", IE_Pressed, this, &AMyPlayerController::BattleAction1);
 	InputComponent->BindAction("BattleAction2", IE_Pressed, this, &AMyPlayerController::BattleAction2);
 	InputComponent->BindAction("BattleAction3", IE_Pressed, this, &AMyPlayerController::BattleAction3);
 	InputComponent->BindAction("BattleAction4", IE_Pressed, this, &AMyPlayerController::BattleAction4);
 
 	InputComponent->BindAction("Interact", IE_Pressed, this, &AMyPlayerController::DoInteract);
+	InputComponent->BindAction("ResetCamera", IE_Pressed, this, &AMyPlayerController::ResetCamera);
 
 	InputComponent->BindAxis("MoveForward", this, &AMyPlayerController::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &AMyPlayerController::MoveRight);
@@ -45,7 +60,7 @@ void AMyPlayerController::TurnAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	if (PlayerCharacter) {
-		AddYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds());
+		AddYawInput((FMath::Pow(Rate, 2) * FMath::Sign(Rate)) * BaseTurnRate * GetWorld()->GetDeltaSeconds());
 	}
 }
 
@@ -53,7 +68,7 @@ void AMyPlayerController::LookUpAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	if (PlayerCharacter) {
-		AddPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
+		AddPitchInput((FMath::Pow(Rate, 2) * FMath::Sign(Rate)) * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 	}
 }
 
@@ -121,36 +136,61 @@ void AMyPlayerController::DoInteract()
 	
 }
 
+void AMyPlayerController::ResetCamera()
+{
+	if(!ResettingCamera)
+	{
+		ResettingCamera = true;
+		CharacterRotation = GetCharacter()->GetActorRotation();
+	}
+}
+
 void AMyPlayerController::BattleAction1()
 {
-	if(PlayerCharacter)
+	if(PlayerCharacter->CombatManagerRef)
 	{
-		PlayerCharacter->BattleAction1();
+		if(PlayerCharacter->CombatManagerRef->InCombat)
+		{
+			PlayerCharacter->BattleAction1();
+		}
+		
 	}
 	
 }
 
 void AMyPlayerController::BattleAction2()
 {
-	if(PlayerCharacter)
+	if(PlayerCharacter->CombatManagerRef)
 	{
-		PlayerCharacter->BattleAction2();
+		if(PlayerCharacter->CombatManagerRef->InCombat)
+		{
+			PlayerCharacter->BattleAction2();
+		}
+		
 	}
 }
 
 void AMyPlayerController::BattleAction3()
 {
-	if(PlayerCharacter)
+	if(PlayerCharacter->CombatManagerRef)
 	{
-		PlayerCharacter->BattleAction3();
+		if(PlayerCharacter->CombatManagerRef->InCombat)
+		{
+			PlayerCharacter->BattleAction3();
+		}
+		
 	}
 }
 
 void AMyPlayerController::BattleAction4()
 {
-	if(PlayerCharacter)
+	if(PlayerCharacter->CombatManagerRef)
 	{
-		PlayerCharacter->BattleAction4();
+		if(PlayerCharacter->CombatManagerRef->InCombat)
+		{
+			PlayerCharacter->BattleAction4();
+		}
+		
 	}
 }
 

@@ -7,6 +7,16 @@ UBaseItemClass::UBaseItemClass()
 {
 }
 
+bool UBaseItemClass::OnUse_Implementation(AActor* Instigator, AActor* UsedOn, bool& ShouldDelete)
+{
+	Quantity--;
+	if(Quantity <= 0)
+	{
+		ShouldDelete = true;
+	}
+	return true;
+}
+
 //UBaseItemClass::~UBaseItemClass()
 //{
 //}
