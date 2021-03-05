@@ -6,6 +6,7 @@
 
 #include "AIHelpers.h"
 #include "InteractableInterface.h"
+#include "Kismet/GameplayStatics.h"
 
 //get 1 working then repeat for the rest
 void APlayerCharacter::BattleAction1() {
@@ -146,6 +147,15 @@ void APlayerCharacter::BattleAction4() {
 void APlayerCharacter::Tick(float DeltaSeconds)
 {
 	BestInteractable = FindInteractActors();
+}
+
+void APlayerCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	TArray<AActor*> CombatManagers;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ACombatManager::StaticClass(), CombatManagers);
+
+	CombatManagerRef = Cast<ACombatManager>(CombatManagers[0]);
 }
 
 APlayerCharacter::APlayerCharacter()

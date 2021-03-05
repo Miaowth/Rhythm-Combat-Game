@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "GameFramework/CharacterMovementComponent.h"
 #include "MyPlayerController.h"
+#include "GameFramework/CharacterMovementComponent.h"
+
 
 void AMyPlayerController::Tick(float DeltaSeconds)
 {
@@ -21,6 +22,7 @@ void AMyPlayerController::OnPossess(APawn* InPawn) {
 	PlayerCharacter = Cast<APlayerCharacter>(InPawn);
 	if (PlayerCharacter)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("Started!!!"))
 		PlayerCharacter->GetCharacterMovement()->SetActive(true, true);
 		SetViewTargetWithBlend(PlayerCharacter, 0.0f, VTBlend_Linear);
 	}
