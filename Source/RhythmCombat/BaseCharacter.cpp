@@ -17,11 +17,14 @@ ABaseCharacter::ABaseCharacter()
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
-	ActiveActions.Add({ BasicAttack, 0 });
-	ActiveActions.Add({ BasicAttack, 0 });
-	ActiveActions.Add({ BasicDefend, 0 });
-	ActiveActions.Add({ BasicDefend, 0 });
+	FAction tempAttack;
+	tempAttack.Type = BasicAttack;
+	tempAttack.index = 0;
+	ActiveActions.Add(tempAttack);
+	ActiveActions.Add(tempAttack);
+	tempAttack.Type = BasicDefend;
+	ActiveActions.Add(tempAttack);
+	ActiveActions.Add(tempAttack);
 
 }
 

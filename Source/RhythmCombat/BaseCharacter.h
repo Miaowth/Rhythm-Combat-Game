@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Engine/DataTable.h"
 #include "Structs.h"
 #include "ItemsAndInventory/Inventory.h"
 

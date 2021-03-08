@@ -117,11 +117,11 @@ enum EActionType {
 };
 
 USTRUCT(BlueprintType, Blueprintable)
-struct FAction {
+struct FAction : public FTableRowBase {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TEnumAsByte<EActionType> Type;
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 index;
 };
 
