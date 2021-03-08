@@ -17,6 +17,10 @@ void AConductor::BeginPlay()
 	Super::BeginPlay();
 	
 }
+void AConductor::BeginCombat_Implementation()
+{
+	// Logic needed when blueprints don't implement the event. Can be empty.
+}
 
 // Called every frame
 void AConductor::Tick(float DeltaTime)

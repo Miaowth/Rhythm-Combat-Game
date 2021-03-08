@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "BaseCharacter.h"
+#include "Conductor.h"
 //#include "PlayerCharacter.h"
 #include "CombatManager.generated.h"
 
@@ -36,6 +37,8 @@ public:
 		ABaseCharacter* SelectedTarget;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TEnumAsByte<ETargetType> TargetCategory;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		AConductor* ConductorRef;
 
 	//arrays for rhythm section
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -78,8 +81,4 @@ public:
 	bool GetChance(int32 min, int32 max, int32 boundary);
 	//UFUNCTION(BlueprintCallable)
 	//	void UseItem(AActor)
-	UFUNCTION(BlueprintCallable)
-		void MergeSortTurnOrder(TArray<ABaseCharacter*> arr, int32 l, int32 r);
-	UFUNCTION()
-		void Merge(TArray<ABaseCharacter*> arr, int32 l, int32 m, int32 r);
 };

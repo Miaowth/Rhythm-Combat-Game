@@ -29,7 +29,8 @@ public:
 	bool hasoffsetadjusted = false;
 	int32 beatnumber = 0;
 	int32 barnumber = 0;
-
+	UFUNCTION(BlueprintNativeEvent)
+		void BeginCombat();
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

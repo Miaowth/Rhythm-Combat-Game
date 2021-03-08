@@ -37,7 +37,6 @@ void AEncounterManager::BeginPlay()
 {
 	Super::BeginPlay();
 	//gets all target points with Encounter tag(places an encounter can be spawned)
-	//UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATargetPoint::StaticClass(), SpawnPoints);
 	
 	if(SpawnPoints.Num() == 0)
 	{
