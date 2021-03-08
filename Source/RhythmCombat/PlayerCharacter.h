@@ -64,10 +64,15 @@ public:
 	
 	
 	virtual void NavigateUp() override;
+
 	virtual void NavigateDown() override;
+
 	virtual void BattleAction1() override;
+
 	virtual void BattleAction2() override;
+
 	virtual void BattleAction3() override;
+
 	virtual void BattleAction4() override;
 
 	
