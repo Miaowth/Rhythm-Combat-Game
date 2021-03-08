@@ -8,9 +8,9 @@ void AMyPlayerController::Tick(float DeltaSeconds)
 {
 	if(ResettingCamera)
 	{
-		FRotator DesiredRotator = FMath::RInterpTo(GetControlRotation(),CharacterRotation,DeltaSeconds,100.0f);
+		FRotator DesiredRotator = FMath::RInterpTo(GetControlRotation(),CharacterRotation,DeltaSeconds,10.0f);
 		SetControlRotation(DesiredRotator);
-		if(DesiredRotator.Equals(CharacterRotation))
+		if(DesiredRotator.Equals(CharacterRotation,1))
 		{
 			ResettingCamera = false;
 		}
@@ -19,10 +19,10 @@ void AMyPlayerController::Tick(float DeltaSeconds)
 
 void AMyPlayerController::OnPossess(APawn* InPawn) {
 	Super::OnPossess(InPawn);
-	PlayerCharacter = Cast<APlayerCharacter>(InPawn);
-	if (PlayerCharacter)
+	APlayerCharacter* pc = Cast<APlayerCharacter>(InPawn);
+	if (pc)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Started!!!"))
+		PlayerCharacter = pc;
 		PlayerCharacter->GetCharacterMovement()->SetActive(true, true);
 		SetViewTargetWithBlend(PlayerCharacter, 0.0f, VTBlend_Linear);
 	}
@@ -129,13 +129,15 @@ void AMyPlayerController::StopJump()
 
 void AMyPlayerController::DoInteract()
 {
-	UE_LOG(LogTemp,Warning,TEXT("Interact?"))
-	AActor* Interact = PlayerCharacter->FindInteractActors();
-	if(Interact)
+	if(PlayerCharacter)
 	{
-		PlayerCharacter->InteractWith(Interact);
-	} 
-	
+		UE_LOG(LogTemp,Warning,TEXT("Interact?"))
+		AActor* Interact = PlayerCharacter->FindInteractActors();
+		if(Interact)
+		{
+			PlayerCharacter->InteractWith(Interact);
+		} 	
+	}
 }
 
 void AMyPlayerController::ResetCamera()
