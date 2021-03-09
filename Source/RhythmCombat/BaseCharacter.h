@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+#include "NavigationSystem.h"
 #include "GameFramework/Character.h"
 #include "Engine/DataTable.h"
 #include "Structs.h"
@@ -14,6 +16,10 @@ UCLASS()
 class RHYTHMCOMBAT_API ABaseCharacter : public ACharacter
 {
 	GENERATED_BODY()
+
+	UNavigationSystemV1* navSys;
+
+	//void FoundNavPath(uint32 id,ENavigationQueryResult::Type Result, FNavPathSharedPtr Path);
 
 public:
 	// Sets default values for this character's properties
@@ -37,7 +43,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TArray<ABaseCharacter*> TargetList;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		UInventory* Inventory;
 protected:
 	// Called when the game starts or when spawned
@@ -50,7 +56,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool InteractWith(AActor* Actor);
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	UFUNCTION(BlueprintCallable)
+	void LookAtActor(AActor* Actor);
 
+	
 };

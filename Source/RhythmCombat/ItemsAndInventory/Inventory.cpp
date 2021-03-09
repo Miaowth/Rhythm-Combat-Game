@@ -12,8 +12,9 @@ bool UInventory::AddItemByItemAmt(FItemAmt ItemAmt)
 		Item->Quantity += ItemAmt.Quantity;
 		return true;
 	}
-	
-	Inventory.Add(NewObject<UBaseItemClass>(ItemAmt.Item));
+	UBaseItemClass* NewItem = NewObject<UBaseItemClass>(ItemAmt.Item->StaticClass());
+	NewItem->Quantity = ItemAmt.Quantity;
+	Inventory.Add(NewItem);
 	return true;
 	
 }
@@ -51,4 +52,26 @@ bool UInventory::RemoveItem(TSubclassOf<UBaseItemClass> ItemClass)
 	GetItemByClassRef(ItemClass, Index);
 	Inventory.RemoveAt(Index, 1, true);
 	return true;
+}
+
+bool UInventory::PayMoney(int32 MoneyPaid, bool BottomOut)
+{
+	if(BottomOut)
+	{
+		if(CanPay(MoneyPaid))
+		{
+			Money -= MoneyPaid;
+		}else
+		{
+			Money = 0;
+		}
+		return true;
+	}
+
+	if(CanPay(MoneyPaid))
+	{
+		Money -= MoneyPaid;
+		return true;
+	}
+	return false;
 }

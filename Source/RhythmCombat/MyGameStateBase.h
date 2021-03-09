@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 
 #include "EncounterManager.h"
+#include "MyGameInstance.h"
 #include "GameFramework/GameStateBase.h"
 #include "MyGameStateBase.generated.h"
 
@@ -17,14 +18,19 @@ class RHYTHMCOMBAT_API AMyGameStateBase : public AGameStateBase
 	GENERATED_BODY()
 private:
 	UPROPERTY()
+	UMyGameInstance* GameInstance;
+	UPROPERTY()
 	AEncounterManager* CurrentEncounterManager;
 
 	virtual void BeginPlay() override;
 public:
+	UPROPERTY(BlueprintReadOnly)
+		UInventory* PlayerInventory;
+	
 	UFUNCTION(BlueprintCallable)
-	void ChangeEncounterManager(AEncounterManager* NewManager);
+		void ChangeEncounterManager(AEncounterManager* NewManager);
 
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE AEncounterManager* GetCurrentEncounterManager() const{return CurrentEncounterManager;};
+		FORCEINLINE AEncounterManager* GetCurrentEncounterManager() const{return CurrentEncounterManager;};
 	
 };

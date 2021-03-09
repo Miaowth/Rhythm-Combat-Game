@@ -29,6 +29,8 @@ public:
 		int32 MaxStack;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		UTexture2D* Image2D;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		TArray<FString> Tags;
 	//TODO: Add Combat Relevant stuff like 
 //Overridable Functions
 	UFUNCTION(BlueprintCallable,BlueprintNativeEvent)
@@ -37,5 +39,6 @@ public:
 //Dynamic properties
 	UPROPERTY(BlueprintReadWrite)
 		int32 Quantity;
+	
 		
 };

@@ -14,7 +14,8 @@ class UInteractableInterface : public UInterface
 };
 
 /**
- * 
+ * The Interface applied to anything that is interactive.
+ * Also needs a collider assigned to the "Interactable" Collision Profile
  */
 class RHYTHMCOMBAT_API IInteractableInterface
 {
@@ -27,5 +28,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Interact")
 	FString GetTooltip();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Interact")
+    FTransform GetInteractControlPoint(AActor* Instigator);
 	
 };

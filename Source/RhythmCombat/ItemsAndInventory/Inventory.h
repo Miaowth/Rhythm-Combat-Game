@@ -19,6 +19,7 @@ class RHYTHMCOMBAT_API UInventory : public UObject
 
 private:
 	TArray<UBaseItemClass*> Inventory;
+	int32 Money;
 public:
 	//Add Item
 	UFUNCTION(BlueprintCallable)
@@ -31,4 +32,16 @@ public:
 	//Remove Item
 	UFUNCTION(BlueprintCallable)
 		bool RemoveItem(TSubclassOf<UBaseItemClass> ItemClass);
+	//GetMoney
+	UFUNCTION(BlueprintGetter)
+		FORCEINLINE int32 GetMoney() const{return Money;};
+	//Pay Money
+	UFUNCTION(BlueprintCallable)
+        bool PayMoney(int32 MoneyPaid, bool BottomOut);
+	//Can Pay
+	UFUNCTION(BlueprintCallable)
+        FORCEINLINE bool CanPay(int32 MoneyPaid){return Money > MoneyPaid;};
+	//Add Money
+	UFUNCTION(BlueprintCallable)
+        void AddMoney(int32 MoneyPaid){Money += MoneyPaid;};
 };

@@ -25,6 +25,8 @@ void AMyPlayerController::OnPossess(APawn* InPawn) {
 		PlayerCharacter = pc;
 		PlayerCharacter->GetCharacterMovement()->SetActive(true, true);
 		SetViewTargetWithBlend(PlayerCharacter, 0.0f, VTBlend_Linear);
+
+		
 	}
 }
 
