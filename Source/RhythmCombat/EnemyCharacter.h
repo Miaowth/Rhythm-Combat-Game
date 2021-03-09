@@ -3,6 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+
+
 #include "BaseCharacter.h"
 #include "Structs.h"
 #include "EnemyCharacter.generated.h"
@@ -24,8 +27,13 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
+	
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+		TArray<FItemAmt> Items;
+	//UPROPERTY(EditAnywhere,BlueprintReadOnly)
+		//TMap<FItemAmt,float> PossibleDrops;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+		int32 XPPerLevel;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+		int32 MoneyPerLevel;
 };

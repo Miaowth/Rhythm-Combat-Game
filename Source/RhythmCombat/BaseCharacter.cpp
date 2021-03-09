@@ -4,6 +4,7 @@
 #include "BaseCharacter.h"
 
 #include "InteractableInterface.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
@@ -37,19 +38,35 @@ bool ABaseCharacter::InteractWith(AActor* Actor)
 	IInteractableInterface* Interact = Cast<IInteractableInterface>(Actor);
 	if(Interact)
 	{
-		return Interact->DoInteract_Implementation(this);
+		if(Interact->DoInteract_Implementation(this))
+		{
+			LookAtActor(Actor);
+		}else
+		{
+			//Go to the right place and try again
+		}
 	}
 	if(Actor->Implements<UInteractableInterface>())
 	{
-		return IInteractableInterface::Execute_DoInteract(Actor,this);
+		if(IInteractableInterface::Execute_DoInteract(Actor,this))
+		{
+			LookAtActor(Actor);
+		}else
+		{
+			//Go to the right place and try again
+		}
 	}
 	return false;
 }
 
-// Called to bind functionality to input
-void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ABaseCharacter::LookAtActor(AActor* Actor)
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	FVector Diff = Actor->GetActorLocation() - GetActorLocation();
+	Diff.Normalize();
+	Diff.Z = 0.f;
 
+	SetActorRotation(Diff.Rotation());
 }
+
+
 

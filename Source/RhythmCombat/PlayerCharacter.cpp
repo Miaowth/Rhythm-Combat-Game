@@ -140,9 +140,10 @@ void APlayerCharacter::BattleAction4() {
 		}
 	}
 	else if (CombatManagerRef->InRhythm) {
-
+		
 	}
 }
+
 
 void APlayerCharacter::Tick(float DeltaSeconds)
 {
