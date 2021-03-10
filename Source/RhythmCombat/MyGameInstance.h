@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+#include "FlagSys.h"
 #include "Engine/GameInstance.h"
 #include "ItemsAndInventory/Inventory.h"
 
@@ -18,6 +20,8 @@ class RHYTHMCOMBAT_API UMyGameInstance : public UGameInstance
 	
 public:
 	UInventory* PlayerInventory;
+
+	UFlagSys* FlagSystem;
 	
 	virtual void Init() override;
 };

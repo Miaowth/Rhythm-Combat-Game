@@ -7,17 +7,17 @@
 
 void AMyGameStateBase::BeginPlay()
 {
-	//Get the Game Instance's Player Inventory and store the reference to it
+	//Get the Game Instance's Player Inventory and Flag System and store the reference to it
 
 	GameInstance = Cast<UMyGameInstance>(GetGameInstance());
 	if(GameInstance)
 	{
 		PlayerInventory = GameInstance->PlayerInventory;
+		FlagSystem = GameInstance->FlagSystem;
 	}else
 	{
 		UE_LOG(LogTemp,Warning,TEXT("GameInstance Not properly initialised."))
 	}
-	
 	
 	//Find the nearest Encounter Manager and make it the current one
 	//TODO: Make this less scuffed

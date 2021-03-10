@@ -24,6 +24,10 @@ private:
 	UPROPERTY(VisibleAnywhere, Category=Camera)
 	float BaseTurnRate = 45.f;
 
+	/** Turn rate for left stick navigation. */
+	UPROPERTY(VisibleAnywhere, Category=Camera)
+	float AutoTurnRate = 22.5f;
+
 	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
 	UPROPERTY(VisibleAnywhere, Category=Camera)
 	float BaseLookUpRate = 45.f;
@@ -83,6 +87,8 @@ private:
 private:
 	bool ResettingCamera = false;
 	FRotator CharacterRotation;
+
+	FVector2D MoveDir;
 	
 };
 

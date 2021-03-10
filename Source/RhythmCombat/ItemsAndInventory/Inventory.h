@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 
 #include "RhythmCombat/Structs.h"
-#include "RhythmCombat/BaseItemClass.h"
+#include "RhythmCombat/Item.h"
 #include "UObject/NoExportTypes.h"
 #include "Inventory.generated.h"
 
@@ -18,20 +18,20 @@ class RHYTHMCOMBAT_API UInventory : public UObject
 	GENERATED_BODY()
 
 private:
-	TArray<UBaseItemClass*> Inventory;
+	TArray<UItem*> Inventory;
 	int32 Money;
 public:
 	//Add Item
 	UFUNCTION(BlueprintCallable)
 		bool AddItemByItemAmt(FItemAmt ItemAmt);
 	UFUNCTION(BlueprintCallable)
-		bool AddItemByClass(UBaseItemClass* ItemClass);
+		bool AddItemByClass(UItem* ItemClass);
 	//Get Item
 	UFUNCTION(BlueprintCallable)
-		UBaseItemClass* GetItemByClassRef(TSubclassOf<UBaseItemClass> ItemClass, int32& Index);
+		UItem* GetItemByClassRef(TSubclassOf<UItem> ItemClass, int32& Index);
 	//Remove Item
 	UFUNCTION(BlueprintCallable)
-		bool RemoveItem(TSubclassOf<UBaseItemClass> ItemClass);
+		bool RemoveItem(TSubclassOf<UItem> ItemClass);
 	//GetMoney
 	UFUNCTION(BlueprintGetter)
 		FORCEINLINE int32 GetMoney() const{return Money;};
@@ -44,4 +44,7 @@ public:
 	//Add Money
 	UFUNCTION(BlueprintCallable)
         void AddMoney(int32 MoneyPaid){Money += MoneyPaid;};
+	//Find Items by tag
+	UFUNCTION(BlueprintCallable)
+		TArray<UItem*> FindItemsByTags(TArray<FString> Tags);
 };

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "RhythmCombatCharacter.h"
-#include "BaseItemClass.h"
+#include "Item.h"
 #include "CombatManager.h"
 #include "BaseCharacter.h"
 #include "Components/SphereComponent.h"

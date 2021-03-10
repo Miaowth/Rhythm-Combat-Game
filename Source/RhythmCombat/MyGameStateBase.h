@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 
 #include "EncounterManager.h"
+#include "FlagSys.h"
 #include "MyGameInstance.h"
 #include "GameFramework/GameStateBase.h"
 #include "MyGameStateBase.generated.h"
@@ -26,6 +27,9 @@ private:
 public:
 	UPROPERTY(BlueprintReadOnly)
 		UInventory* PlayerInventory;
+
+	UPROPERTY(BlueprintReadOnly)
+		UFlagSys* FlagSystem;
 	
 	UFUNCTION(BlueprintCallable)
 		void ChangeEncounterManager(AEncounterManager* NewManager);
