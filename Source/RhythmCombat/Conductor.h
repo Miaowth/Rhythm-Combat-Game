@@ -15,6 +15,7 @@ public:
 	// Sets default values for this actor's properties
 	AConductor();
 
+	//May not need
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 crotchetsperbar = 4;
 	float bpm = 60;
@@ -29,6 +30,15 @@ public:
 	bool hasoffsetadjusted = false;
 	int32 beatnumber = 0;
 	int32 barnumber = 0;
+	//End May not need
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 LastBarStartPos = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 BarDuration = 1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 NextBarStartPos = 1;
+
 	UFUNCTION(BlueprintNativeEvent)
 		void BeginCombat();
 protected:

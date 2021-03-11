@@ -195,7 +195,10 @@ void ACombatManager::EnterRhythmPhase() {
 		default:
 			break;
 		};
-		//put in a bars rest
+		//put in a bars rest between patterns
+		
+		//Start from next bar
+
 	}
 }
 
