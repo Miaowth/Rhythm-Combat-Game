@@ -46,6 +46,7 @@ void ACombatManager::InitialiseCombat()
 	CreateTurnOrder();
 	InCombat = true;
 	SelectedTarget = EnemyParty[0];
+	PlayerCharacter->CharacterIndex = -1;
 	ConductorRef->BeginCombat();
 }
 
@@ -79,34 +80,40 @@ void ACombatManager::GenerateEnemyActions() {
 		//pick a random active action that the enemy has available
 		EnemyParty[i]->ChosenAction = EnemyParty[i]->ActiveActions[FMath ::RandRange(0, 3)];
 	}
+	EnterRhythmPhase();
 }
 
 void ACombatManager::EnterRhythmPhase() {
 	//
-	for (int i = 0; i < BattleOrder.Num() - 1; i++) {
+	UE_LOG(LogTemp, Warning, TEXT("Rhythm Phase Function Called"));
+
+	ConductorRef->PatternBarStart = ConductorRef->NextBarStartPos;
+	for (int i = 0; i < BattleOrder.Num(); i++) {
+		//if i = 0 then set position to be start of next bar
+		
 		switch (BattleOrder[i]->ChosenAction.Type)
 		{
 		case 0:
 			//basicattack
 			//this pattern is the same for all characters
 			Button1Array.Add({
-				{0,0,0,Crotchet},
 				false,
-				BattleOrder[i]
+				BattleOrder[i],
+				ConductorRef->PatternBarStart //start of the bar
 			});
 			Button1Array.Add({
-				{0,1,0,Crotchet},
 				true,
-				BattleOrder[i]
+				BattleOrder[i],
+				(ConductorRef->PatternBarStart + ConductorRef->BeatLength)
 			});
 			break;
 		case 1:
 			//basicdefend
 			//this pattern is the same for all characters
 			Button1Array.Add({
-				{0,0,0,Breve},
 				true,
-				BattleOrder[i]
+				BattleOrder[i],
+				ConductorRef->PatternBarStart
 			});
 			break;
 		case 2:
@@ -122,16 +129,16 @@ void ACombatManager::EnterRhythmPhase() {
 					//square or x
 					if (j == BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern.Num() - 1) {
 						Button1Array.Add({
-							BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j],
 							true,
-							BattleOrder[i]
+							BattleOrder[i],
+							ConductorRef->ConvertBeatMapToMS(BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j], ConductorRef->PatternBarStart)
 							});
 					}
 					else {
 						Button1Array.Add({
-							BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j],
 							false,
-							BattleOrder[i]
+							BattleOrder[i],
+							ConductorRef->ConvertBeatMapToMS(BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j], ConductorRef->PatternBarStart)
 							});
 					}
 					break;
@@ -139,16 +146,16 @@ void ACombatManager::EnterRhythmPhase() {
 					//triangle or y
 					if (j == BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern.Num() - 1) {
 						Button2Array.Add({
-							BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j],
 							true,
-							BattleOrder[i]
+							BattleOrder[i],
+							ConductorRef->ConvertBeatMapToMS(BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j], ConductorRef->PatternBarStart)
 							});
 					}
 					else {
 						Button2Array.Add({
-							BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j],
 							false,
-							BattleOrder[i]
+							BattleOrder[i],
+							ConductorRef->ConvertBeatMapToMS(BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j], ConductorRef->PatternBarStart)
 							});
 					}
 					break;
@@ -156,16 +163,16 @@ void ACombatManager::EnterRhythmPhase() {
 					//circle or a
 					if (j == BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern.Num() - 1) {
 						Button3Array.Add({
-							BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j],
 							true,
-							BattleOrder[i]
+							BattleOrder[i],
+							ConductorRef->ConvertBeatMapToMS(BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j], ConductorRef->PatternBarStart)
 							});
 					}
 					else {
 						Button3Array.Add({
-							BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j],
 							false,
-							BattleOrder[i]
+							BattleOrder[i],
+							ConductorRef->ConvertBeatMapToMS(BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j], ConductorRef->PatternBarStart)
 							});
 					}
 					break;
@@ -173,16 +180,16 @@ void ACombatManager::EnterRhythmPhase() {
 					//cross or b
 					if (j == BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern.Num() - 1) {
 						Button4Array.Add({
-							BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j],
 							true,
-							BattleOrder[i]
+							BattleOrder[i],
+							ConductorRef->ConvertBeatMapToMS(BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j], ConductorRef->PatternBarStart)
 							});
 					}
 					else {
 						Button4Array.Add({
-							BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j],
 							false,
-							BattleOrder[i]
+							BattleOrder[i],
+							ConductorRef->ConvertBeatMapToMS(BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j], ConductorRef->PatternBarStart)
 							});
 					}
 					break;
@@ -198,7 +205,7 @@ void ACombatManager::EnterRhythmPhase() {
 		//put in a bars rest between patterns
 		
 		//Start from next bar
-
+		InRhythm = true;
 	}
 }
 

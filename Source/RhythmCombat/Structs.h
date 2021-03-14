@@ -12,8 +12,6 @@ USTRUCT(BlueprintType)
 struct FCharacterStats {
 	GENERATED_BODY()
 	public:
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//int32 Level;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 HealthPoints;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -47,6 +45,7 @@ struct FMyNote {
 	GENERATED_BODY()
 		UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 ButtonIndex;
+	//Note Position should start count at 1 to avoid musical confusion
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 NotePosInBar;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -55,12 +54,24 @@ struct FMyNote {
 	TEnumAsByte<ENoteType> TypeOfNote;
 };
 
+//USTRUCT(BlueprintType)
+//struct FPatternNote {
+//	GENERATED_BODY()
+//	FMyNote BaseNoteInfo;
+//	bool IsFinal;
+//	ABaseCharacter* OwningChar;
+//};
+
 USTRUCT(BlueprintType)
 struct FPatternNote {
 	GENERATED_BODY()
-	FMyNote BaseNoteInfo;
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool IsFinal;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ABaseCharacter* OwningChar;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float PosInMs;
 };
 
 UENUM(BlueprintType)
@@ -133,10 +144,8 @@ struct FEnemyGenerationStats {
 	int32 EnemyLevel;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class AActor> EnemyClass;
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//FCharacterStats CharacterStats;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
-		UStaticMesh* CharacterMesh;
+	UStaticMesh* CharacterMesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FAbilityStats> Abilities;
 };

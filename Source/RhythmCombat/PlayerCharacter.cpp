@@ -16,9 +16,10 @@ void APlayerCharacter::BattleAction1() {
 		if (CharacterIndex == -1) {
 			//PlayerCharacter
 			ChosenAction = ActiveActions[0];
+			TargetList.Add(CombatManagerRef->SelectedTarget);
 			CharacterIndex++;
 		}
-		else if (CharacterIndex < OtherPartyMembers.Num()) {
+		else if (CharacterIndex < OtherPartyMembers.Num() - 1) {
 			//Member of Party
 			OtherPartyMembers[CharacterIndex]->ChosenAction = ActiveActions[0];
 			OtherPartyMembers[CharacterIndex]->TargetList.Add(CombatManagerRef->SelectedTarget);
@@ -26,6 +27,8 @@ void APlayerCharacter::BattleAction1() {
 		}
 		if(CharacterIndex >= OtherPartyMembers.Num()) {
 			//All player party actions have been chosen
+			UE_LOG(LogTemp, Warning, TEXT("All Actions Now Chosen"));
+
 			CombatManagerRef->GenerateEnemyActions();
 		};
 	}
@@ -52,11 +55,13 @@ void APlayerCharacter::BattleAction2() {
 		if (CharacterIndex == -1) {
 			//PlayerCharacter
 			ChosenAction = ActiveActions[1];
+			TargetList.Add(CombatManagerRef->SelectedTarget);
 			CharacterIndex++;
 		}
-		else if (CharacterIndex < OtherPartyMembers.Num()) {
+		else if (CharacterIndex < OtherPartyMembers.Num() - 1) {
 			//Member of Party
 			OtherPartyMembers[CharacterIndex]->ChosenAction = ActiveActions[1];
+			OtherPartyMembers[CharacterIndex]->TargetList.Add(CombatManagerRef->SelectedTarget);
 			CharacterIndex++;
 		}
 		if (CharacterIndex >= OtherPartyMembers.Num()) {
@@ -85,11 +90,13 @@ void APlayerCharacter::BattleAction3() {
 		if (CharacterIndex == -1) {
 			//PlayerCharacter
 			ChosenAction = ActiveActions[2];
+			TargetList.Add(CombatManagerRef->SelectedTarget);
 			CharacterIndex++;
 		}
-		else if (CharacterIndex < OtherPartyMembers.Num()) {
+		else if (CharacterIndex < OtherPartyMembers.Num() - 1) {
 			//Member of Party
 			OtherPartyMembers[CharacterIndex]->ChosenAction = ActiveActions[2];
+			OtherPartyMembers[CharacterIndex]->TargetList.Add(CombatManagerRef->SelectedTarget);
 			CharacterIndex++;
 		}
 		if (CharacterIndex >= OtherPartyMembers.Num()) {
@@ -118,11 +125,13 @@ void APlayerCharacter::BattleAction4() {
 		if (CharacterIndex == -1) {
 			//PlayerCharacter
 			ChosenAction = ActiveActions[3];
+			TargetList.Add(CombatManagerRef->SelectedTarget);
 			CharacterIndex++;
 		}
-		else if (CharacterIndex < OtherPartyMembers.Num()) {
+		else if (CharacterIndex < OtherPartyMembers.Num() - 1) {
 			//Member of Party
 			OtherPartyMembers[CharacterIndex]->ChosenAction = ActiveActions[3];
+			OtherPartyMembers[CharacterIndex]->TargetList.Add(CombatManagerRef->SelectedTarget);
 			CharacterIndex++;
 		}
 		if (CharacterIndex >= OtherPartyMembers.Num()) {
@@ -223,17 +232,21 @@ void APlayerCharacter::UpdateTargetType(int32 moveindex, ABaseCharacter* Targett
 	case BasicAttack:
 		//target 1 enemy
 		CombatManagerRef->ChangeETargetType(Enemy, Targetter);
+		break;
 	case BasicDefend:
 		//target self and prevent movement of target
 		//for a defend I still want a confirm press right?
 		CombatManagerRef->ChangeETargetType(Self, Targetter);
+		break;
 	case UseItem:
 		//check targetable type of Item
 		//TODO: Change this to fit the new Item system
 		//CombatManagerRef->ChangeETargetType(Inventory[ActiveActions[moveindex].index].TargetGroup, Targetter);
+		break;
 	case UseAbility:
 		//check targetable type of Ability
 		CombatManagerRef->ChangeETargetType(Abilities[ActiveActions[moveindex].index].TargetGroup, Targetter);
+		break;
 	}
 }
 

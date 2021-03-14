@@ -43,7 +43,7 @@ public:
 		int32 XPForNextLevel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 CharacterIndex;
+		int32 CharacterIndex = -1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FTransform PosInWorld;

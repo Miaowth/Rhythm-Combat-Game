@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Structs.h"
 #include "Conductor.generated.h"
 
 UCLASS()
@@ -33,11 +34,18 @@ public:
 	//End May not need
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 LastBarStartPos = 0;
+	float LastBarStartPos = 0.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 BarDuration = 1;
+	float BarDuration = 1.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 NextBarStartPos = 1;
+	float NextBarStartPos = 1.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float BeatLength = 1.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float PatternBarStart = 0.0f;
+
+	UFUNCTION(BlueprintCallable)
+		float ConvertBeatMapToMS(FMyNote Note, float CurrentBarStart);
 
 	UFUNCTION(BlueprintNativeEvent)
 		void BeginCombat();
