@@ -17,8 +17,7 @@ public:
 	AConductor();
 
 	//May not need
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 crotchetsperbar = 4;
+
 	float bpm = 60;
 	float crotchet;
 	float songposition;
@@ -29,7 +28,6 @@ public:
 	float addoffset;
 	float offsetstatic;
 	bool hasoffsetadjusted = false;
-	int32 beatnumber = 0;
 	int32 barnumber = 0;
 	//End May not need
 
@@ -43,6 +41,10 @@ public:
 	float BeatLength = 1.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float PatternBarStart = 0.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 BeatNum = 1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 BeatsPerBar = 4;
 
 	UFUNCTION(BlueprintCallable)
 		float ConvertBeatMapToMS(FMyNote Note, float CurrentBarStart);

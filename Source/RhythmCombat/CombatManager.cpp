@@ -205,7 +205,7 @@ void ACombatManager::EnterRhythmPhase() {
 		//put in a bars rest between patterns
 		
 		//Start from next bar
-		ConductorRef->NextBarStartPos += ConductorRef->BarDuration;
+		ConductorRef->PatternBarStart += ConductorRef->BarDuration;
 	}
 	InRhythm = true;
 }
