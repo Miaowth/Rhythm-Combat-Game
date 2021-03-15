@@ -6,6 +6,26 @@
 #include "UObject/NoExportTypes.h"
 #include "FlagSys.generated.h"
 
+UENUM(BlueprintType)
+enum EFlagType
+{
+	FlagType_Bool,
+	FlagType_Int,
+	FlagType_Float,
+	FlagType_String
+};
+
+UDELEGATE()
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAnyFlagChanged, FString, FlagName, TEnumAsByte<EFlagType>, FlagType);
+UDELEGATE()
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnBoolFlagChanged, FString, FlagName, bool, FlagResult);
+UDELEGATE()
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnIntFlagChanged, FString, FlagName, int32, FlagResult);
+UDELEGATE()
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnFloatFlagChanged, FString, FlagName, float, FlagResult);
+UDELEGATE()
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnStringFlagChanged, FString, FlagName, FString, FlagResult);
+
 /**
  * 
  */
@@ -55,5 +75,16 @@ public:
 	//Get a String Flag in this Flag System
 	UFUNCTION(BlueprintCallable,Category="Flags|String")
     void SetFlagAsString(FString FlagName, FString NewValue);
+
+	UPROPERTY(BlueprintAssignable, Category="Flags")
+	FOnAnyFlagChanged OnAnyFlagChanged;
+	UPROPERTY(BlueprintAssignable, Category="Flags|Boolean")
+	FOnBoolFlagChanged OnBoolFlagChanged;
+	UPROPERTY(BlueprintAssignable, Category="Flags|Integer")
+	FOnIntFlagChanged OnIntFlagChanged;
+	UPROPERTY(BlueprintAssignable, Category="Flags|Float")
+	FOnFloatFlagChanged OnFloatFlagChanged;
+	UPROPERTY(BlueprintAssignable, Category="Flags|String")
+	FOnStringFlagChanged OnStringFlagChanged;
 	
 };

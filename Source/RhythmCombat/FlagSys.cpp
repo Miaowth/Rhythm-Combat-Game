@@ -17,6 +17,8 @@ bool UFlagSys::GetFlagAsBool(FString FlagName) const
 void UFlagSys::SetFlagAsBool(FString FlagName, bool NewValue)
 {
 	BoolFlags.FindOrAdd(FlagName,NewValue);
+	OnAnyFlagChanged.Broadcast(FlagName, FlagType_Bool);
+	OnBoolFlagChanged.Broadcast(FlagName, NewValue);
 }
 
 /*
@@ -33,11 +35,14 @@ int32 UFlagSys::GetFlagAsInt(FString FlagName) const
 void UFlagSys::SetFlagAsInt(FString FlagName, int32 NewValue)
 {
 	IntFlags.FindOrAdd(FlagName,NewValue);
+	OnAnyFlagChanged.Broadcast(FlagName, FlagType_Int);
+	OnIntFlagChanged.Broadcast(FlagName, NewValue);
 }
 
 void UFlagSys::IncrementFlagAsInt(FString FlagName, int32 Change)
 {
-	SetFlagAsInt(FlagName,Change + GetFlagAsInt(FlagName));
+	int32 NewValue = Change + GetFlagAsInt(FlagName);
+	SetFlagAsInt(FlagName, NewValue);
 }
 
 /*
@@ -54,11 +59,14 @@ float UFlagSys::GetFlagAsFloat(FString FlagName) const
 void UFlagSys::SetFlagAsFloat(FString FlagName, float NewValue)
 {
 	FloatFlags.FindOrAdd(FlagName,NewValue);
+	OnAnyFlagChanged.Broadcast(FlagName, FlagType_Float);
+	OnFloatFlagChanged.Broadcast(FlagName, NewValue);
 }
 
 void UFlagSys::IncrementFlagAsFloat(FString FlagName, float Change)
 {
-	SetFlagAsFloat(FlagName,Change + GetFlagAsFloat(FlagName));
+	float NewValue = Change + GetFlagAsFloat(FlagName);
+	SetFlagAsFloat(FlagName, NewValue);
 }
 
 
@@ -76,4 +84,6 @@ FString UFlagSys::GetFlagAsString(FString FlagName) const
 void UFlagSys::SetFlagAsString(FString FlagName, FString NewValue)
 {
 	StringFlags.FindOrAdd(FlagName,NewValue);
+	OnAnyFlagChanged.Broadcast(FlagName, FlagType_String);
+	OnStringFlagChanged.Broadcast(FlagName, NewValue);
 }

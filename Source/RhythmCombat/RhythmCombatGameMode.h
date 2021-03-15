@@ -13,6 +13,13 @@ class ARhythmCombatGameMode : public AGameModeBase
 
 public:
 	ARhythmCombatGameMode();
+
+	UPROPERTY(EditAnywhere, Category="HUD")
+	TSubclassOf<UUserWidget> OverWorldHUDWidget;
+	UPROPERTY(EditAnywhere, Category="HUD")
+	TSubclassOf<UUserWidget> GameMenuWidget;
+	UPROPERTY(EditAnywhere, Category="HUD")
+	TSubclassOf<UUserWidget> PauseMenuWidget;
 };
 
 

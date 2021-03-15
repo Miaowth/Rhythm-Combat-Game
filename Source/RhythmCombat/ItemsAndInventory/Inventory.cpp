@@ -15,6 +15,7 @@ bool UInventory::AddItemByItemAmt(FItemAmt ItemAmt)
 	UItem* NewItem = NewObject<UItem>(ItemAmt.Item->StaticClass());
 	NewItem->Quantity = ItemAmt.Quantity;
 	Inventory.Add(NewItem);
+	OnItemAdded.Broadcast(NewItem);
 	return true;
 	
 }
@@ -30,6 +31,7 @@ bool UInventory::AddItemByClass(UItem* ItemClass)
 	}
 	
 	Inventory.Add(ItemClass);
+	OnItemAdded.Broadcast(ItemClass);
 	return true;
 }
 
@@ -60,9 +62,11 @@ bool UInventory::PayMoney(int32 MoneyPaid, bool BottomOut)
 	{
 		if(CanPay(MoneyPaid))
 		{
+			OnMoneyChanged.Broadcast(Money,Money - MoneyPaid);
 			Money -= MoneyPaid;
 		}else
 		{
+			OnMoneyChanged.Broadcast(Money,0);
 			Money = 0;
 		}
 		return true;
@@ -70,6 +74,7 @@ bool UInventory::PayMoney(int32 MoneyPaid, bool BottomOut)
 
 	if(CanPay(MoneyPaid))
 	{
+		OnMoneyChanged.Broadcast(Money,Money - MoneyPaid);
 		Money -= MoneyPaid;
 		return true;
 	}
@@ -103,4 +108,10 @@ TArray<UItem*> UInventory::FindItemsByTags(TArray<FString> Tags)
 		}
 	}
 	return Items;
+}
+
+void UInventory::AddMoney(int32 MoneyPaid)
+{
+	OnMoneyChanged.Broadcast(Money, Money + MoneyPaid);
+	Money += MoneyPaid;
 }

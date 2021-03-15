@@ -9,6 +9,13 @@
 #include "UObject/NoExportTypes.h"
 #include "Inventory.generated.h"
 
+UDELEGATE()
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnItemAdded, UItem*, Item);
+UDELEGATE()
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnItemUsed, UItem*, Item);
+UDELEGATE()
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnMoneyChanged, int32, Initial, int32, New);
+
 /**
  * 
  */
@@ -22,29 +29,36 @@ private:
 	int32 Money;
 public:
 	//Add Item
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="Inventory|Item")
 		bool AddItemByItemAmt(FItemAmt ItemAmt);
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="Inventory|Item")
 		bool AddItemByClass(UItem* ItemClass);
 	//Get Item
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="Inventory|Item")
 		UItem* GetItemByClassRef(TSubclassOf<UItem> ItemClass, int32& Index);
 	//Remove Item
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="Inventory|Item")
 		bool RemoveItem(TSubclassOf<UItem> ItemClass);
 	//GetMoney
-	UFUNCTION(BlueprintGetter)
+	UFUNCTION(BlueprintPure, Category="Inventory|Money")
 		FORCEINLINE int32 GetMoney() const{return Money;};
 	//Pay Money
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="Inventory|Money")
         bool PayMoney(int32 MoneyPaid, bool BottomOut);
 	//Can Pay
-	UFUNCTION(BlueprintCallable)
-        FORCEINLINE bool CanPay(int32 MoneyPaid){return Money > MoneyPaid;};
+	UFUNCTION(BlueprintCallable, Category="Inventory|Money")
+        FORCEINLINE bool CanPay(int32 MoneyPaid){return Money >= MoneyPaid;};
 	//Add Money
-	UFUNCTION(BlueprintCallable)
-        void AddMoney(int32 MoneyPaid){Money += MoneyPaid;};
+	UFUNCTION(BlueprintCallable, Category="Inventory|Money")
+        void AddMoney(int32 MoneyPaid);
 	//Find Items by tag
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="Inventory|Item")
 		TArray<UItem*> FindItemsByTags(TArray<FString> Tags);
+
+	UPROPERTY(BlueprintAssignable, Category="Inventory|Item")
+	FOnItemAdded OnItemAdded;
+	UPROPERTY(BlueprintAssignable, Category="Inventory|Item")
+	FOnItemUsed OnItemUsed;
+	UPROPERTY(BlueprintAssignable, Category="Inventory|Money")
+	FOnMoneyChanged OnMoneyChanged;
 };
