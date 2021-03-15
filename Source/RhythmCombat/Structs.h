@@ -7,7 +7,7 @@
 #include "Structs.generated.h"
 
 class ABaseCharacter;
-class UBaseItemClass;
+class UItem;
 USTRUCT(BlueprintType)
 struct FCharacterStats {
 	GENERATED_BODY()
@@ -114,7 +114,7 @@ USTRUCT(BlueprintType)
 struct FItemAmt {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TSubclassOf<UBaseItemClass> Item;
+	TSubclassOf<UItem> Item;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 Quantity;
 };

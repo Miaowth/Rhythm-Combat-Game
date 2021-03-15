@@ -6,4 +6,5 @@
 void UMyGameInstance::Init()
 {
 	PlayerInventory = NewObject<UInventory>();
+	FlagSystem = NewObject<UFlagSys>();
 }

@@ -6,23 +6,24 @@
 bool UInventory::AddItemByItemAmt(FItemAmt ItemAmt)
 {
 	int32 Index;
-	UBaseItemClass* Item = GetItemByClassRef(ItemAmt.Item, Index);
+	UItem* Item = GetItemByClassRef(ItemAmt.Item, Index);
 	if(Item)
 	{
 		Item->Quantity += ItemAmt.Quantity;
 		return true;
 	}
-	UBaseItemClass* NewItem = NewObject<UBaseItemClass>(ItemAmt.Item->StaticClass());
+	UItem* NewItem = NewObject<UItem>(ItemAmt.Item->StaticClass());
 	NewItem->Quantity = ItemAmt.Quantity;
 	Inventory.Add(NewItem);
+	OnItemAdded.Broadcast(NewItem);
 	return true;
 	
 }
 
-bool UInventory::AddItemByClass(UBaseItemClass* ItemClass)
+bool UInventory::AddItemByClass(UItem* ItemClass)
 {
 	int32 Index;
-	UBaseItemClass* Item = GetItemByClassRef(ItemClass->StaticClass(), Index);
+	UItem* Item = GetItemByClassRef(ItemClass->StaticClass(), Index);
 	if(Item)
 	{
 		Item->Quantity += ItemClass->Quantity;
@@ -30,10 +31,11 @@ bool UInventory::AddItemByClass(UBaseItemClass* ItemClass)
 	}
 	
 	Inventory.Add(ItemClass);
+	OnItemAdded.Broadcast(ItemClass);
 	return true;
 }
 
-UBaseItemClass* UInventory::GetItemByClassRef(TSubclassOf<UBaseItemClass> ItemClass, int32& Index)
+UItem* UInventory::GetItemByClassRef(TSubclassOf<UItem> ItemClass, int32& Index)
 {
 	for(int i=0; i<Inventory.Num(); i++)
 	{
@@ -46,7 +48,7 @@ UBaseItemClass* UInventory::GetItemByClassRef(TSubclassOf<UBaseItemClass> ItemCl
 	return nullptr;
 }
 
-bool UInventory::RemoveItem(TSubclassOf<UBaseItemClass> ItemClass)
+bool UInventory::RemoveItem(TSubclassOf<UItem> ItemClass)
 {
 	int32 Index;
 	GetItemByClassRef(ItemClass, Index);
@@ -60,9 +62,11 @@ bool UInventory::PayMoney(int32 MoneyPaid, bool BottomOut)
 	{
 		if(CanPay(MoneyPaid))
 		{
+			OnMoneyChanged.Broadcast(Money,Money - MoneyPaid);
 			Money -= MoneyPaid;
 		}else
 		{
+			OnMoneyChanged.Broadcast(Money,0);
 			Money = 0;
 		}
 		return true;
@@ -70,8 +74,44 @@ bool UInventory::PayMoney(int32 MoneyPaid, bool BottomOut)
 
 	if(CanPay(MoneyPaid))
 	{
+		OnMoneyChanged.Broadcast(Money,Money - MoneyPaid);
 		Money -= MoneyPaid;
 		return true;
 	}
 	return false;
+}
+
+TArray<UItem*> UInventory::FindItemsByTags(TArray<FString> Tags)
+{
+	TArray<UItem*> Items;
+	for(int x=0;x<Tags.Num();x++)
+	{
+		FString Tag = Tags[x];
+		for(int y=0;y<Inventory.Num();y++)
+		{
+			UItem* Item = Inventory[y];
+
+			if(Items.Contains(Item) || Item->Quantity == 0)
+			{
+				continue;
+			}
+
+			for(int z=0;z<Item->Tags.Num();z++)
+			{
+				if(Tag == Item->Tags[z])
+				{
+					Items.Add(Item);
+					break;
+				}
+			}
+
+		}
+	}
+	return Items;
+}
+
+void UInventory::AddMoney(int32 MoneyPaid)
+{
+	OnMoneyChanged.Broadcast(Money, Money + MoneyPaid);
+	Money += MoneyPaid;
 }

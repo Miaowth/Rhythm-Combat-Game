@@ -80,6 +80,7 @@ void AMyPlayerController::MoveForward(float Value)
 {
 	if(PlayerCharacter)
 	{
+		MoveDir.Y = Value;
 		if (Value != 0.0f)
 		{
 			// find out which way is forward
@@ -98,6 +99,7 @@ void AMyPlayerController::MoveRight(float Value)
 {
 	if (PlayerCharacter)
 	{
+		MoveDir.X = Value;
 		if (Value != 0.0f)
 		{
 			// find out which way is right
@@ -108,6 +110,10 @@ void AMyPlayerController::MoveRight(float Value)
 			const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 			// add movement in that direction
 			PlayerCharacter->AddMovementInput(Direction, Value);
+
+			//Do Turning for left stick movement
+			AddYawInput((FMath::Pow(Value, 2) * FMath::Sign(Value)) * AutoTurnRate * GetWorld()->GetDeltaSeconds());
+			
 		}
 	}
 	
