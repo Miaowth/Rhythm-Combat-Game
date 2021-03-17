@@ -86,11 +86,13 @@ void ACombatManager::GenerateEnemyActions() {
 void ACombatManager::EnterRhythmPhase() {
 	//
 	UE_LOG(LogTemp, Warning, TEXT("Rhythm Phase Function Called"));
-
+	//set the button inputs to start from the next bar
 	ConductorRef->PatternBarStart = ConductorRef->NextBarStartPos;
+	//if too close to the start of the next bar, wait an additional bar
+	if (ConductorRef->BeatNum > ConductorRef->BeatsPerBar / 2) {
+		ConductorRef->PatternBarStart += ConductorRef->BarDuration;
+	}
 	for (int i = 0; i < BattleOrder.Num(); i++) {
-		//if i = 0 then set position to be start of next bar
-		
 		switch (BattleOrder[i]->ChosenAction.Type)
 		{
 		case 0:
@@ -121,6 +123,8 @@ void ACombatManager::EnterRhythmPhase() {
 			//TODO - implement once items are fully functional
 			break;
 		case 3:
+			//for each button in the mapping for the ability the player has selected, 
+			//calculate when it should be pressed and add it to the appropriate array
 			//Ability
 			for (int j = 0; j < BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern.Num() - 1; j++) {
 				switch (BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j].ButtonIndex) 
@@ -204,8 +208,14 @@ void ACombatManager::EnterRhythmPhase() {
 		};
 		//put in a bars rest between patterns
 		
-		//Start from next bar
-		ConductorRef->PatternBarStart += ConductorRef->BarDuration;
+		//Start from next bar after a 1 bar break if late in bar
+		if (ConductorRef->BeatNum > ConductorRef->BeatsPerBar / 2) {
+			ConductorRef->PatternBarStart += ConductorRef->BarDuration * 2;
+		}
+		else {
+			ConductorRef->PatternBarStart += ConductorRef->BarDuration;
+		};
+		
 	}
 	InRhythm = true;
 }
