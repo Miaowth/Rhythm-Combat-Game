@@ -16,6 +16,7 @@ void AMyHUD::BeginPlay()
 	OverWorldHUDWidget = CreateWidget(GetOwningPlayerController(),GameMode->OverWorldHUDWidget);
 	GameMenuWidget = CreateWidget(GetOwningPlayerController(),GameMode->GameMenuWidget);
 	PauseMenuWidget = CreateWidget(GetOwningPlayerController(),GameMode->PauseMenuWidget);
+	DialogBoxWidget = CreateWidget(GetOwningPlayerController(),GameMode->DialogBoxWidget);
 
 	OverWorldHUDWidget->AddToViewport();
 }
@@ -57,4 +58,13 @@ bool AMyHUD::TogglePauseMenu()
 		return true;
 	}
 	
+}
+
+void AMyHUD::DisplayDialogBox(FText Text, bool choice, const FDialogBoxDelegate YesChoice, const FDialogBoxDelegate NoChoice)
+{
+	if(DialogBoxWidget)
+	{
+		//DialogBoxWidget->InitValues(Text,choice,YesChoice,NoChoice);
+		//DialogBoxWidget->AddToViewport();
+	}
 }

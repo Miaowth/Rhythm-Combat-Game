@@ -8,6 +8,9 @@
 #include "GameFramework/HUD.h"
 #include "MyHUD.generated.h"
 
+
+DECLARE_DYNAMIC_DELEGATE(FDialogBoxDelegate);
+
 /**
  * 
  */
@@ -26,7 +29,8 @@ public:
 	UFUNCTION(BlueprintCallable)
     bool TogglePauseMenu();
 
-	//void DisplayDialogBox(FText Text);
+	UFUNCTION(BlueprintCallable)
+	void DisplayDialogBox(FText Text, bool choice, const FDialogBoxDelegate YesChoice, const FDialogBoxDelegate NoChoice);
 
 	//void StartInkleDialog(UInkStory* Story);
 	

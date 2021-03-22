@@ -19,13 +19,15 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnMoneyChanged, int32, Initial, in
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType)
 class RHYTHMCOMBAT_API UInventory : public UObject
 {
 	GENERATED_BODY()
 
 private:
+	UPROPERTY()
 	TArray<UItem*> Inventory;
+	UPROPERTY()
 	int32 Money;
 public:
 	//Add Item
@@ -36,6 +38,7 @@ public:
 	//Get Item
 	UFUNCTION(BlueprintCallable, Category="Inventory|Item")
 		UItem* GetItemByClassRef(TSubclassOf<UItem> ItemClass, int32& Index);
+		UItem* GetItemByClassRef(TSubclassOf<UItem> ItemClass);
 	//Remove Item
 	UFUNCTION(BlueprintCallable, Category="Inventory|Item")
 		bool RemoveItem(TSubclassOf<UItem> ItemClass);
@@ -54,6 +57,10 @@ public:
 	//Find Items by tag
 	UFUNCTION(BlueprintCallable, Category="Inventory|Item")
 		TArray<UItem*> FindItemsByTags(TArray<FString> Tags);
+	UFUNCTION(BlueprintCallable, Category="Inventory|Item")
+        TArray<UItem*> GetItems(){return Inventory;};
+	UFUNCTION(BlueprintCallable, Category="Inventory|Money")
+        bool UseItem(TSubclassOf<UItem> Item, AActor* Instigator, AActor* UseOn, bool& ShouldDelete);
 
 	UPROPERTY(BlueprintAssignable, Category="Inventory|Item")
 	FOnItemAdded OnItemAdded;

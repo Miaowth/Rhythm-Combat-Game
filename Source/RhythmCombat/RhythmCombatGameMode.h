@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "UIBase/DialogBox.h"
+
 #include "RhythmCombatGameMode.generated.h"
 
 UCLASS(minimalapi)
@@ -20,6 +22,8 @@ public:
 	TSubclassOf<UUserWidget> GameMenuWidget;
 	UPROPERTY(EditAnywhere, Category="HUD")
 	TSubclassOf<UUserWidget> PauseMenuWidget;
+	UPROPERTY(EditAnywhere, Category="HUD")
+	TSubclassOf<UUserWidget> DialogBoxWidget;
 };
 
 
