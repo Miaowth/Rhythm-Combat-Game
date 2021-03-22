@@ -38,7 +38,9 @@ void ACombatManager::BeginPlay()
 void ACombatManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	if (InRhythm) {
+		ConductorRef->UpdateRhythmUI(DeltaTime);
+	}
 }
 void ACombatManager::InitialiseCombat()
 {

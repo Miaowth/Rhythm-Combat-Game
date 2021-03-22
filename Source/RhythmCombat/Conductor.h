@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "PaperSpriteComponent.h"
+
 #include "Structs.h"
 #include "Conductor.generated.h"
 
@@ -45,6 +47,18 @@ public:
 	int32 BeatNum = 1;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 BeatsPerBar = 4;
+
+	//Positions for Button UI
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		AActor* SpawnButtonLocation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		AActor* EndButtonLocation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<UPaperSpriteComponent*> ButtonUIElements;
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateRhythmUI(float DeltaTime);
 
 	UFUNCTION(BlueprintCallable)
 		float ConvertBeatMapToMS(FMyNote Note, float CurrentBarStart);

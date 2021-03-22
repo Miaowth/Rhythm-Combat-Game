@@ -46,6 +46,10 @@ float AConductor::ConvertBeatMapToMS(FMyNote Note, float CurrentBarStart) {
 	return 0.0f;
 }
 
+void AConductor::UpdateRhythmUI(float DeltaTime) {
+
+};
+
 void AConductor::BeginCombat_Implementation()
 {
 	// Logic needed when blueprints don't implement the event. Can be empty.
@@ -55,6 +59,5 @@ void AConductor::BeginCombat_Implementation()
 void AConductor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
