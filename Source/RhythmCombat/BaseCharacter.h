@@ -5,9 +5,8 @@
 #include "CoreMinimal.h"
 
 #include "NavigationSystem.h"
-#include "GameFramework/Character.h"
-#include "Engine/DataTable.h"
 #include "Structs.h"
+#include "GameFramework/Character.h"
 #include "ItemsAndInventory/Inventory.h"
 
 #include "BaseCharacter.generated.h"

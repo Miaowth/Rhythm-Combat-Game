@@ -14,6 +14,7 @@ bool UInventory::AddItemByItemAmt(FItemAmt ItemAmt)
 	}
 	UItem* NewItem = NewObject<UItem>(ItemAmt.Item->StaticClass());
 	NewItem->Quantity = ItemAmt.Quantity;
+	NewItem->ContainedIn = this;
 	Inventory.Add(NewItem);
 	OnItemAdded.Broadcast(NewItem);
 	return true;
@@ -31,8 +32,15 @@ bool UInventory::AddItemByClass(UItem* ItemClass)
 	}
 	
 	Inventory.Add(ItemClass);
+	Item->ContainedIn = this;
 	OnItemAdded.Broadcast(ItemClass);
 	return true;
+}
+
+UItem* UInventory::GetItemByClassRef(TSubclassOf<UItem> ItemClass)
+{
+	int32 i;
+	return GetItemByClassRef(ItemClass, i);
 }
 
 UItem* UInventory::GetItemByClassRef(TSubclassOf<UItem> ItemClass, int32& Index)
@@ -108,6 +116,16 @@ TArray<UItem*> UInventory::FindItemsByTags(TArray<FString> Tags)
 		}
 	}
 	return Items;
+}
+
+bool UInventory::UseItem(TSubclassOf<UItem> Item, AActor* Instigator, AActor* UseOn, bool& ShouldDelete)
+{
+	UItem* FoundItem = GetItemByClassRef(Item);
+	if(FoundItem)
+	{
+		return FoundItem->Use(Instigator,UseOn,ShouldDelete);
+	}
+	return false;
 }
 
 void UInventory::AddMoney(int32 MoneyPaid)

@@ -3,8 +3,8 @@
 
 #include "Encounter.h"
 
-#include "../../../UE_4.25/Engine/Source/Runtime/Engine/Classes/GameFramework/CharacterMovementComponent.h"
-#include "EdGraph/EdGraphNode.h"
+#include "GameFramework/CharacterMovementComponent.h"
+
 
 // Sets default values
 AEncounter::AEncounter()

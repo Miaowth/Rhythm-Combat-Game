@@ -5,9 +5,10 @@
 
 UItem::UItem()
 {
+	Tags.Add("All");
 }
 
-bool UItem::OnUse_Implementation(AActor* Instigator, AActor* UsedOn, bool& ShouldDelete)
+bool UItem::Use_Implementation(AActor* Instigator, AActor* UsedOn, bool& ShouldDelete)
 {
 	Quantity--;
 	if(Quantity <= 0)

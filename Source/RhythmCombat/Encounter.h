@@ -3,13 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "BaseCharacter.h"
-#include "GameFramework/Actor.h"
-#include "Components/BoxComponent.h"
-#include "Structs.h"
-#include "../../../UE_4.25/Engine/Source/Runtime/Engine/Classes/GameFramework/Character.h"
-
 #include "Encounter.generated.h"
 
 class AEncounterManager;

@@ -12,8 +12,15 @@
 				"Engine",
 				"AIModule",
 				"CoreUObject",
+				"UMG",
 				"Paper2D"
 			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "UnrealInk",
+			"Enabled": true
 		}
 	]
 }
