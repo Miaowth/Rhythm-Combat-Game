@@ -3,9 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
-
-
 #include "BaseCharacter.h"
 #include "Structs.h"
 #include "EnemyCharacter.generated.h"

@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Structs.h"
 #include "Runtime/Engine/Classes/Engine/TargetPoint.h"
 #include "Encounter.h"
 #include "CombatManager.h"
+#include "Components/BoxComponent.h"
+
 #include "EncounterManager.generated.h"
 
 
