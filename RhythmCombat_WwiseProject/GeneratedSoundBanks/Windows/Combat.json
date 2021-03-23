@@ -3,7 +3,7 @@
   "Platform": "Windows",
   "BasePlatform": "Windows",
   "SchemaVersion": "12",
-  "SoundbankVersion": "135",
+  "SoundbankVersion": "140",
   "RootPaths": {
    "ProjectRoot": "D:\\University\\RhythmCombat\\RhythmCombat_WwiseProject\\",
    "SourceFilesRoot": "D:\\University\\RhythmCombat\\RhythmCombat_WwiseProject\\.cache\\Windows\\",
@@ -16,7 +16,7 @@
     "Id": "2764240573",
     "GUID": "{E0E5C88F-4C97-4773-9CBE-D545DBBE9D97}",
     "Language": "SFX",
-    "Hash": "3041297399",
+    "Hash": "1401054595",
     "ObjectPath": "\\SoundBanks\\Music\\Combat",
     "ShortName": "Combat",
     "Path": "Combat.bnk"

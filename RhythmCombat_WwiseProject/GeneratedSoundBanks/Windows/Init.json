@@ -3,7 +3,7 @@
   "Platform": "Windows",
   "BasePlatform": "Windows",
   "SchemaVersion": "12",
-  "SoundbankVersion": "135",
+  "SoundbankVersion": "140",
   "RootPaths": {
    "ProjectRoot": "D:\\University\\RhythmCombat\\RhythmCombat_WwiseProject\\",
    "SourceFilesRoot": "D:\\University\\RhythmCombat\\RhythmCombat_WwiseProject\\.cache\\Windows\\",
@@ -16,7 +16,7 @@
     "Id": "1355168291",
     "GUID": "{701ECBBD-9C7B-4030-8CDB-749EE5D1C7B9}",
     "Language": "SFX",
-    "Hash": "2977026988",
+    "Hash": "2666050182",
     "ObjectPath": "Init",
     "ShortName": "Init",
     "Path": "Init.bnk"
