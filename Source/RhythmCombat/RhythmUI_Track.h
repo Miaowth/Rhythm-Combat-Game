@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "PaperSpriteComponent.h"
+
 #include "RhythmUI_Track.generated.h"
 
 UCLASS()
@@ -14,6 +16,10 @@ class RHYTHMCOMBAT_API ARhythmUI_Track : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ARhythmUI_Track();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		USceneComponent* MyRootComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		UPaperSpriteComponent* TrackSprite;
 
 protected:
 	// Called when the game starts or when spawned

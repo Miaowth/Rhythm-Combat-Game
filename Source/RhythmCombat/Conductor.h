@@ -20,7 +20,7 @@ public:
 
 	//May not need
 
-	float bpm = 60;
+	
 	float crotchet;
 	float songposition;
 	float deltasongpos;
@@ -32,7 +32,8 @@ public:
 	bool hasoffsetadjusted = false;
 	int32 barnumber = 0;
 	//End May not need
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float bpm = 60.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float LastBarStartPos = 0.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

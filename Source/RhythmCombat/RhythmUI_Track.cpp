@@ -8,7 +8,12 @@ ARhythmUI_Track::ARhythmUI_Track()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	MyRootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root Component"));
+	//This is how to give an actor a root component.
+	MyRootComponent->SetupAttachment(RootComponent);
 
+	TrackSprite = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("Track Sprite"));
+	TrackSprite->SetupAttachment(MyRootComponent);
 }
 
 // Called when the game starts or when spawned
