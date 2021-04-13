@@ -2,7 +2,6 @@
 
 
 #include "MyHUD.h"
-
 #include "Blueprint/UserWidget.h"
 
 AMyHUD::AMyHUD()
@@ -17,6 +16,7 @@ void AMyHUD::BeginPlay()
 	GameMenuWidget = CreateWidget(GetOwningPlayerController(),GameMode->GameMenuWidget);
 	PauseMenuWidget = CreateWidget(GetOwningPlayerController(),GameMode->PauseMenuWidget);
 	DialogBoxWidget = CreateWidget(GetOwningPlayerController(),GameMode->DialogBoxWidget);
+	DialogBoxWidget = CreateWidget(GetOwningPlayerController(),GameMode->InkleDialogWidget);
 
 	OverWorldHUDWidget->AddToViewport();
 }
@@ -59,12 +59,11 @@ bool AMyHUD::TogglePauseMenu()
 	}
 	
 }
-
-void AMyHUD::DisplayDialogBox(FText Text, bool choice, const FDialogBoxDelegate YesChoice, const FDialogBoxDelegate NoChoice)
+/*void AMyHUD::DisplayDialogBox(FText Text, bool choice, const FDialogBoxDelegate YesChoice, const FDialogBoxDelegate NoChoice)
 {
 	if(DialogBoxWidget)
 	{
 		//DialogBoxWidget->InitValues(Text,choice,YesChoice,NoChoice);
 		//DialogBoxWidget->AddToViewport();
 	}
-}
+}*/

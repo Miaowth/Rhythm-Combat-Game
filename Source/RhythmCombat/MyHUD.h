@@ -9,7 +9,7 @@
 #include "MyHUD.generated.h"
 
 
-DECLARE_DYNAMIC_DELEGATE(FDialogBoxDelegate);
+
 
 /**
  * 
@@ -29,11 +29,9 @@ public:
 	UFUNCTION(BlueprintCallable)
     bool TogglePauseMenu();
 
-	UFUNCTION(BlueprintCallable)
-	void DisplayDialogBox(FText Text, bool choice, const FDialogBoxDelegate YesChoice, const FDialogBoxDelegate NoChoice);
+	//UFUNCTION(BlueprintCallable)
+	//void DisplayDialogBox(FText Text, bool choice, const FDialogBoxDelegate YesChoice, const FDialogBoxDelegate NoChoice);
 
-	//void StartInkleDialog(UInkStory* Story);
-	
 private:
 	UPROPERTY()
 	ARhythmCombatGameMode* GameMode;
