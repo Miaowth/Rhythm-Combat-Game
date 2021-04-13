@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "RhythmUI_Note.h"
 #include "CombatManager.h"
+#include "AKGameplayStatics.h"
 
 #include "RhythmUI_Manager.generated.h"
 
@@ -19,6 +20,11 @@ public:
 	ARhythmUI_Manager();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		USceneComponent* MyRootComponent;
+
+	UPROPERTY(EditAnywhere, Category = "Wwise")
+		class UAkAudioEvent* Event;
+
+	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TArray<ARhythmUI_Note*> TopTrackNoteArray;
