@@ -24,6 +24,8 @@ public:
 	TSubclassOf<UUserWidget> PauseMenuWidget;
 	UPROPERTY(EditAnywhere, Category="HUD")
 	TSubclassOf<UUserWidget> DialogBoxWidget;
+	UPROPERTY(EditAnywhere, Category="HUD")
+	TSubclassOf<UUserWidget> InkleDialogWidget;
 };
 
 

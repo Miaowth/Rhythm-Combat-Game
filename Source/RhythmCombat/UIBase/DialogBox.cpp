@@ -2,13 +2,12 @@
 
 
 #include "DialogBox.h"
-/*
-void UDialogBox::InitValues(FText Text, bool choice, FDialogBoxDelegate Yes, FDialogBoxDelegate No)
+
+/*void UDialogBox::InitValues(FText Text, bool choice, FDialogBoxDelegate Yes, FDialogBoxDelegate No)
 {
 	DialogText = Text;
 	bisAChoice = choice;
-	YesChoice = Yes;
-	NoChoice = No;
-	
+	Button1->OnClicked.Add(Yes);
+	Button2->OnClicked.Add(No);
 	ConstructWidget();
 }*/

@@ -4,8 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-
-
+#include "Components/Button.h"
 #include "DialogBox.generated.h"
 
 /**
@@ -22,15 +21,15 @@ public:
 	FText DialogText;
 	UPROPERTY(BlueprintReadOnly)
 	bool bisAChoice;
-	/*
-	UPROPERTY(BlueprintReadOnly)
-	FDialogBoxDelegate YesChoice;
-	UPROPERTY(BlueprintReadOnly)
-	FDialogBoxDelegate NoChoice;
 
-	UFUNCTION(BlueprintCallable)
-	void InitValues(FText Text, bool choice, const FDialogBoxDelegate Yes, const FDialogBoxDelegate No);
-*/
+	UPROPERTY(BlueprintReadWrite)
+	UButton* Button1;
+	UPROPERTY(BlueprintReadWrite)
+	UButton* Button2;
+	
+	//UFUNCTION(BlueprintCallable)
+	//void InitValues(FText Text, bool choice, const FDialogBoxDelegate Yes, const FDialogBoxDelegate No);
+	
 	UFUNCTION(BlueprintImplementableEvent)
 	void ConstructWidget();
 	
