@@ -33,6 +33,16 @@ struct FCharacterStats {
 };
 
 UENUM(BlueprintType)
+enum EHitQuality {
+	Perfect,
+	Great,
+	Good,
+	Okay,
+	Poor,
+	Miss
+};
+
+UENUM(BlueprintType)
 enum ENoteType {
 	Breve,
 	SemiBreve,
