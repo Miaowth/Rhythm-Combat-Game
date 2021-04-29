@@ -8,7 +8,7 @@
 #include "CombatManager.h"
 #include "BaseCharacter.h"
 #include "Components/SphereComponent.h"
-
+#include "AKGameplayStatics.h"
 
 #include "PlayerCharacter.generated.h"
 
@@ -50,7 +50,10 @@ public:
 	
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	//	int32 Activemoveindex;
-	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 PerfectComboCounter;
+
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TEnumAsByte<EButtonPressed> LastPressedButton = None;
 public:
