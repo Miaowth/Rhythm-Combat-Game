@@ -2,8 +2,9 @@
 
 
 
-#include "Conductor.h"
 
+#include "Conductor.h"
+#include "RhythmUI_Manager.h"
 // Sets default values
 AConductor::AConductor()
 {
@@ -60,6 +61,15 @@ void AConductor::UpdateRhythmUI(float DeltaTime) {
 void AConductor::BeginCombat_Implementation()
 {
 	// Logic needed when blueprints don't implement the event. Can be empty.
+}
+void AConductor::RemoveUI(bool IsTopTrack) {
+	if (IsTopTrack) {
+		RhythmUIManagerRef->TopTrackNoteArray.RemoveAt(0);
+	}
+	else {
+		RhythmUIManagerRef->BottomTrackNoteArray.RemoveAt(0);
+	};
+	
 }
 
 // Called every frame

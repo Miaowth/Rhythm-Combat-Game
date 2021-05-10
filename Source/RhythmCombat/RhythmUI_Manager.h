@@ -11,6 +11,7 @@
 
 #include "RhythmUI_Manager.generated.h"
 
+
 UCLASS()
 class RHYTHMCOMBAT_API ARhythmUI_Manager : public AActor
 {
