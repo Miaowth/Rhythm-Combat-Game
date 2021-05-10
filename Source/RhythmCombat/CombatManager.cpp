@@ -76,6 +76,18 @@ void ACombatManager::CreateTurnOrder() {
 	BattleOrder.Sort([](ABaseCharacter& a, ABaseCharacter& b) {return a.CharacterStats.Speed < b.CharacterStats.Speed; });
 }
 
+void ACombatManager::RemoveInvalidNotes(TArray<FPatternNote> &ArrayToClean) {
+	for (int i = 0; i < ArrayToClean.Num(); i++) {
+		if (IsValid(ArrayToClean[i].OwningChar) && IsValid(ArrayToClean[i].UIElement)) {
+			//do nothing
+		}
+		else {
+			ArrayToClean.RemoveAt(i, 1, false);
+		};
+	}
+	ArrayToClean.Shrink();
+}
+
 void ACombatManager::GenerateEnemyActions() {
 	//TODO - make enemy smort
 	for (int i = 0; i < EnemyParty.Num(); i++) {

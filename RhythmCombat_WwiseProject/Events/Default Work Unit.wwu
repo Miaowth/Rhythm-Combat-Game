@@ -8,7 +8,7 @@
 						<Action Name="" ID="{3C5A3142-040D-40EF-A233-5A898C199B8D}" ShortID="170048288">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="ChangedChords" ID="{A39CAAC6-CD8A-464E-A30A-CF68FF220D35}" WorkUnitID="{20A002B0-16E2-4928-B8DD-5880A457FB8A}"/>
+									<ObjectRef Name="CombatPlaylist" ID="{3BC0CEC2-A2FC-4EBC-A160-60973C96F700}" WorkUnitID="{20A002B0-16E2-4928-B8DD-5880A457FB8A}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>

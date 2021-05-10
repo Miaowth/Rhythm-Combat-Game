@@ -244,7 +244,25 @@ void APlayerCharacter::UpdateNote(TArray<FPatternNote> &TargetArray, float Accur
 			for (int i = 0; i < TargetArray[0].OwningChar->TargetList.Num(); i++) {
 				TargetArray[0].OwningChar->TargetList[i]->CharacterStats.HealthPoints -= 
 					TargetArray[0].OwningChar->Level * 2 * accuracyaverage * TargetArray[0].OwningChar->TargetList[i]->DefenseModifier;
+				//Kill our enemies
 			};
+			for (int i = 0; i < CombatManagerRef->EnemyParty.Num(); i++) {
+				if (CombatManagerRef->EnemyParty[i]->CharacterStats.HealthPoints <= 0) {
+					//enemy is dead
+					for (int j = 0; j < OtherPartyMembers.Num(); j++) {
+						OtherPartyMembers[j]->TargetList.Remove(CombatManagerRef->EnemyParty[i]);
+					};
+					TargetList.Remove(CombatManagerRef->EnemyParty[i]);
+					CombatManagerRef->BattleOrder.Remove(CombatManagerRef->EnemyParty[i]);
+					CombatManagerRef->EnemyParty.RemoveAt(i, 1, false);
+					
+				};
+			}
+			CombatManagerRef->RemoveInvalidNotes(CombatManagerRef->Button1Array);
+			CombatManagerRef->RemoveInvalidNotes(CombatManagerRef->Button2Array);
+			CombatManagerRef->RemoveInvalidNotes(CombatManagerRef->Button3Array);
+			CombatManagerRef->RemoveInvalidNotes(CombatManagerRef->Button4Array);
+			CombatManagerRef->EnemyParty.Shrink();
 			
 			break;
 		case BasicDefend:
