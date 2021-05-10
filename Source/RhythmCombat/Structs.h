@@ -4,8 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
-#include "RhythmUI_Note.h"
-
 #include "Structs.generated.h"
 
 class ABaseCharacter;
@@ -74,10 +72,6 @@ public:
 	ABaseCharacter* OwningChar;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float PosInMs;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool IsSpawned;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		ARhythmUI_Note* UIElement;
 };
 
 UENUM(BlueprintType)
