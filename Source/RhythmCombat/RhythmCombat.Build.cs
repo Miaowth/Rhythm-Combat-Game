@@ -8,7 +8,7 @@ public class RhythmCombat : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "UMG" });
-		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore", "Paper2D", "AkAudio" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "UMG", "AkAudio" });
+		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore", "Paper2D" });
 	}
 }

@@ -5,7 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "PaperSpriteComponent.h"
-
+#include "AKComponent.h"
+#include "Kismet/BlueprintFunctionLibrary.h"
+//#include "AKGameplayStatics.h"
 
 #include "Structs.h"
 #include "Conductor.generated.h"
@@ -57,6 +59,14 @@ public:
 	//	AActor* SpawnButtonLocation;
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	//	AActor* EndButtonLocation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		USceneComponent* MyRootComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		UAkComponent* CombatMusicAk;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 CombatPlayingID;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		ARhythmUI_Manager* RhythmUIManagerRef;

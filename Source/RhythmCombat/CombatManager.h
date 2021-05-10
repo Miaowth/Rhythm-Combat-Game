@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "BaseCharacter.h"
 #include "Conductor.h"
+
 //#include "PlayerCharacter.h"
 #include "CombatManager.generated.h"
 
@@ -39,6 +40,7 @@ public:
 		TEnumAsByte<ETargetType> TargetCategory;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		AConductor* ConductorRef;
+
 
 	//arrays for rhythm section
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -84,6 +86,12 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void EnterRhythmPhase();
+
+	UFUNCTION(BlueprintCallable)
+		bool IsBelowBoundary(int32 CurrentPos, int32 Boundary);
+
+	UFUNCTION(BlueprintCallable)
+		bool IsAboveBoundary(int32 CurrentPos, int32 Boundary);
 
 	UFUNCTION(BlueprintCallable)
 	bool GetChance(int32 min, int32 max, int32 boundary);
