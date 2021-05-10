@@ -18,7 +18,7 @@ void UInkleDialog::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 
 void UInkleDialog::OnTextTick()
 {
-	/*
+/*	
 	//Increment the Character Number
 	charNo++;
 	//Assign the Previous and Current Character values

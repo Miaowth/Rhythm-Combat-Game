@@ -4,6 +4,11 @@
 #include "GameFramework/CharacterMovementComponent.h"
 
 
+AMyPlayerController::AMyPlayerController()
+{
+	SetTickableWhenPaused(true);
+}
+
 void AMyPlayerController::Tick(float DeltaSeconds)
 {
 	if(ResettingCamera)
@@ -20,13 +25,12 @@ void AMyPlayerController::Tick(float DeltaSeconds)
 void AMyPlayerController::OnPossess(APawn* InPawn) {
 	Super::OnPossess(InPawn);
 	APlayerCharacter* pc = Cast<APlayerCharacter>(InPawn);
+	HUD = Cast<AMyHUD>(GetHUD());
 	if (pc)
 	{
 		PlayerCharacter = pc;
 		PlayerCharacter->GetCharacterMovement()->SetActive(true, true);
 		SetViewTargetWithBlend(PlayerCharacter, 0.0f, VTBlend_Linear);
-
-		
 	}
 }
 
@@ -57,6 +61,9 @@ void AMyPlayerController::SetupInputComponent()
 	InputComponent->BindAxis("TurnRate", this, &AMyPlayerController::TurnAtRate);
 	InputComponent->BindAxis("LookUp", this, &APlayerController::AddPitchInput);
 	InputComponent->BindAxis("LookUpRate", this, &AMyPlayerController::LookUpAtRate);
+
+	InputComponent->BindAction("Menu", IE_Pressed, this, &AMyPlayerController::ToggleMenu);
+	InputComponent->BindAction("Pause", IE_Pressed, this, &AMyPlayerController::TogglePause);
 
 }
 
@@ -154,6 +161,19 @@ void AMyPlayerController::ResetCamera()
 	{
 		ResettingCamera = true;
 		CharacterRotation = GetCharacter()->GetActorRotation();
+	}
+}
+
+void AMyPlayerController::ToggleMenu()
+{
+	HUD->ToggleGameMenu();
+}
+
+void AMyPlayerController::TogglePause()
+{
+	if(!HUD->ExitMenu())
+	{
+		HUD->TogglePauseMenu();
 	}
 }
 

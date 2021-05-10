@@ -29,6 +29,15 @@ public:
 	UFUNCTION(BlueprintCallable)
     bool TogglePauseMenu();
 
+	UFUNCTION(BlueprintCallable)
+    bool ExitMenu();
+
+	UFUNCTION(BlueprintCallable)
+	bool OpenCustomMenu(class UUserWidget* Widget, bool ClosableByButton);
+
+	UFUNCTION(BlueprintCallable)
+	bool CloseCustomMenu();
+
 	//UFUNCTION(BlueprintCallable)
 	//void DisplayDialogBox(FText Text, bool choice, const FDialogBoxDelegate YesChoice, const FDialogBoxDelegate NoChoice);
 
@@ -43,7 +52,8 @@ private:
 	UPROPERTY()
 	class UUserWidget* PauseMenuWidget;
 	UPROPERTY()
-	class UUserWidget* DialogBoxWidget;
+	class UUserWidget* CustomMenuWidget;
+
 	UPROPERTY()
-	class UUserWidget* InkleDialogWidget;
+	bool CanCloseCustomMenu;
 };

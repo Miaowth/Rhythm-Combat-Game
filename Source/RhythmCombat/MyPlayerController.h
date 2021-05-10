@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+#include "MyHUD.h"
 #include "GameFramework/PlayerController.h"
 
 #include "PlayerCharacter.h"
@@ -15,8 +17,11 @@ UCLASS()
 class RHYTHMCOMBAT_API AMyPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-		UPROPERTY(EditAnywhere)
-		APlayerCharacter* PlayerCharacter;
+
+	AMyPlayerController();
+	
+	UPROPERTY(EditAnywhere)
+	APlayerCharacter* PlayerCharacter;
 
 private:
 
@@ -77,6 +82,12 @@ private:
 
 	void ResetCamera();
 
+	UFUNCTION()
+	void ToggleMenu();
+
+	UFUNCTION()
+	void TogglePause();
+
 	virtual void BattleAction1();
 	virtual void BattleAction2();
 	virtual void BattleAction3();
@@ -89,6 +100,9 @@ private:
 	FRotator CharacterRotation;
 
 	FVector2D MoveDir;
+	
+	UPROPERTY()
+	AMyHUD* HUD;
 	
 };
 

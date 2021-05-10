@@ -15,33 +15,40 @@ void AMyHUD::BeginPlay()
 	OverWorldHUDWidget = CreateWidget(GetOwningPlayerController(),GameMode->OverWorldHUDWidget);
 	GameMenuWidget = CreateWidget(GetOwningPlayerController(),GameMode->GameMenuWidget);
 	PauseMenuWidget = CreateWidget(GetOwningPlayerController(),GameMode->PauseMenuWidget);
-	DialogBoxWidget = CreateWidget(GetOwningPlayerController(),GameMode->DialogBoxWidget);
-	DialogBoxWidget = CreateWidget(GetOwningPlayerController(),GameMode->InkleDialogWidget);
 
 	OverWorldHUDWidget->AddToViewport();
 }
 
 bool AMyHUD::ToggleGameMenu()
 {
-	if(PauseMenuWidget->IsInViewport()||!GameMenuWidget)
+	UE_LOG(LogTemp, Warning, TEXT("Game"))
+	if(!GameMenuWidget)
 	{
-		return false;
+		if(PauseMenuWidget->IsInViewport())
+		{
+			return false;
+		}	
 	}
 	if(GameMenuWidget->IsInViewport())
 	{
 		GameMenuWidget->RemoveFromViewport();
 		OverWorldHUDWidget->AddToViewport();
+		GetOwningPlayerController()->bShowMouseCursor = false;
+		GetWorldSettings()->SetTimeDilation(1.0f);
 		return false;
 	}else
 	{
 		OverWorldHUDWidget->RemoveFromViewport();
 		GameMenuWidget->AddToViewport();
+		GetOwningPlayerController()->bShowMouseCursor = true;
+		GetWorldSettings()->SetTimeDilation(0.0f);
 		return true;
 	}
 }
 
 bool AMyHUD::TogglePauseMenu()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Pause"))
 	if(GameMenuWidget->IsInViewport()||!PauseMenuWidget)
 	{
 		return false;
@@ -50,15 +57,101 @@ bool AMyHUD::TogglePauseMenu()
 	{
 		PauseMenuWidget->RemoveFromViewport();
 		OverWorldHUDWidget->AddToViewport();
+		GetOwningPlayerController()->bShowMouseCursor = false;
+		GetWorldSettings()->SetTimeDilation(1.0f);
 		return false;
 	}else
 	{
 		OverWorldHUDWidget->RemoveFromViewport();
 		PauseMenuWidget->AddToViewport();
+		GetOwningPlayerController()->bShowMouseCursor = true;
+		GetWorldSettings()->SetTimeDilation(0.0f);
 		return true;
 	}
 	
 }
+
+bool AMyHUD::ExitMenu()
+{
+	if(GameMenuWidget)
+	{
+		if(CustomMenuWidget->IsInViewport())
+		{
+			if(CanCloseCustomMenu)
+			{
+				GameMenuWidget->RemoveFromViewport();
+				GetOwningPlayerController()->bShowMouseCursor = false;
+				GetWorldSettings()->SetTimeDilation(1.0f);
+				return true;
+			}else
+			{
+				return false;
+			}
+		}
+	}
+	
+	if(GameMenuWidget)
+	{
+		if(GameMenuWidget->IsInViewport())
+		{
+			GameMenuWidget->RemoveFromViewport();
+			GetOwningPlayerController()->bShowMouseCursor = false;
+			GetWorldSettings()->SetTimeDilation(1.0f);
+			return true;
+		}
+	}
+
+	if(PauseMenuWidget)
+	{
+		if(PauseMenuWidget->IsInViewport())
+		{
+			PauseMenuWidget->RemoveFromViewport();
+			GetOwningPlayerController()->bShowMouseCursor = false;
+			GetWorldSettings()->SetTimeDilation(1.0f);
+			return true;
+		}
+	}
+	return false;
+	
+}
+
+bool AMyHUD::OpenCustomMenu(class UUserWidget* Widget, bool ClosableByButton)
+{
+	if(Widget)
+	{
+		if(!CustomMenuWidget)
+		{
+			CustomMenuWidget = Widget;
+		}
+		
+		if(!CustomMenuWidget->IsInViewport())
+		{
+			CustomMenuWidget = Widget;
+			CustomMenuWidget->AddToViewport();
+			GetOwningPlayerController()->bShowMouseCursor = true;
+			GetWorldSettings()->SetTimeDilation(0.0f);
+			CanCloseCustomMenu = ClosableByButton;
+			return true;
+		}
+	}
+	return false;
+}
+
+bool AMyHUD::CloseCustomMenu()
+{
+	if(CustomMenuWidget)
+	{
+		if(CustomMenuWidget->IsInViewport())
+		{
+			CustomMenuWidget->RemoveFromViewport();
+			GetOwningPlayerController()->bShowMouseCursor = false;
+			GetWorldSettings()->SetTimeDilation(1.0f);
+			return true;
+		}
+	}
+	return false;
+}
+
 /*void AMyHUD::DisplayDialogBox(FText Text, bool choice, const FDialogBoxDelegate YesChoice, const FDialogBoxDelegate NoChoice)
 {
 	if(DialogBoxWidget)
