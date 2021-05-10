@@ -50,11 +50,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TArray<FPatternNote> Button4Array;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TMap<TEnumAsByte<EHitQuality>, float> HitBoundaries;
-
-	
-
 
 protected:
 	// Called when the game starts or when spawned
@@ -80,10 +75,7 @@ public:
 	bool Escape(ABaseCharacter* EscapingCharacter, TArray<AActor*> Party);
 	
 	UFUNCTION(BlueprintCallable)
-	float PatternAccuracyScore(ABaseCharacter* ActiveCharacter);
-	
-	UFUNCTION(BlueprintCallable)
-	void EnterRhythmPhase();
+		void EnterRhythmPhase();
 
 	UFUNCTION(BlueprintCallable)
 	bool GetChance(int32 min, int32 max, int32 boundary);

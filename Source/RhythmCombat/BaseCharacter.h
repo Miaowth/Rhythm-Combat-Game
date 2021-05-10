@@ -27,15 +27,6 @@ public:
 		int32 Level;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TArray<float> AbilityAccuracyValues;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 CurrentPerfectComboCounter = 0;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 BestPerfectComboForCurrentPattern = 0;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FCharacterStats CharacterStats;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

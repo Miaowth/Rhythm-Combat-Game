@@ -222,17 +222,6 @@ void ACombatManager::EnterRhythmPhase() {
 	InRhythm = true;
 }
 
-float ACombatManager::PatternAccuracyScore(ABaseCharacter* ActiveCharacter) {
-	//calculates the overall accuracy score and ability effectiveness
-	//currently uses the mean
-	float TotalScore = 0;
-	for (int32 i = 0; i < ActiveCharacter->AbilityAccuracyValues.Num(); i++) {
-		TotalScore += ActiveCharacter->AbilityAccuracyValues[i];
-	}
-
-	return TotalScore / ActiveCharacter->AbilityAccuracyValues.Num();
-};
-
 //pretty sure these are defunct but oh well
 bool ACombatManager::Escape(ABaseCharacter* EscapingCharacter, TArray<AActor*> Party)
 {
