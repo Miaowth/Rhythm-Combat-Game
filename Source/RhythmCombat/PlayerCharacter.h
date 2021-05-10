@@ -67,10 +67,10 @@ public:
 		void UpdateActiveActions(FAction NewAction, EButtonPressed ButtonToAssign, ABaseCharacter* CharacterToUpdate);
 
 	UFUNCTION(BlueprintCallable)
-		void HitButtonCheck(TArray<FPatternNote> &TargetArray, bool TopTrack);
+		void HitButtonCheck(TArray<FPatternNote> &TargetArray);
 	
-	UFUNCTION(BlueprintCallable)
-		void UpdateNote(TArray<FPatternNote> &TargetArray, float Accuracy, bool TopTrack);
+	UFUNCTION()
+		void UpdateNote(TArray<FPatternNote> &TargetArray, float Accuracy);
 
 	virtual void NavigateUp() override;
 

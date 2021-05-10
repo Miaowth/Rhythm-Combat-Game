@@ -15,13 +15,9 @@ struct FCharacterStats {
 	GENERATED_BODY()
 	public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MaxHealthPoints;
+	int32 HealthPoints;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MaxMagicPoints;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 HealthPoints;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 MagicPoints;
+	int32 MagicPoints;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 AttackPower;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

@@ -75,7 +75,6 @@ void ACombatManager::CreateTurnOrder() {
 	BattleOrder.Add(PlayerCharacter);
 	BattleOrder.Sort([](ABaseCharacter& a, ABaseCharacter& b) {return a.CharacterStats.Speed < b.CharacterStats.Speed; });
 }
-
 void ACombatManager::GenerateEnemyActions() {
 	//TODO - make enemy smort
 	for (int i = 0; i < EnemyParty.Num(); i++) {
@@ -110,12 +109,6 @@ void ACombatManager::EnterRhythmPhase() {
 				BattleOrder[i],
 				(ConductorRef->PatternBarStart + ConductorRef->BeatLength)
 			});
-			if (EnemyParty.Contains(BattleOrder[i])) {
-				//generates the hit value for the note.
-				//TODO - update complexity for enemy difficulty
-				BattleOrder[i]->AbilityAccuracyValues.Add(70.0f);
-				BattleOrder[i]->AbilityAccuracyValues.Add(70.0f);
-			};
 			//UE_LOG(LogTemp, Warning, TEXT("%f bar start %f position"), ConductorRef->PatternBarStart, Button1Array[0].PosInMs);
 			break;
 		case 1:
@@ -126,11 +119,6 @@ void ACombatManager::EnterRhythmPhase() {
 				BattleOrder[i],
 				ConductorRef->PatternBarStart
 			});
-			if (EnemyParty.Contains(BattleOrder[i])) {
-				//generates the hit value for the note.
-				//TODO - update complexity for enemy difficulty
-				BattleOrder[i]->AbilityAccuracyValues.Add(50.0f);
-			};
 			break;
 		case 2:
 			//Item
@@ -215,11 +203,6 @@ void ACombatManager::EnterRhythmPhase() {
 					//this should never happen
 					break;
 				}
-				if (EnemyParty.Contains(BattleOrder[i])) {
-					//generates the hit value for the note.
-					//TODO - update complexity for enemy difficulty
-					BattleOrder[i]->AbilityAccuracyValues.Add(70.0f);
-				};
 			};
 			break;
 		default:
@@ -236,35 +219,8 @@ void ACombatManager::EnterRhythmPhase() {
 		};
 		
 	}
-
 	InRhythm = true;
 	ConductorRef->WaitingForNextBar = true;
-}
-void ACombatManager::RhythmSectionCompleteCheck()
-{
-	//this is for checking if all arrays are empty
-	if (Button1Array.Num() == 0 && Button2Array.Num() == 0 && Button3Array.Num() == 0 && Button4Array.Num() == 0) {
-		//end of round clean up
-		InRhythm = false;
-		UE_LOG(LogTemp, Warning, TEXT("Swapped To Select"));
-		PlayerCharacter->LastPressedButton = None;
-		PlayerCharacter->CharacterIndex = -1;
-		for (int i = 0; i < PlayerCharacter->OtherPartyMembers.Num(); i++) {
-			PlayerCharacter->OtherPartyMembers[i]->ChosenAction = {};
-			PlayerCharacter->OtherPartyMembers[i]->TargetList.Empty();
-			PlayerCharacter->OtherPartyMembers[i]->CurrentPerfectComboCounter = 0;
-			PlayerCharacter->OtherPartyMembers[i]->AbilityAccuracyValues = {};
-		}
-		PlayerCharacter->ChosenAction = {};
-		PlayerCharacter->TargetList.Empty();
-		PlayerCharacter->CurrentPerfectComboCounter = 0;
-		PlayerCharacter->AbilityAccuracyValues = {};
-	};
-	if (EnemyParty.Num() == 0) {
-		//return to overworld
-		InCombat = false;
-
-	};
 }
 
 float ACombatManager::PatternAccuracyScore(ABaseCharacter* ActiveCharacter) {

@@ -79,9 +79,6 @@ public:
 	void CreateTurnOrder();
 
 	UFUNCTION(BlueprintCallable)
-	void RhythmSectionCompleteCheck();
-
-	UFUNCTION(BlueprintCallable)
 	bool Escape(ABaseCharacter* EscapingCharacter, TArray<AActor*> Party);
 	
 	UFUNCTION(BlueprintCallable)
