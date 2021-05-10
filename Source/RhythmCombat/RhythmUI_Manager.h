@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "RhythmUI_Note.h"
+#include "RhythmUI_Track.h"
 #include "CombatManager.h"
 #include "AKGameplayStatics.h"
 
@@ -24,7 +25,10 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Wwise")
 		class UAkAudioEvent* Event;
 
-	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		ARhythmUI_Track* TopTrackRef;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		ARhythmUI_Track* BottomTrackRef;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TArray<ARhythmUI_Note*> TopTrackNoteArray;

@@ -6,8 +6,11 @@
 #include "GameFramework/Actor.h"
 #include "PaperSpriteComponent.h"
 
+
 #include "Structs.h"
 #include "Conductor.generated.h"
+
+class ARhythmUI_Manager;
 
 UCLASS()
 class RHYTHMCOMBAT_API AConductor : public AActor
@@ -49,11 +52,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 BeatsPerBar = 4;
 
-	//Positions for Button UI
+	////Positions for Button UI
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//	AActor* SpawnButtonLocation;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//	AActor* EndButtonLocation;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		AActor* SpawnButtonLocation;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		AActor* EndButtonLocation;
+		ARhythmUI_Manager* RhythmUIManagerRef;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TArray<UPaperSpriteComponent*> ButtonUIElements;
