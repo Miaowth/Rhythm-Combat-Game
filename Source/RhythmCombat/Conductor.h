@@ -91,7 +91,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void RemoveUI(bool IsTopTrack);
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
