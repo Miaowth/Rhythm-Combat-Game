@@ -1,5 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-PRAGMA_DISABLE_OPTIMIZATION
+
 #include "PlayerCharacter.h"
 #include "RhythmCombatCharacter.h"
 
@@ -43,61 +43,7 @@ void APlayerCharacter::BattleAction1() {
 		}
 	}
 	else if (CombatManagerRef->InRhythm) {
-		int32 CurrentPos = 0; 
 
-		//CurrentPos = CombatManagerRef->ConductorRef->CombatMusicAk->GetSourcePlayPosition();
-		AConductor* ConductorRefTemp = CombatManagerRef->ConductorRef;
-		int32 TestID = ConductorRefTemp->CombatPlayingID;
-		UE_LOG(LogTemp, Warning, TEXT("%d"), CombatManagerRef->ConductorRef->CombatPlayingID);
-		CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(TestID);
-
-
-		//TODO - test and tweak
-
-		if (CombatManagerRef->IsBelowBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Miss] - 50) || CombatManagerRef->IsAboveBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Miss] + 50)) {
-			//too early
-		}
-		else if (CombatManagerRef->IsBelowBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Miss]) || CombatManagerRef->IsAboveBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Miss])) {
-			//they missed
-			PerfectComboCounter = 0;
-			AbilityAccuracyValues.Add(0.0f);
-			CombatManagerRef->Button1Array[0].UIElement->Destroy();
-			CombatManagerRef->Button1Array.RemoveAt(0);
-		}else if (CombatManagerRef->IsBelowBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Poor]) || CombatManagerRef->IsAboveBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Poor])){
-			//poor hit
-			PerfectComboCounter = 0;
-			AbilityAccuracyValues.Add(20.0f);
-			CombatManagerRef->Button1Array[0].UIElement->Destroy();
-			CombatManagerRef->Button1Array.RemoveAt(0);
-		}
-		else if (CombatManagerRef->IsBelowBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Okay]) || CombatManagerRef->IsAboveBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Okay])) {
-			//okay hit
-			PerfectComboCounter = 0;
-			AbilityAccuracyValues.Add(40.0f);
-			CombatManagerRef->Button1Array[0].UIElement->Destroy();
-			CombatManagerRef->Button1Array.RemoveAt(0);
-		}
-		else if (CombatManagerRef->IsBelowBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Good]) || CombatManagerRef->IsAboveBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Good])) {
-			//good hit
-			PerfectComboCounter = 0;
-			AbilityAccuracyValues.Add(60.0f);
-			CombatManagerRef->Button1Array[0].UIElement->Destroy();
-			CombatManagerRef->Button1Array.RemoveAt(0);
-		}
-		else if (CombatManagerRef->IsBelowBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Great]) || CombatManagerRef->IsAboveBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Great])) {
-			//great hit
-			PerfectComboCounter = 0;
-			AbilityAccuracyValues.Add(80.0f);
-			CombatManagerRef->Button1Array[0].UIElement->Destroy();
-			CombatManagerRef->Button1Array.RemoveAt(0);
-		}
-		else if (CombatManagerRef->IsBelowBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Perfect]) || CombatManagerRef->IsAboveBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Perfect])) {
-			//perfect hit
-			PerfectComboCounter += 1;
-			AbilityAccuracyValues.Add(100.0f);
-			CombatManagerRef->Button1Array[0].UIElement->Destroy();
-			CombatManagerRef->Button1Array.RemoveAt(0);
-		}
 	}
 }
 //TODO - add targetable types to other actions
@@ -408,5 +354,5 @@ void APlayerCharacter::UpdateActiveActions(FAction NewAction, EButtonPressed But
 		break;
 	}
 };
-PRAGMA_ENABLE_OPTIMIZATION
+
 

@@ -16,6 +16,7 @@ ACombatManager::ACombatManager()
 	MyRootComponent->SetupAttachment(RootComponent);
 
 	InCombat = InRhythm = false;
+
 }
 
 // Called when the game starts or when spawned
@@ -232,12 +233,6 @@ float ACombatManager::PatternAccuracyScore(ABaseCharacter* ActiveCharacter) {
 	return TotalScore / ActiveCharacter->AbilityAccuracyValues.Num();
 };
 
-bool ACombatManager::IsBelowBoundary(int32 CurrentPos, int32 Boundary) {
-	return(CurrentPos < Boundary);
-}
-bool ACombatManager::IsAboveBoundary(int32 CurrentPos, int32 Boundary) {
-	return(CurrentPos > Boundary);
-}
 //pretty sure these are defunct but oh well
 bool ACombatManager::Escape(ABaseCharacter* EscapingCharacter, TArray<AActor*> Party)
 {

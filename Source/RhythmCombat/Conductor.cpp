@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-
 #include "Conductor.h"
 
 // Sets default values
@@ -9,12 +8,6 @@ AConductor::AConductor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	MyRootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root Component"));
-	//This is how to give an actor a root component.
-	MyRootComponent->SetupAttachment(RootComponent);
-
-	CombatMusicAk = CreateDefaultSubobject<UAkComponent>(TEXT("CppCreatedAKComponent"));
-	CombatMusicAk->SetupAttachment(MyRootComponent);
 
 }
 
