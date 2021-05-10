@@ -43,92 +43,60 @@ void APlayerCharacter::BattleAction1() {
 		}
 	}
 	else if (CombatManagerRef->InRhythm) {
+		int32 CurrentPos = 0; 
 
-		CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(CombatManagerRef->ConductorRef->CombatPlayingID);
-		UE_LOG(LogTemp, Warning, TEXT("current %d target %f"), CurrentPos, CombatManagerRef->Button1Array[0].PosInMs);
+		//CurrentPos = CombatManagerRef->ConductorRef->CombatMusicAk->GetSourcePlayPosition();
+		AConductor* ConductorRefTemp = CombatManagerRef->ConductorRef;
+		int32 TestID = ConductorRefTemp->CombatPlayingID;
+		UE_LOG(LogTemp, Warning, TEXT("%d"), CombatManagerRef->ConductorRef->CombatPlayingID);
+		CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(TestID);
+
 
 		//TODO - test and tweak
-		//TODO add null check
-		if (CombatManagerRef->IsBelowBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Miss] - 500)
-			|| CombatManagerRef->IsAboveBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Miss] + 500)) {
+
+		if (CombatManagerRef->IsBelowBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Miss] - 50) || CombatManagerRef->IsAboveBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Miss] + 50)) {
 			//too early
-			UE_LOG(LogTemp, Warning, TEXT("EARLY %f lower %f upper"), (CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Miss] - 500),(CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Miss] + 500));
 		}
 		else if (CombatManagerRef->IsBelowBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Miss]) || CombatManagerRef->IsAboveBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Miss])) {
 			//they missed
-			UE_LOG(LogTemp, Warning, TEXT("MISS %f lower %f upper"), (CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Miss]), (CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Miss]));
 			PerfectComboCounter = 0;
 			AbilityAccuracyValues.Add(0.0f);
 			CombatManagerRef->Button1Array[0].UIElement->Destroy();
 			CombatManagerRef->Button1Array.RemoveAt(0);
-			CombatManagerRef->ConductorRef->RemoveUI(true);
 		}else if (CombatManagerRef->IsBelowBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Poor]) || CombatManagerRef->IsAboveBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Poor])){
 			//poor hit
-			UE_LOG(LogTemp, Warning, TEXT("POOR %f lower %f upper"), (CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Poor]), (CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Poor]));
 			PerfectComboCounter = 0;
 			AbilityAccuracyValues.Add(20.0f);
 			CombatManagerRef->Button1Array[0].UIElement->Destroy();
 			CombatManagerRef->Button1Array.RemoveAt(0);
-			CombatManagerRef->ConductorRef->RemoveUI(true);
 		}
 		else if (CombatManagerRef->IsBelowBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Okay]) || CombatManagerRef->IsAboveBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Okay])) {
 			//okay hit
-			UE_LOG(LogTemp, Warning, TEXT("OKAY %f lower %f upper"), (CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Okay]), (CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Okay]));
-
 			PerfectComboCounter = 0;
 			AbilityAccuracyValues.Add(40.0f);
 			CombatManagerRef->Button1Array[0].UIElement->Destroy();
 			CombatManagerRef->Button1Array.RemoveAt(0);
-			CombatManagerRef->ConductorRef->RemoveUI(true);
 		}
 		else if (CombatManagerRef->IsBelowBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Good]) || CombatManagerRef->IsAboveBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Good])) {
 			//good hit
-			UE_LOG(LogTemp, Warning, TEXT("GOOD %f lower %f upper"), (CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Good]), (CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Good]));
-
 			PerfectComboCounter = 0;
 			AbilityAccuracyValues.Add(60.0f);
 			CombatManagerRef->Button1Array[0].UIElement->Destroy();
 			CombatManagerRef->Button1Array.RemoveAt(0);
-			CombatManagerRef->ConductorRef->RemoveUI(true);
 		}
 		else if (CombatManagerRef->IsBelowBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Great]) || CombatManagerRef->IsAboveBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Great])) {
 			//great hit
-			UE_LOG(LogTemp, Warning, TEXT("GREAT %f lower %f upper"), (CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Great]), (CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Great]));
-
 			PerfectComboCounter = 0;
 			AbilityAccuracyValues.Add(80.0f);
 			CombatManagerRef->Button1Array[0].UIElement->Destroy();
 			CombatManagerRef->Button1Array.RemoveAt(0);
-			CombatManagerRef->ConductorRef->RemoveUI(true);
 		}
 		else if (CombatManagerRef->IsBelowBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Perfect]) || CombatManagerRef->IsAboveBoundary(CurrentPos, CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Perfect])) {
 			//perfect hit
-			UE_LOG(LogTemp, Warning, TEXT("PERFECT %f lower %f upper"), (CombatManagerRef->Button1Array[0].PosInMs - CombatManagerRef->HitBoundaries[Perfect]), (CombatManagerRef->Button1Array[0].PosInMs + CombatManagerRef->HitBoundaries[Perfect]));
-
 			PerfectComboCounter += 1;
 			AbilityAccuracyValues.Add(100.0f);
 			CombatManagerRef->Button1Array[0].UIElement->Destroy();
 			CombatManagerRef->Button1Array.RemoveAt(0);
-			CombatManagerRef->ConductorRef->RemoveUI(true);
-		}
-		if (CombatManagerRef->Button1Array.Num() == 0) {
-			//"end of testing combat"
-			CombatManagerRef->InRhythm = false;
-			UE_LOG(LogTemp, Warning, TEXT("Swapped To Select"));
-			LastPressedButton = None;
-			CharacterIndex = -1;
-			for (int i = 0; i < OtherPartyMembers.Num(); i++) {
-				OtherPartyMembers[i]->ChosenAction = {};
-				OtherPartyMembers[i]->TargetList.Empty();
-				OtherPartyMembers[i]->CurrentPerfectComboCounter = 0;
-				OtherPartyMembers[i]->BestPerfectComboForCurrentPattern = 0;
-				OtherPartyMembers[i]->AbilityAccuracyValues = {};
-			}
-			ChosenAction = {};
-			TargetList.Empty();
-			CurrentPerfectComboCounter = 0;
-			BestPerfectComboForCurrentPattern = 0;
-			AbilityAccuracyValues = {};
 		}
 	}
 }

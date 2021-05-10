@@ -88,11 +88,11 @@ void ACombatManager::EnterRhythmPhase() {
 	//
 	UE_LOG(LogTemp, Warning, TEXT("Rhythm Phase Function Called"));
 	//set the button inputs to start from the next bar
-	ConductorRef->PatternBarStart = ConductorRef->NextBarStartPos + ConductorRef->BarsShownInAdvance * ConductorRef->BarDuration;
+	ConductorRef->PatternBarStart = ConductorRef->NextBarStartPos;
 	//if too close to the start of the next bar, wait an additional bar
-	//if (ConductorRef->BeatNum > ConductorRef->BeatsPerBar / 2) {
-	//	ConductorRef->PatternBarStart += ConductorRef->BarDuration;
-	//}
+	if (ConductorRef->BeatNum > ConductorRef->BeatsPerBar / 2) {
+		ConductorRef->PatternBarStart += ConductorRef->BarDuration;
+	}
 	for (int i = 0; i < BattleOrder.Num(); i++) {
 		switch (BattleOrder[i]->ChosenAction.Type)
 		{
@@ -109,7 +109,6 @@ void ACombatManager::EnterRhythmPhase() {
 				BattleOrder[i],
 				(ConductorRef->PatternBarStart + ConductorRef->BeatLength)
 			});
-			//UE_LOG(LogTemp, Warning, TEXT("%f bar start %f position"), ConductorRef->PatternBarStart, Button1Array[0].PosInMs);
 			break;
 		case 1:
 			//basicdefend
@@ -220,7 +219,6 @@ void ACombatManager::EnterRhythmPhase() {
 		
 	}
 	InRhythm = true;
-	ConductorRef->WaitingForNextBar = true;
 }
 
 float ACombatManager::PatternAccuracyScore(ABaseCharacter* ActiveCharacter) {

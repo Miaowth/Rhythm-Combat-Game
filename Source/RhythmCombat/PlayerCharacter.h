@@ -53,8 +53,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int32 PerfectComboCounter;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 CurrentPos;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TEnumAsByte<EButtonPressed> LastPressedButton = None;

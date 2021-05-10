@@ -74,12 +74,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TArray<UPaperSpriteComponent*> ButtonUIElements;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool WaitingForNextBar = false;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float BarsShownInAdvance;
-
 	UFUNCTION(BlueprintCallable)
 	void UpdateRhythmUI(float DeltaTime);
 
@@ -88,9 +82,6 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent)
 		void BeginCombat();
-
-	UFUNCTION(BlueprintCallable)
-		void RemoveUI(bool IsTopTrack);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
