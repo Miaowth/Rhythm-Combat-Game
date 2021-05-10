@@ -32,6 +32,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		int32 MaxStack;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    	int32 Itemid;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		UTexture2D* Image2D;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		TArray<FString> Tags;

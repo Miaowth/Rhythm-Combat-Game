@@ -23,6 +23,13 @@ class RHYTHMCOMBAT_API ABaseCharacter : public ACharacter
 public:
 	// Sets default values for this character's properties
 	ABaseCharacter();
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FText SafeName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		UTexture2D* Portrait;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int32 Level;
 
