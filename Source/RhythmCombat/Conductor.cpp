@@ -64,9 +64,11 @@ void AConductor::BeginCombat_Implementation()
 }
 void AConductor::RemoveUI(bool IsTopTrack) {
 	if (IsTopTrack) {
+		RhythmUIManagerRef->TopTrackNoteArray[0]->Destroy();
 		RhythmUIManagerRef->TopTrackNoteArray.RemoveAt(0);
 	}
 	else {
+		RhythmUIManagerRef->BottomTrackNoteArray[0]->Destroy();
 		RhythmUIManagerRef->BottomTrackNoteArray.RemoveAt(0);
 	};
 	

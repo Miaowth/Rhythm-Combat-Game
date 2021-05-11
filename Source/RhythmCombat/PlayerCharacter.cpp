@@ -254,6 +254,7 @@ void APlayerCharacter::UpdateNote(TArray<FPatternNote> &TargetArray, float Accur
 					};
 					TargetList.Remove(CombatManagerRef->EnemyParty[i]);
 					CombatManagerRef->BattleOrder.Remove(CombatManagerRef->EnemyParty[i]);
+					CombatManagerRef->EnemyParty[i]->Destroy();
 					CombatManagerRef->EnemyParty.RemoveAt(i, 1, false);
 					
 				};

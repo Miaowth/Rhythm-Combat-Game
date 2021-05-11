@@ -3,6 +3,8 @@
 
 #include "CombatManager.h"
 #include "PlayerCharacter.h"
+#include "EncounterManager.h"
+#include "MyPlayerController.h"
 
 #include "Kismet/GameplayStatics.h"
 
@@ -275,7 +277,13 @@ void ACombatManager::RhythmSectionCompleteCheck()
 	if (EnemyParty.Num() == 0) {
 		//return to overworld
 		InCombat = false;
-
+		InRhythm = false;
+		SelectedTarget = NULL;
+		PlayerCharacter->CharacterIndex = -1;
+		EncounterManagerRef->EnableEncounters();
+		PlayerCharacter->TeleportTo(PlayerCharacter->PosInWorld.GetLocation(), PlayerCharacter->PosInWorld.Rotator());
+		
+		Cast<AMyPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->Possess(PlayerCharacter);
 	};
 }
 

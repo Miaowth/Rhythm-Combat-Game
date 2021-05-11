@@ -9,7 +9,7 @@
 
 //#include "PlayerCharacter.h"
 #include "CombatManager.generated.h"
-
+class AEncounterManager;
 class APlayerCharacter;
 
 UCLASS()
@@ -40,7 +40,8 @@ public:
 		TEnumAsByte<ETargetType> TargetCategory;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		AConductor* ConductorRef;
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		AEncounterManager* EncounterManagerRef;
 
 	//arrays for rhythm section
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

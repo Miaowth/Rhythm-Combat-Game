@@ -75,7 +75,6 @@ void AEncounterManager::DisableEncounters(AActor* StartedEncounter)
 		}
 		else {
 			
-			UE_LOG(LogTemp, Warning, TEXT("Index"));
 			EncounterArray[i]->GetCharacterMovement()->SetActive(false);
 			////set encounter mesh to invisible and turn off collision
 			//EncounterArray[i]->EncounterMesh->SetVisibility(false);
@@ -89,8 +88,9 @@ void AEncounterManager::DisableEncounters(AActor* StartedEncounter)
 }
 void AEncounterManager::EnableEncounters()
 {
+
 	for (int32 i = 0; i < EncounterArray.Num(); i++) {
-		EncounterArray[i]->EncounterMesh->SetVisibility(true);
+			//EncounterArray[i]->EncounterMesh->SetVisibility(true);
 		EncounterArray[i]->SetActorEnableCollision(true);
 		EncounterArray[i]->GetCharacterMovement()->SetActive(true);
 	}
