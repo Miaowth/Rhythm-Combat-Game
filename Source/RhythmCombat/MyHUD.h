@@ -37,6 +37,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool CloseCustomMenu();
+	
+	UPROPERTY()
+	bool bisInMenu = false;
 
 	//UFUNCTION(BlueprintCallable)
 	//void DisplayDialogBox(FText Text, bool choice, const FDialogBoxDelegate YesChoice, const FDialogBoxDelegate NoChoice);

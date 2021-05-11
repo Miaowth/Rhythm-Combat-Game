@@ -144,7 +144,7 @@ void AMyPlayerController::StopJump()
 
 void AMyPlayerController::DoInteract()
 {
-	if(PlayerCharacter)
+	if(PlayerCharacter && !HUD->bisInMenu)
 	{
 		UE_LOG(LogTemp,Warning,TEXT("Interact?"))
 		AActor* Interact = PlayerCharacter->FindInteractActors();

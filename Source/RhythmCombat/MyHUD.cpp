@@ -35,6 +35,7 @@ bool AMyHUD::ToggleGameMenu()
 		OverWorldHUDWidget->AddToViewport();
 		GetOwningPlayerController()->bShowMouseCursor = false;
 		GetWorldSettings()->SetTimeDilation(1.0f);
+		bisInMenu = false;
 		return false;
 	}else
 	{
@@ -42,6 +43,7 @@ bool AMyHUD::ToggleGameMenu()
 		GameMenuWidget->AddToViewport();
 		GetOwningPlayerController()->bShowMouseCursor = true;
 		GetWorldSettings()->SetTimeDilation(0.0f);
+		bisInMenu = true;
 		return true;
 	}
 }
@@ -59,6 +61,7 @@ bool AMyHUD::TogglePauseMenu()
 		OverWorldHUDWidget->AddToViewport();
 		GetOwningPlayerController()->bShowMouseCursor = false;
 		GetWorldSettings()->SetTimeDilation(1.0f);
+		bisInMenu = false;
 		return false;
 	}else
 	{
@@ -66,6 +69,7 @@ bool AMyHUD::TogglePauseMenu()
 		PauseMenuWidget->AddToViewport();
 		GetOwningPlayerController()->bShowMouseCursor = true;
 		GetWorldSettings()->SetTimeDilation(0.0f);
+		bisInMenu = true;
 		return true;
 	}
 	
@@ -82,6 +86,7 @@ bool AMyHUD::ExitMenu()
 				GameMenuWidget->RemoveFromViewport();
 				GetOwningPlayerController()->bShowMouseCursor = false;
 				GetWorldSettings()->SetTimeDilation(1.0f);
+				bisInMenu = false;
 				return true;
 			}else
 			{
@@ -97,6 +102,7 @@ bool AMyHUD::ExitMenu()
 			GameMenuWidget->RemoveFromViewport();
 			GetOwningPlayerController()->bShowMouseCursor = false;
 			GetWorldSettings()->SetTimeDilation(1.0f);
+			bisInMenu = true;
 			return true;
 		}
 	}
@@ -108,6 +114,7 @@ bool AMyHUD::ExitMenu()
 			PauseMenuWidget->RemoveFromViewport();
 			GetOwningPlayerController()->bShowMouseCursor = false;
 			GetWorldSettings()->SetTimeDilation(1.0f);
+			bisInMenu = true;
 			return true;
 		}
 	}
@@ -131,6 +138,7 @@ bool AMyHUD::OpenCustomMenu(class UUserWidget* Widget, bool ClosableByButton)
 			GetOwningPlayerController()->bShowMouseCursor = true;
 			GetWorldSettings()->SetTimeDilation(0.0f);
 			CanCloseCustomMenu = ClosableByButton;
+			bisInMenu = true;
 			return true;
 		}
 	}
@@ -146,6 +154,7 @@ bool AMyHUD::CloseCustomMenu()
 			CustomMenuWidget->RemoveFromViewport();
 			GetOwningPlayerController()->bShowMouseCursor = false;
 			GetWorldSettings()->SetTimeDilation(1.0f);
+			bisInMenu = false;
 			return true;
 		}
 	}
