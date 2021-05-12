@@ -19,6 +19,14 @@ void AMyPlayerController::Tick(float DeltaSeconds)
 		{
 			ResettingCamera = false;
 		}
+	}else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, DeltaSeconds, FColor::Emerald,FString::Printf(TEXT("%f"), GetControlRotation().Pitch));
+		if(GetControlRotation().Pitch > 10 && GetControlRotation().Pitch < 200)
+		{
+			SetControlRotation(FRotator(10, GetControlRotation().Yaw, GetControlRotation().Roll));
+		}
+		
 	}
 }
 
@@ -157,6 +165,10 @@ void AMyPlayerController::DoInteract()
 
 void AMyPlayerController::ResetCamera()
 {
+	if (!GetCharacter())
+	{
+		return;
+	}
 	if(!ResettingCamera)
 	{
 		ResettingCamera = true;
