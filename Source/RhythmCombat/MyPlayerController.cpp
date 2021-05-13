@@ -46,8 +46,8 @@ void AMyPlayerController::SetupInputComponent()
 {
 	// Set up gameplay key bindings
 	Super::SetupInputComponent();
-	InputComponent->BindAction("Jump", IE_Pressed, this, &AMyPlayerController::DoJump);
-	InputComponent->BindAction("Jump", IE_Released, this, &AMyPlayerController::StopJump);
+	//InputComponent->BindAction("Jump", IE_Pressed, this, &AMyPlayerController::DoJump);
+	//InputComponent->BindAction("Jump", IE_Released, this, &AMyPlayerController::StopJump);
 
 	//inputs for combat
 	

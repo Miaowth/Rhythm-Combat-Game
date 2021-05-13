@@ -77,13 +77,13 @@ bool AMyHUD::TogglePauseMenu()
 
 bool AMyHUD::ExitMenu()
 {
-	if(GameMenuWidget)
+	if(CustomMenuWidget)
 	{
 		if(CustomMenuWidget->IsInViewport())
 		{
 			if(CanCloseCustomMenu)
 			{
-				GameMenuWidget->RemoveFromViewport();
+				CustomMenuWidget->RemoveFromViewport();
 				GetOwningPlayerController()->bShowMouseCursor = false;
 				GetWorldSettings()->SetTimeDilation(1.0f);
 				bisInMenu = false;
