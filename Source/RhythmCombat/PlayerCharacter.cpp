@@ -180,52 +180,95 @@ void APlayerCharacter::BattleAction4() {
 
 void APlayerCharacter::HitButtonCheck(TArray<FPatternNote> &TargetArray, bool TopTrack)
 {
-	if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Miss] - 500)
-		|| CombatManagerRef->IsAboveBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Miss] + 500)) {
+	if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Miss] - 500))
+	{
 		//invalid hit
 	}
-	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Miss]) || CombatManagerRef->IsAboveBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Miss])) {
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Miss])) {
 		//miss
 		UE_LOG(LogTemp, Warning, TEXT("MISS %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Miss]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Miss]));
 		LastHitQuality = Miss;
 		PerfectComboCounter = 0;
 		UpdateNote(TargetArray, 0.0f, TopTrack);
 	}
-	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Poor]) || CombatManagerRef->IsAboveBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Poor])) {
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Poor])) {
 		//poor hit
 		UE_LOG(LogTemp, Warning, TEXT("POOR %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Poor]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Poor]));
 		LastHitQuality = Poor;
 		PerfectComboCounter = 0;
 		UpdateNote(TargetArray, 20.0f, TopTrack);
 	}
-	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Okay]) || CombatManagerRef->IsAboveBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Okay])) {
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Okay])) {
 		//okay hit
 		UE_LOG(LogTemp, Warning, TEXT("OKAY %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Okay]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Okay]));
 		LastHitQuality = Okay;
 		PerfectComboCounter = 0;
 		UpdateNote(TargetArray, 40.0f, TopTrack);
 	}
-	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Good]) || CombatManagerRef->IsAboveBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Good])) {
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Good])) {
 		//good hit
 		UE_LOG(LogTemp, Warning, TEXT("GOOD %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Good]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Good]));
 		LastHitQuality = Good;
 		PerfectComboCounter = 0;
 		UpdateNote(TargetArray, 60.0f, TopTrack);
 	}
-	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Great]) || CombatManagerRef->IsAboveBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Great])) {
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Great])) {
 		//great hit
 		UE_LOG(LogTemp, Warning, TEXT("GREAT %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Great]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Great]));
 		LastHitQuality = Great;
 		PerfectComboCounter = 0;
 		UpdateNote(TargetArray, 80.0f, TopTrack);
 	}
-	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Perfect]) || CombatManagerRef->IsAboveBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Perfect])) {
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Perfect])) {
 		//perfect hit
 		UE_LOG(LogTemp, Warning, TEXT("PERFECT %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Perfect]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Perfect]));
 		LastHitQuality = Perfect;
 		PerfectComboCounter += 1;
 		UpdateNote(TargetArray, 100.0f, TopTrack);
 	}
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Perfect])) {
+		//perfect hit
+		UE_LOG(LogTemp, Warning, TEXT("PERFECT %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Perfect]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Perfect]));
+		LastHitQuality = Perfect;
+		PerfectComboCounter += 1;
+		UpdateNote(TargetArray, 100.0f, TopTrack);
+	}
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Great])) {
+		//great hit
+		UE_LOG(LogTemp, Warning, TEXT("GREAT %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Great]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Great]));
+		LastHitQuality = Great;
+		PerfectComboCounter = 0;
+		UpdateNote(TargetArray, 80.0f, TopTrack);
+	}
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Good])) {
+		//good hit
+		UE_LOG(LogTemp, Warning, TEXT("GOOD %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Good]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Good]));
+		LastHitQuality = Good;
+		PerfectComboCounter = 0;
+		UpdateNote(TargetArray, 60.0f, TopTrack);
+	}
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Okay])) {
+		//okay hit
+		UE_LOG(LogTemp, Warning, TEXT("OKAY %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Okay]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Okay]));
+		LastHitQuality = Okay;
+		PerfectComboCounter = 0;
+		UpdateNote(TargetArray, 40.0f, TopTrack);
+	}
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Poor])) {
+		//poor hit
+		UE_LOG(LogTemp, Warning, TEXT("POOR %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Poor]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Poor]));
+		LastHitQuality = Poor;
+		PerfectComboCounter = 0;
+		UpdateNote(TargetArray, 20.0f, TopTrack);
+	}
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Miss])) {
+		//miss
+		UE_LOG(LogTemp, Warning, TEXT("MISS %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Miss]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Miss]));
+		LastHitQuality = Miss;
+		PerfectComboCounter = 0;
+		UpdateNote(TargetArray, 0.0f, TopTrack);
+	}
+
 }
 void APlayerCharacter::UpdateNote(TArray<FPatternNote> &TargetArray, float Accuracy, bool TopTrack) {
 	AbilityAccuracyValues.Add(Accuracy);
