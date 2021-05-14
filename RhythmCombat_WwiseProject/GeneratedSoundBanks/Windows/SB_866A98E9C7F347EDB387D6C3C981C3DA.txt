@@ -1,0 +1,3 @@
+Event	ID	Name			Wwise Object Path	Notes
+	1283546533	Stop_ChangedChords			\Default Work Unit\Stop_ChangedChords	
+

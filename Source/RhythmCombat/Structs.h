@@ -43,7 +43,8 @@ enum EHitQuality {
 	Good,
 	Okay,
 	Poor,
-	Miss
+	Miss,
+	Invalid
 };
 
 UENUM(BlueprintType)
@@ -70,13 +71,13 @@ struct FMyNote {
 	TEnumAsByte<ENoteType> TypeOfNote;
 };
 
-//USTRUCT(BlueprintType)
-//struct FPatternNote {
-//	GENERATED_BODY()
-//	FMyNote BaseNoteInfo;
-//	bool IsFinal;
-//	ABaseCharacter* OwningChar;
-//};
+UENUM(BlueprintType)
+enum BattlePhase {
+	ActionSelect,
+	Rhythm,
+	Start,
+	Complete
+};
 
 USTRUCT(BlueprintType)
 struct FPatternNote {

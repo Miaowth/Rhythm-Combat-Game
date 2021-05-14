@@ -80,6 +80,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float BarsShownInAdvance;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TEnumAsByte<BattlePhase> CurrentPhase;
+
 	UFUNCTION(BlueprintCallable)
 	void UpdateRhythmUI(float DeltaTime);
 
@@ -88,6 +91,12 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent)
 		void BeginCombat();
+
+	UFUNCTION(BlueprintNativeEvent)
+		void EndCombat();
+
+	UFUNCTION(BlueprintNativeEvent)
+		void UpdatePhaseUI();
 
 	UFUNCTION(BlueprintCallable)
 		void RemoveUI(bool IsTopTrack);

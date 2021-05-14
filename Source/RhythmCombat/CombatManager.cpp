@@ -108,6 +108,8 @@ void ACombatManager::EnterRhythmPhase() {
 	//if (ConductorRef->BeatNum > ConductorRef->BeatsPerBar / 2) {
 	//	ConductorRef->PatternBarStart += ConductorRef->BarDuration;
 	//}
+	ConductorRef->CurrentPhase = Rhythm;
+	ConductorRef->UpdatePhaseUI();
 	for (int i = 0; i < BattleOrder.Num(); i++) {
 		switch (BattleOrder[i]->ChosenAction.Type)
 		{
@@ -273,17 +275,26 @@ void ACombatManager::RhythmSectionCompleteCheck()
 		PlayerCharacter->TargetList.Empty();
 		PlayerCharacter->CurrentPerfectComboCounter = 0;
 		PlayerCharacter->AbilityAccuracyValues = {};
+		PlayerCharacter->LastHitQuality = Invalid;
+		ConductorRef->CurrentPhase = ActionSelect;
+		ConductorRef->UpdatePhaseUI();
 	};
+	
 	if (EnemyParty.Num() == 0) {
 		//return to overworld
 		InCombat = false;
 		InRhythm = false;
 		SelectedTarget = NULL;
 		PlayerCharacter->CharacterIndex = -1;
+		PlayerCharacter->LastHitQuality = Invalid;
 		EncounterManagerRef->EnableEncounters();
+		
 		PlayerCharacter->TeleportTo(PlayerCharacter->PosInWorld.GetLocation(), PlayerCharacter->PosInWorld.Rotator());
 		
 		Cast<AMyPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->Possess(PlayerCharacter);
+		ConductorRef->EndCombat();
+		ConductorRef->CurrentPhase = Complete;
+		ConductorRef->UpdatePhaseUI();
 	};
 }
 

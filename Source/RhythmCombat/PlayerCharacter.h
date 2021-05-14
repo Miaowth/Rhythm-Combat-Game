@@ -58,6 +58,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TEnumAsByte<EButtonPressed> LastPressedButton = None;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TEnumAsByte<EHitQuality> LastHitQuality = Invalid;
+
 public:
 
 	UFUNCTION(BlueprintCallable)

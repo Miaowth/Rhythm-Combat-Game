@@ -58,9 +58,17 @@ void AConductor::UpdateRhythmUI(float DeltaTime) {
 
 };
 
+void AConductor::EndCombat_Implementation()
+{
+	// Logic needed when blueprints don't implement the event. Can be empty.
+}
+
 void AConductor::BeginCombat_Implementation()
 {
 	// Logic needed when blueprints don't implement the event. Can be empty.
+}
+void AConductor::UpdatePhaseUI_Implementation() {
+
 }
 void AConductor::RemoveUI(bool IsTopTrack) {
 	if (IsTopTrack) {

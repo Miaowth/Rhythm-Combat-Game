@@ -33,7 +33,7 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
-
+	virtual void Tick(float DeltaTime) override;
 	virtual void BattleAction1();
 	virtual void BattleAction2();
 	virtual void BattleAction3();
