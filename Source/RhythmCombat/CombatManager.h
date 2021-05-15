@@ -12,6 +12,10 @@
 class AEncounterManager;
 class APlayerCharacter;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FBeginCombatDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FEndCombatDelegate);
+
+
 UCLASS()
 class RHYTHMCOMBAT_API ACombatManager : public AActor
 {
@@ -55,6 +59,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TMap<TEnumAsByte<EHitQuality>, float> HitBoundaries;
+
+	UPROPERTY(BlueprintAssignable)
+		FBeginCombatDelegate FBeginCombatDelegateDeclaration;
+
+	UPROPERTY(BlueprintAssignable)
+		FEndCombatDelegate FEndCombatDelegateDeclaration;
 
 protected:
 	// Called when the game starts or when spawned

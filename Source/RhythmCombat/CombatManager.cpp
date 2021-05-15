@@ -50,6 +50,7 @@ void ACombatManager::InitialiseCombat()
 	InCombat = true;
 	SelectedTarget = EnemyParty[0];
 	PlayerCharacter->CharacterIndex = -1;
+	FBeginCombatDelegateDeclaration.Broadcast();
 	ConductorRef->BeginCombat();
 }
 
@@ -288,7 +289,7 @@ void ACombatManager::RhythmSectionCompleteCheck()
 		PlayerCharacter->CharacterIndex = -1;
 		PlayerCharacter->LastHitQuality = Invalid;
 		EncounterManagerRef->EnableEncounters();
-		
+		FEndCombatDelegateDeclaration.Broadcast();
 		PlayerCharacter->TeleportTo(PlayerCharacter->PosInWorld.GetLocation(), PlayerCharacter->PosInWorld.Rotator());
 		
 		Cast<AMyPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->Possess(PlayerCharacter);
