@@ -45,7 +45,7 @@ void APlayerCharacter::BattleAction1() {
 		if ((CombatManagerRef->Button1Array[0].OwningChar == this || OtherPartyMembers.Contains(CombatManagerRef->Button1Array[0].OwningChar)) && CombatManagerRef->Button1Array.Num() > 0) {
 			//this is a valid note for the player to hit
 			//if(CombatManagerRef->Button1Array.Num() > 0){
-			//CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(CombatManagerRef->ConductorRef->CombatPlayingID);
+			CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(CombatManagerRef->ConductorRef->CombatPlayingID);
 			UE_LOG(LogTemp, Warning, TEXT("current %d target %f"), CurrentPos, CombatManagerRef->Button1Array[0].PosInMs);
 			HitButtonCheck(CombatManagerRef->Button1Array, true);
 		}
@@ -87,7 +87,7 @@ void APlayerCharacter::BattleAction2() {
 	else if (CombatManagerRef->InRhythm && CombatManagerRef->Button2Array.Num() > 0) {
 		if ((CombatManagerRef->Button2Array[0].OwningChar == this || OtherPartyMembers.Contains(CombatManagerRef->Button2Array[0].OwningChar)) && CombatManagerRef->Button2Array.Num() > 0) {
 			//this is a valid note for the player to hit
-			//CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(CombatManagerRef->ConductorRef->CombatPlayingID);
+			CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(CombatManagerRef->ConductorRef->CombatPlayingID);
 			UE_LOG(LogTemp, Warning, TEXT("current %d target %f"), CurrentPos, CombatManagerRef->Button2Array[0].PosInMs);
 			HitButtonCheck(CombatManagerRef->Button2Array, true);
 		}
@@ -128,7 +128,7 @@ void APlayerCharacter::BattleAction3() {
 	else if (CombatManagerRef->InRhythm && CombatManagerRef->Button3Array.Num() > 0) {
 		if ((CombatManagerRef->Button3Array[0].OwningChar == this || OtherPartyMembers.Contains(CombatManagerRef->Button3Array[0].OwningChar)) && CombatManagerRef->Button3Array.Num() > 0) {
 			//this is a valid note for the player to hit
-			//CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(CombatManagerRef->ConductorRef->CombatPlayingID);
+			CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(CombatManagerRef->ConductorRef->CombatPlayingID);
 			UE_LOG(LogTemp, Warning, TEXT("current %d target %f"), CurrentPos, CombatManagerRef->Button3Array[0].PosInMs);
 			HitButtonCheck(CombatManagerRef->Button3Array, false);
 		}
@@ -169,7 +169,7 @@ void APlayerCharacter::BattleAction4() {
 	else if (CombatManagerRef->InRhythm  && CombatManagerRef->Button4Array.Num() > 0) {
 		if ((CombatManagerRef->Button4Array[0].OwningChar == this || OtherPartyMembers.Contains(CombatManagerRef->Button4Array[0].OwningChar)) && CombatManagerRef->Button4Array.Num() > 0) {
 			//this is a valid note for the player to hit
-			//CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(CombatManagerRef->ConductorRef->CombatPlayingID);
+			CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(CombatManagerRef->ConductorRef->CombatPlayingID);
 			UE_LOG(LogTemp, Warning, TEXT("current %d target %f"), CurrentPos, CombatManagerRef->Button4Array[0].PosInMs);
 			HitButtonCheck(CombatManagerRef->Button4Array, false);
 		}
@@ -457,7 +457,7 @@ void APlayerCharacter::NavigateUp() {
 	}
 	else {
 		//if first enemy then wrap around
-		if (CombatManagerRef->SelectedTarget == CombatManagerRef->EnemyParty[0]) {
+		if (CombatManagerRef->SelectedTarget == CombatManagerRef->EnemyParty[0] && CombatManagerRef->EnemyParty.Num() > 1) {
 			CombatManagerRef->SelectedTarget = CombatManagerRef->EnemyParty[CombatManagerRef->EnemyParty.Num() - 1];
 
 		}
@@ -500,7 +500,7 @@ void APlayerCharacter::NavigateDown() {
 	}
 	else {
 		//if last enemy then wrap around
-		if (CombatManagerRef->SelectedTarget == CombatManagerRef->EnemyParty[CombatManagerRef->EnemyParty.Num() - 1]) {
+		if (CombatManagerRef->SelectedTarget == CombatManagerRef->EnemyParty[CombatManagerRef->EnemyParty.Num() - 1] && CombatManagerRef->EnemyParty.Num() > 1) {
 			CombatManagerRef->SelectedTarget = CombatManagerRef->EnemyParty[0];
 
 		}

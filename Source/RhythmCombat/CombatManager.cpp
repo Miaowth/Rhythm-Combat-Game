@@ -69,6 +69,7 @@ void ACombatManager::ChangeETargetType(ETargetType NewType, ABaseCharacter* Targ
 		SelectedTarget = Targetter;
 		break;
 	}
+	TargetLamp->MovePosition(SelectedTarget->GetTransform());
 }
 void ACombatManager::CreateTurnOrder() {
 	if (PlayerCharacter->OtherPartyMembers.Num() > 0) {
@@ -96,6 +97,7 @@ void ACombatManager::GenerateEnemyActions() {
 	for (int i = 0; i < EnemyParty.Num(); i++) {
 		//pick a random active action that the enemy has available
 		EnemyParty[i]->ChosenAction = EnemyParty[i]->ActiveActions[FMath ::RandRange(0, 3)];
+		//TODO - add target selection
 	}
 	EnterRhythmPhase();
 }

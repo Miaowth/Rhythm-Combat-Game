@@ -31,13 +31,16 @@ public:
 		UTexture2D* Portrait;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 Level;
+		bool IsAlive = true;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 Level = 1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool IsDefending = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float DefenseModifier;
+		float DefenseModifier = 1.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TArray<float> AbilityAccuracyValues;
