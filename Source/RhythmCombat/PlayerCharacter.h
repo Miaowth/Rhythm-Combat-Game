@@ -24,12 +24,15 @@ private:
 
 	USphereComponent* SphereComponent;
 
-	AActor* BestInteractable;
+	
 	
 public:
 	//stores party inventory
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	//TArray<UBaseItemClass*> Inventory;
+
+	UPROPERTY(BlueprintReadOnly)
+	AActor* BestInteractable;
 
 	AActor* FindInteractActors();
 

@@ -19,6 +19,14 @@ void AMyPlayerController::Tick(float DeltaSeconds)
 		{
 			ResettingCamera = false;
 		}
+	}else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, DeltaSeconds, FColor::Emerald,FString::Printf(TEXT("%f"), GetControlRotation().Pitch));
+		if(GetControlRotation().Pitch > 10 && GetControlRotation().Pitch < 200)
+		{
+			SetControlRotation(FRotator(10, GetControlRotation().Yaw, GetControlRotation().Roll));
+		}
+		
 	}
 }
 
@@ -38,8 +46,8 @@ void AMyPlayerController::SetupInputComponent()
 {
 	// Set up gameplay key bindings
 	Super::SetupInputComponent();
-	InputComponent->BindAction("Jump", IE_Pressed, this, &AMyPlayerController::DoJump);
-	InputComponent->BindAction("Jump", IE_Released, this, &AMyPlayerController::StopJump);
+	//InputComponent->BindAction("Jump", IE_Pressed, this, &AMyPlayerController::DoJump);
+	//InputComponent->BindAction("Jump", IE_Released, this, &AMyPlayerController::StopJump);
 
 	//inputs for combat
 	
@@ -148,7 +156,7 @@ void AMyPlayerController::StopJump()
 
 void AMyPlayerController::DoInteract()
 {
-	if(PlayerCharacter)
+	if(PlayerCharacter && !HUD->bisInMenu)
 	{
 		UE_LOG(LogTemp,Warning,TEXT("Interact?"))
 		AActor* Interact = PlayerCharacter->FindInteractActors();
@@ -161,6 +169,10 @@ void AMyPlayerController::DoInteract()
 
 void AMyPlayerController::ResetCamera()
 {
+	if (!GetCharacter())
+	{
+		return;
+	}
 	if(!ResettingCamera)
 	{
 		ResettingCamera = true;
