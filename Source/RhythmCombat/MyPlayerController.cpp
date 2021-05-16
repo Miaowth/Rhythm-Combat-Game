@@ -54,6 +54,10 @@ void AMyPlayerController::SetupInputComponent()
 	InputComponent->BindAxis("MoveForward", this, &AMyPlayerController::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &AMyPlayerController::MoveRight);
 
+	InputComponent->BindAction("UpSelect", IE_Pressed, this, &AMyPlayerController::NavigateUp);
+	InputComponent->BindAction("DownSelect", IE_Pressed, this, &AMyPlayerController::NavigateDown);
+
+
 	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
 	// "turn" handles devices that provide an absolute delta, such as a mouse.
 	// "turnrate" is for devices that we choose to treat as a rate of change, such as an analog joystick
@@ -228,8 +232,24 @@ void AMyPlayerController::BattleAction4()
 
 void AMyPlayerController::NavigateUp()
 {
+	if (PlayerCharacter->CombatManagerRef && PlayerCharacter->LastPressedButton != None)
+	{
+		if (PlayerCharacter->CombatManagerRef->InCombat)
+		{
+			PlayerCharacter->NavigateUp();
+		}
+
+	}
 }
 
 void AMyPlayerController::NavigateDown()
 {
+	if (PlayerCharacter->CombatManagerRef && PlayerCharacter->LastPressedButton != None)
+	{
+		if (PlayerCharacter->CombatManagerRef->InCombat)
+		{
+			PlayerCharacter->NavigateDown();
+		}
+
+	}
 }

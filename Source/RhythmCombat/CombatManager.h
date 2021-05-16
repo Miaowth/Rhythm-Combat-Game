@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "BaseCharacter.h"
 #include "Conductor.h"
+#include "TargetIndicator.h"
 
 //#include "PlayerCharacter.h"
 #include "CombatManager.generated.h"
@@ -46,6 +47,8 @@ public:
 		AConductor* ConductorRef;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		AEncounterManager* EncounterManagerRef;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		ATargetIndicator* TargetLamp;
 
 	//arrays for rhythm section
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

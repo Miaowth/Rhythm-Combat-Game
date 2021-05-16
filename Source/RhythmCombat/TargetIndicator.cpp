@@ -32,7 +32,7 @@ void ATargetIndicator::Tick(float DeltaTime)
 void ATargetIndicator::MovePosition(FTransform TargetPosition)
 {
 	FTransform Destination = TargetPosition;
-	Destination.AddToTranslation({ 0, 50, 0 });
+	Destination.AddToTranslation({ 0, 0, 200 });
 	SetActorTransform(Destination);
  }
 void ATargetIndicator::ToggleLight()

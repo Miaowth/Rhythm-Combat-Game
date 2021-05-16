@@ -8,7 +8,6 @@
 #include "InteractableInterface.h"
 #include "Kismet/GameplayStatics.h"
 
-//get 1 working then repeat for the rest
 void APlayerCharacter::BattleAction1() {
 	//if in action select phase in combat
 	if (CombatManagerRef->InCombat && !(CombatManagerRef->InRhythm) && LastPressedButton == Left) {
@@ -285,6 +284,7 @@ void APlayerCharacter::UpdateNote(TArray<FPatternNote> &TargetArray, float Accur
 		case BasicAttack:
 			
 			for (int i = 0; i < TargetArray[0].OwningChar->TargetList.Num(); i++) {
+				UE_LOG(LogTemp, Warning, TEXT("Damage: %d"), TargetArray[0].OwningChar->Level * 2 * accuracyaverage * TargetArray[0].OwningChar->TargetList[i]->DefenseModifier);
 				TargetArray[0].OwningChar->TargetList[i]->CharacterStats.HealthPoints -= 
 					TargetArray[0].OwningChar->Level * 2 * accuracyaverage * TargetArray[0].OwningChar->TargetList[i]->DefenseModifier;
 				//Kill our enemies
@@ -296,11 +296,12 @@ void APlayerCharacter::UpdateNote(TArray<FPatternNote> &TargetArray, float Accur
 						OtherPartyMembers[j]->TargetList.Remove(CombatManagerRef->EnemyParty[i]);
 					};
 					TargetList.Remove(CombatManagerRef->EnemyParty[i]);
-					CombatManagerRef->BattleOrder.Remove(CombatManagerRef->EnemyParty[i]);
+					CombatManagerRef->BattleOrder.RemoveSingleSwap(CombatManagerRef->EnemyParty[i], false);
 					CombatManagerRef->EnemyParty[i]->Destroy();
 					CombatManagerRef->EnemyParty.RemoveAt(i, 1, false);
 					
 				};
+				CombatManagerRef->BattleOrder.Shrink();
 			}
 			CombatManagerRef->RemoveInvalidNotes(CombatManagerRef->Button1Array);
 			CombatManagerRef->RemoveInvalidNotes(CombatManagerRef->Button2Array);
@@ -426,17 +427,16 @@ void APlayerCharacter::UpdateTargetType(int32 moveindex, ABaseCharacter* Targett
 	}
 }
 
-//void APlayerCharacter::Tick(float DeltaTime) {
-//	Super::Tick(DeltaTime);
-//}
 
 void APlayerCharacter::NavigateUp() {
+	UE_LOG(LogTemp, Warning, TEXT("Some warning message"));
+
 	if (CombatManagerRef->TargetCategory == Ally) {
 		//check if targetted character is the player
 		if (CombatManagerRef->SelectedTarget == this) {
 			//wrap to last member of the party
 			CombatManagerRef->SelectedTarget = OtherPartyMembers[OtherPartyMembers.Num() - 1];
-
+			
 		}
 		//if first member of the party that's not the player, then target the player
 		else if (OtherPartyMembers[0] == CombatManagerRef->SelectedTarget) {
@@ -471,9 +471,11 @@ void APlayerCharacter::NavigateUp() {
 			}
 		}
 	}
-
+	CombatManagerRef->TargetLamp->MovePosition(CombatManagerRef->SelectedTarget->GetTransform());
 };
 void APlayerCharacter::NavigateDown() {
+	UE_LOG(LogTemp, Warning, TEXT("Some warning message"));
+
 	if (CombatManagerRef->TargetCategory == Ally) {
 		//wrap to the player if end of party
 		if (CombatManagerRef->SelectedTarget == OtherPartyMembers[OtherPartyMembers.Num() - 1]) {
@@ -512,6 +514,7 @@ void APlayerCharacter::NavigateDown() {
 			}
 		}
 	};
+	CombatManagerRef->TargetLamp->MovePosition(CombatManagerRef->SelectedTarget->GetTransform());
 };
 
 void APlayerCharacter::UpdateActiveActions(FAction NewAction, EButtonPressed ButtonToAssign, ABaseCharacter* CharacterToUpdate) {
