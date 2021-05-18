@@ -3,7 +3,6 @@
 #include "PlayerCharacter.h"
 #include "RhythmCombatCharacter.h"
 
-
 #include "AIHelpers.h"
 #include "InteractableInterface.h"
 #include "Kismet/GameplayStatics.h"
@@ -24,7 +23,7 @@ void APlayerCharacter::BattleAction1() {
 			OtherPartyMembers[CharacterIndex]->TargetList.Add(CombatManagerRef->SelectedTarget);
 			CharacterIndex++;
 		}
-		if(CharacterIndex >= OtherPartyMembers.Num()) {
+		if (CharacterIndex >= OtherPartyMembers.Num()) {
 			//All player party actions have been chosen
 			UE_LOG(LogTemp, Warning, TEXT("All Actions Now Chosen"));
 
@@ -282,11 +281,12 @@ void APlayerCharacter::UpdateNote(TArray<FPatternNote> &TargetArray, float Accur
 		switch (TargetArray[0].OwningChar->ChosenAction.Type)
 		{
 		case BasicAttack:
-			
+
 			for (int i = 0; i < TargetArray[0].OwningChar->TargetList.Num(); i++) {
 				UE_LOG(LogTemp, Warning, TEXT("Damage: %d"), TargetArray[0].OwningChar->Level * 2 * accuracyaverage * TargetArray[0].OwningChar->TargetList[i]->DefenseModifier);
-				TargetArray[0].OwningChar->TargetList[i]->CharacterStats.HealthPoints -= 
+				TargetArray[0].OwningChar->TargetList[i]->CharacterStats.HealthPoints -=
 					TargetArray[0].OwningChar->Level * 2 * accuracyaverage * TargetArray[0].OwningChar->TargetList[i]->DefenseModifier;
+				SpawnProjectile(TargetArray[0].OwningChar->TargetList[i]->GetActorTransform(), CombatManagerRef->ConductorRef->BeatLength);
 				//Kill our enemies
 			};
 			for (int i = 0; i < CombatManagerRef->EnemyParty.Num(); i++) {
@@ -295,20 +295,21 @@ void APlayerCharacter::UpdateNote(TArray<FPatternNote> &TargetArray, float Accur
 					for (int j = 0; j < OtherPartyMembers.Num(); j++) {
 						OtherPartyMembers[j]->TargetList.Remove(CombatManagerRef->EnemyParty[i]);
 					};
+					CombatManagerRef->EnemyParty[i]->IsAlive = false;
 					TargetList.Remove(CombatManagerRef->EnemyParty[i]);
 					CombatManagerRef->BattleOrder.RemoveSingleSwap(CombatManagerRef->EnemyParty[i], false);
 					CombatManagerRef->EnemyParty[i]->Destroy();
 					CombatManagerRef->EnemyParty.RemoveAt(i, 1, false);
-					
+
 				};
 				CombatManagerRef->BattleOrder.Shrink();
 			}
-			CombatManagerRef->RemoveInvalidNotes(CombatManagerRef->Button1Array);
-			CombatManagerRef->RemoveInvalidNotes(CombatManagerRef->Button2Array);
-			CombatManagerRef->RemoveInvalidNotes(CombatManagerRef->Button3Array);
-			CombatManagerRef->RemoveInvalidNotes(CombatManagerRef->Button4Array);
+			CombatManagerRef->RemoveInvalidNotes(CombatManagerRef->Button1Array, true);
+			CombatManagerRef->RemoveInvalidNotes(CombatManagerRef->Button2Array, true);
+			CombatManagerRef->RemoveInvalidNotes(CombatManagerRef->Button3Array, false);
+			CombatManagerRef->RemoveInvalidNotes(CombatManagerRef->Button4Array, false);
 			CombatManagerRef->EnemyParty.Shrink();
-			
+
 			break;
 		case BasicDefend:
 			TargetArray[0].OwningChar->IsDefending = true;
@@ -351,7 +352,7 @@ APlayerCharacter::APlayerCharacter()
 	SphereComponent->SetupAttachment(RootComponent);
 	SphereComponent->InitSphereRadius(300.0f);
 	PrimaryActorTick.bCanEverTick = true;
-	SphereComponent->SetCollisionProfileName("Interactable",true);
+	SphereComponent->SetCollisionProfileName("Interactable", true);
 }
 
 AActor* APlayerCharacter::FindInteractActors()
@@ -373,29 +374,31 @@ AActor* APlayerCharacter::FindInteractActors()
 	}
 	*/
 	int32 ClosestDistIndex = 0;
-	if(Actors.Num() >= 1)
+	if (Actors.Num() >= 1)
 	{
 		//Loop through them all and find the closest Actor
 		FVector CurLoc = GetActorLocation();
 		float ClosestDistSquared = 0.0f;
-		for(int i=0; i < Actors.Num(); i++)
+		for (int i = 0; i < Actors.Num(); i++)
 		{
 			FVector Difference = CurLoc - Actors[i]->GetActorLocation();
 			float DistSquared = Difference.SizeSquared();
-			if(i==0)
+			if (i == 0)
 			{
 				ClosestDistSquared = DistSquared;
 				ClosestDistIndex = i;
-			}else
+			}
+			else
 			{
-				if(DistSquared < ClosestDistSquared)
+				if (DistSquared < ClosestDistSquared)
 				{
 					ClosestDistSquared = DistSquared;
 					ClosestDistIndex = i;
 				}
 			}
 		}
-	}else
+	}
+	else
 	{
 		return nullptr;
 	}
@@ -436,7 +439,7 @@ void APlayerCharacter::NavigateUp() {
 		if (CombatManagerRef->SelectedTarget == this) {
 			//wrap to last member of the party
 			CombatManagerRef->SelectedTarget = OtherPartyMembers[OtherPartyMembers.Num() - 1];
-			
+
 		}
 		//if first member of the party that's not the player, then target the player
 		else if (OtherPartyMembers[0] == CombatManagerRef->SelectedTarget) {
@@ -452,7 +455,7 @@ void APlayerCharacter::NavigateUp() {
 			}
 		}
 	}
-	else if(CombatManagerRef->TargetCategory == Self){
+	else if (CombatManagerRef->TargetCategory == Self) {
 		//do nothing
 	}
 	else {

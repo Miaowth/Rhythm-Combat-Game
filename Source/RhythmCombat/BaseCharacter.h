@@ -16,20 +16,20 @@ class RHYTHMCOMBAT_API ABaseCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-	UNavigationSystemV1* navSys;
+		UNavigationSystemV1* navSys;
 
 	//void FoundNavPath(uint32 id,ENavigationQueryResult::Type Result, FNavPathSharedPtr Path);
 
 public:
 	// Sets default values for this character's properties
 	ABaseCharacter();
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		FText SafeName;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		UTexture2D* Portrait;
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool IsAlive = true;
 
@@ -66,19 +66,23 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		UInventory* Inventory;
+
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<class AAttackProjectile> BP_AttackProjectile;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
-	bool InteractWith(AActor* Actor);
+		bool InteractWith(AActor* Actor);
 
 	UFUNCTION(BlueprintCallable)
-	void LookAtActor(AActor* Actor);
+		void LookAtActor(AActor* Actor);
 
-	
+	UFUNCTION(BlueprintCallable)
+		void SpawnProjectile(FTransform TargetDestination, float BeatDuration);
 };

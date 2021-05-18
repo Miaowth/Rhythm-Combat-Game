@@ -72,9 +72,6 @@ public:
 		ARhythmUI_Manager* RhythmUIManagerRef;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TArray<UPaperSpriteComponent*> ButtonUIElements;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool WaitingForNextBar = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

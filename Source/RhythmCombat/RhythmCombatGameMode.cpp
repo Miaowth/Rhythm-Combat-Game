@@ -12,4 +12,5 @@ ARhythmCombatGameMode::ARhythmCombatGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+
 }

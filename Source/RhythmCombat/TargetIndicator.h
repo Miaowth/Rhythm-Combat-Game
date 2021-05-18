@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/SpotLightComponent.h"
+
 #include "TargetIndicator.generated.h"
 
 UCLASS()
@@ -20,6 +22,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UStaticMeshComponent* LampMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		USpotLightComponent* Spotlight;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool IsLit = false;

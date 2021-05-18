@@ -4,29 +4,35 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "PaperSpriteComponent.h"
-
-
-#include "RhythmUI_Note.generated.h"
-
-class ABaseCharacter;
+#include "AttackProjectile.generated.h"
 
 UCLASS()
-class RHYTHMCOMBAT_API ARhythmUI_Note : public AActor
+class RHYTHMCOMBAT_API AAttackProjectile : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ARhythmUI_Note();
+	AAttackProjectile();
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		USceneComponent* MyRootComponent;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		UPaperSpriteComponent* NoteSprite;
+		UStaticMeshComponent* ProjectileBody;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float bpm;
+		FTransform StartingPoint;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		ABaseCharacter* OwningChar;
+		FTransform DestinationPoint;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float BeatDuration;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float Speed;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -34,5 +40,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintNativeEvent)
+		void CalculateSpeed();
 
 };

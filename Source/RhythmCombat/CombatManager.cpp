@@ -5,13 +5,15 @@
 #include "PlayerCharacter.h"
 #include "EncounterManager.h"
 #include "MyPlayerController.h"
-
+#include "RhythmUI_Manager.h"
+#include "RhythmUI_Note.h"
+#include "AttackProjectile.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ACombatManager::ACombatManager()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	MyRootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root Component"));
 	//This is how to give an actor a root component.
@@ -24,15 +26,16 @@ ACombatManager::ACombatManager()
 void ACombatManager::BeginPlay()
 {
 	Super::BeginPlay();
-	APlayerCharacter* player = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(),0));
-	if(player)
+	APlayerCharacter* player = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
+	if (player)
 	{
 		PlayerCharacter = player;
-	}else
-	{
-		UE_LOG(LogTemp,Fatal,TEXT("Player Character not assignable, crashes imminent."))
 	}
-	
+	else
+	{
+		UE_LOG(LogTemp, Fatal, TEXT("Player Character not assignable, crashes imminent."))
+	}
+
 }
 
 // Called every frame
@@ -51,6 +54,10 @@ void ACombatManager::InitialiseCombat()
 	SelectedTarget = EnemyParty[0];
 	PlayerCharacter->CharacterIndex = -1;
 	FBeginCombatDelegateDeclaration.Broadcast();
+	Button1Array.Empty();
+	Button2Array.Empty();
+	Button3Array.Empty();
+	Button4Array.Empty();
 	ConductorRef->BeginCombat();
 }
 
@@ -80,23 +87,69 @@ void ACombatManager::CreateTurnOrder() {
 	BattleOrder.Sort([](ABaseCharacter& a, ABaseCharacter& b) {return a.CharacterStats.Speed < b.CharacterStats.Speed; });
 }
 
-void ACombatManager::RemoveInvalidNotes(TArray<FPatternNote> &ArrayToClean) {
+void ACombatManager::RemoveInvalidNotes(TArray<FPatternNote> &ArrayToClean, bool IsTopTrack) {
+	TArray<FPatternNote> CleanedArray;
 	for (int i = 0; i < ArrayToClean.Num(); i++) {
-		if (IsValid(ArrayToClean[i].OwningChar) && IsValid(ArrayToClean[i].UIElement)) {
+		//(IsValid(ArrayToClean[i].OwningChar) && IsValid(ArrayToClean[i].UIElement)
+		if (ArrayToClean[i].OwningChar->IsAlive) {
 			//do nothing
+			CleanedArray.Add(ArrayToClean[i]);
 		}
 		else {
-			ArrayToClean.RemoveAt(i, 1, false);
+			//ArrayToClean[i].UIElement->Destroy();
+			if (IsTopTrack && ArrayToClean.Num() > 0) {
+				TArray<ARhythmUI_Note*> TempTopArray;
+				for (int j = 0; j < ConductorRef->RhythmUIManagerRef->TopTrackNoteArray.Num(); j++) {
+					if (ConductorRef->RhythmUIManagerRef->TopTrackNoteArray[j]->OwningChar->IsAlive) {
+						TempTopArray.Add(ConductorRef->RhythmUIManagerRef->TopTrackNoteArray[j]);
+					}
+					else {
+						ConductorRef->RhythmUIManagerRef->TopTrackNoteArray[j]->Destroy();
+					}
+				}
+				ConductorRef->RhythmUIManagerRef->TopTrackNoteArray = TempTopArray;
+			}
+			else {
+				TArray<ARhythmUI_Note*> TempBottomArray;
+				for (int j = 0; j < ConductorRef->RhythmUIManagerRef->BottomTrackNoteArray.Num(); j++) {
+					if (ConductorRef->RhythmUIManagerRef->BottomTrackNoteArray[j]->OwningChar->IsAlive) {
+						TempBottomArray.Add(ConductorRef->RhythmUIManagerRef->BottomTrackNoteArray[j]);
+					}
+					else {
+						ConductorRef->RhythmUIManagerRef->BottomTrackNoteArray[j]->Destroy();
+					}
+				}
+				ConductorRef->RhythmUIManagerRef->BottomTrackNoteArray = TempBottomArray;
+			}
 		};
 	}
-	ArrayToClean.Shrink();
+	ArrayToClean = CleanedArray;
 }
 
 void ACombatManager::GenerateEnemyActions() {
 	//TODO - make enemy smort
 	for (int i = 0; i < EnemyParty.Num(); i++) {
 		//pick a random active action that the enemy has available
-		EnemyParty[i]->ChosenAction = EnemyParty[i]->ActiveActions[FMath ::RandRange(0, 3)];
+		EnemyParty[i]->TargetList.Empty();
+		EnemyParty[i]->ChosenAction = EnemyParty[i]->ActiveActions[FMath::RandRange(0, 3)];
+		int32 tempint = FMath::RandRange(0, PlayerCharacter->OtherPartyMembers.Num());
+		switch (EnemyParty[i]->ChosenAction.Type)
+		{
+		case BasicAttack:
+			if (tempint == 0) {
+				EnemyParty[i]->TargetList.Add(PlayerCharacter);
+			}
+			else {
+				EnemyParty[i]->TargetList.Add(PlayerCharacter->OtherPartyMembers[tempint - 1]);
+			}
+
+			break;
+		case BasicDefend:
+			EnemyParty[i]->TargetList.Add(EnemyParty[i]);
+			break;
+		default:
+			break;
+		}
 		//TODO - add target selection
 	}
 	EnterRhythmPhase();
@@ -123,12 +176,12 @@ void ACombatManager::EnterRhythmPhase() {
 				false,
 				BattleOrder[i],
 				ConductorRef->PatternBarStart //start of the bar
-			});
+				});
 			Button1Array.Add({
 				true,
 				BattleOrder[i],
 				(ConductorRef->PatternBarStart + ConductorRef->BeatLength)
-			});
+				});
 			if (EnemyParty.Contains(BattleOrder[i])) {
 				//generates the hit value for the note.
 				//TODO - update complexity for enemy difficulty
@@ -144,7 +197,7 @@ void ACombatManager::EnterRhythmPhase() {
 				true,
 				BattleOrder[i],
 				ConductorRef->PatternBarStart
-			});
+				});
 			if (EnemyParty.Contains(BattleOrder[i])) {
 				//generates the hit value for the note.
 				//TODO - update complexity for enemy difficulty
@@ -160,7 +213,7 @@ void ACombatManager::EnterRhythmPhase() {
 			//calculate when it should be pressed and add it to the appropriate array
 			//Ability
 			for (int j = 0; j < BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern.Num() - 1; j++) {
-				switch (BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j].ButtonIndex) 
+				switch (BattleOrder[i]->Abilities[BattleOrder[i]->ChosenAction.index].NotePattern[j].ButtonIndex)
 				{
 				case 0:
 					//square or x
@@ -245,7 +298,7 @@ void ACombatManager::EnterRhythmPhase() {
 			break;
 		};
 		//put in a bars rest between patterns
-		
+
 		//Start from next bar after a 1 bar break if late in bar
 		if (ConductorRef->BeatNum > ConductorRef->BeatsPerBar / 2) {
 			ConductorRef->PatternBarStart += ConductorRef->BarDuration * 2;
@@ -253,7 +306,7 @@ void ACombatManager::EnterRhythmPhase() {
 		else {
 			ConductorRef->PatternBarStart += ConductorRef->BarDuration;
 		};
-		
+
 	}
 
 	InRhythm = true;
@@ -282,7 +335,7 @@ void ACombatManager::RhythmSectionCompleteCheck()
 		ConductorRef->CurrentPhase = ActionSelect;
 		ConductorRef->UpdatePhaseUI();
 	};
-	
+
 	if (EnemyParty.Num() == 0) {
 		//return to overworld
 		InCombat = false;
@@ -293,7 +346,11 @@ void ACombatManager::RhythmSectionCompleteCheck()
 		EncounterManagerRef->EnableEncounters();
 		FEndCombatDelegateDeclaration.Broadcast();
 		PlayerCharacter->TeleportTo(PlayerCharacter->PosInWorld.GetLocation(), PlayerCharacter->PosInWorld.Rotator());
-		
+		TArray<AActor*> FoundActors;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AAttackProjectile::StaticClass(), FoundActors);
+		for (int i = 0; i < FoundActors.Num(); i++) {
+			FoundActors[i]->Destroy();
+		}
 		Cast<AMyPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->Possess(PlayerCharacter);
 		ConductorRef->EndCombat();
 		ConductorRef->CurrentPhase = Complete;
@@ -330,7 +387,7 @@ bool ACombatManager::Escape(ABaseCharacter* EscapingCharacter, TArray<AActor*> P
 			return false;
 		}
 	}
-	else {	
+	else {
 		if (GetChance(0, 100, 50)) {
 			//successfully ran
 			if (Party.Num() == 1) {
@@ -358,7 +415,7 @@ bool ACombatManager::Escape(ABaseCharacter* EscapingCharacter, TArray<AActor*> P
 					return false;
 				};
 			};
-		}			
+		}
 		return false;
 	};
 }

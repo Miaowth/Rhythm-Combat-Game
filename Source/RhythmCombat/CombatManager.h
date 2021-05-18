@@ -78,7 +78,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
-	void RemoveInvalidNotes(UPARAM(ref) TArray<FPatternNote> &ArrayToClean);
+	void RemoveInvalidNotes(UPARAM(ref) TArray<FPatternNote> &ArrayToClean, bool IsTopTrack);
 
 	UFUNCTION(BlueprintCallable)
 	void ChangeETargetType(ETargetType NewType, ABaseCharacter* Targetter);
