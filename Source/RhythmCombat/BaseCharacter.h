@@ -68,7 +68,7 @@ public:
 		UInventory* Inventory;
 
 	UPROPERTY(EditAnywhere)
-		TSubclassOf<class AAttackProjectile> BP_AttackProjectile;
+		TSubclassOf<class AActor> BP_AttackProjectile;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
