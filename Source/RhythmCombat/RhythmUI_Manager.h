@@ -37,15 +37,6 @@ public:
 		TArray<ARhythmUI_Note*> BottomTrackNoteArray;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 SpawnedIndexButton1;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 SpawnedIndexButton2;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 SpawnedIndexButton3;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 SpawnedIndexButton4;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		ACombatManager* CombatManagerRef;
 
 protected:

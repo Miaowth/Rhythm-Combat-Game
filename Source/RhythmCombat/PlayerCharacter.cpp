@@ -1,5 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-PRAGMA_DISABLE_OPTIMIZATION
+
 #include "PlayerCharacter.h"
 #include "RhythmCombatCharacter.h"
 
@@ -8,7 +8,6 @@ PRAGMA_DISABLE_OPTIMIZATION
 #include "InteractableInterface.h"
 #include "Kismet/GameplayStatics.h"
 
-//get 1 working then repeat for the rest
 void APlayerCharacter::BattleAction1() {
 	//if in action select phase in combat
 	if (CombatManagerRef->InCombat && !(CombatManagerRef->InRhythm) && LastPressedButton == Left) {
@@ -42,11 +41,11 @@ void APlayerCharacter::BattleAction1() {
 			UpdateTargetType(0, OtherPartyMembers[CharacterIndex]);
 		}
 	}
-	else if (CombatManagerRef->InRhythm) {
+	else if (CombatManagerRef->InRhythm && CombatManagerRef->Button1Array.Num() > 0) {
 		if ((CombatManagerRef->Button1Array[0].OwningChar == this || OtherPartyMembers.Contains(CombatManagerRef->Button1Array[0].OwningChar)) && CombatManagerRef->Button1Array.Num() > 0) {
 			//this is a valid note for the player to hit
 			//if(CombatManagerRef->Button1Array.Num() > 0){
-			CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(CombatManagerRef->ConductorRef->CombatPlayingID);
+			//CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(CombatManagerRef->ConductorRef->CombatPlayingID);
 			UE_LOG(LogTemp, Warning, TEXT("current %d target %f"), CurrentPos, CombatManagerRef->Button1Array[0].PosInMs);
 			HitButtonCheck(CombatManagerRef->Button1Array, true);
 		}
@@ -85,10 +84,10 @@ void APlayerCharacter::BattleAction2() {
 			UpdateTargetType(1, OtherPartyMembers[CharacterIndex]);
 		}
 	}
-	else if (CombatManagerRef->InRhythm) {
+	else if (CombatManagerRef->InRhythm && CombatManagerRef->Button2Array.Num() > 0) {
 		if ((CombatManagerRef->Button2Array[0].OwningChar == this || OtherPartyMembers.Contains(CombatManagerRef->Button2Array[0].OwningChar)) && CombatManagerRef->Button2Array.Num() > 0) {
 			//this is a valid note for the player to hit
-			CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(CombatManagerRef->ConductorRef->CombatPlayingID);
+			//CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(CombatManagerRef->ConductorRef->CombatPlayingID);
 			UE_LOG(LogTemp, Warning, TEXT("current %d target %f"), CurrentPos, CombatManagerRef->Button2Array[0].PosInMs);
 			HitButtonCheck(CombatManagerRef->Button2Array, true);
 		}
@@ -126,10 +125,10 @@ void APlayerCharacter::BattleAction3() {
 			UpdateTargetType(2, OtherPartyMembers[CharacterIndex]);
 		}
 	}
-	else if (CombatManagerRef->InRhythm) {
+	else if (CombatManagerRef->InRhythm && CombatManagerRef->Button3Array.Num() > 0) {
 		if ((CombatManagerRef->Button3Array[0].OwningChar == this || OtherPartyMembers.Contains(CombatManagerRef->Button3Array[0].OwningChar)) && CombatManagerRef->Button3Array.Num() > 0) {
 			//this is a valid note for the player to hit
-			CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(CombatManagerRef->ConductorRef->CombatPlayingID);
+			//CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(CombatManagerRef->ConductorRef->CombatPlayingID);
 			UE_LOG(LogTemp, Warning, TEXT("current %d target %f"), CurrentPos, CombatManagerRef->Button3Array[0].PosInMs);
 			HitButtonCheck(CombatManagerRef->Button3Array, false);
 		}
@@ -167,10 +166,10 @@ void APlayerCharacter::BattleAction4() {
 			UpdateTargetType(3, OtherPartyMembers[CharacterIndex]);
 		}
 	}
-	else if (CombatManagerRef->InRhythm) {
+	else if (CombatManagerRef->InRhythm  && CombatManagerRef->Button4Array.Num() > 0) {
 		if ((CombatManagerRef->Button4Array[0].OwningChar == this || OtherPartyMembers.Contains(CombatManagerRef->Button4Array[0].OwningChar)) && CombatManagerRef->Button4Array.Num() > 0) {
 			//this is a valid note for the player to hit
-			CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(CombatManagerRef->ConductorRef->CombatPlayingID);
+			//CurrentPos = UAkGameplayStatics::GetSourcePlayPosition(CombatManagerRef->ConductorRef->CombatPlayingID);
 			UE_LOG(LogTemp, Warning, TEXT("current %d target %f"), CurrentPos, CombatManagerRef->Button4Array[0].PosInMs);
 			HitButtonCheck(CombatManagerRef->Button4Array, false);
 		}
@@ -180,52 +179,95 @@ void APlayerCharacter::BattleAction4() {
 
 void APlayerCharacter::HitButtonCheck(TArray<FPatternNote> &TargetArray, bool TopTrack)
 {
-	if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Miss] - 500)
-		|| CombatManagerRef->IsAboveBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Miss] + 500)) {
+	if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Miss] - 500))
+	{
 		//invalid hit
 	}
-	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Miss]) || CombatManagerRef->IsAboveBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Miss])) {
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Miss])) {
 		//miss
 		UE_LOG(LogTemp, Warning, TEXT("MISS %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Miss]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Miss]));
-		
+		LastHitQuality = Miss;
 		PerfectComboCounter = 0;
 		UpdateNote(TargetArray, 0.0f, TopTrack);
 	}
-	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Poor]) || CombatManagerRef->IsAboveBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Poor])) {
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Poor])) {
 		//poor hit
 		UE_LOG(LogTemp, Warning, TEXT("POOR %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Poor]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Poor]));
-		
+		LastHitQuality = Poor;
 		PerfectComboCounter = 0;
 		UpdateNote(TargetArray, 20.0f, TopTrack);
 	}
-	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Okay]) || CombatManagerRef->IsAboveBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Okay])) {
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Okay])) {
 		//okay hit
 		UE_LOG(LogTemp, Warning, TEXT("OKAY %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Okay]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Okay]));
-				
+		LastHitQuality = Okay;
 		PerfectComboCounter = 0;
 		UpdateNote(TargetArray, 40.0f, TopTrack);
 	}
-	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Good]) || CombatManagerRef->IsAboveBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Good])) {
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Good])) {
 		//good hit
 		UE_LOG(LogTemp, Warning, TEXT("GOOD %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Good]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Good]));
-		
+		LastHitQuality = Good;
 		PerfectComboCounter = 0;
 		UpdateNote(TargetArray, 60.0f, TopTrack);
 	}
-	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Great]) || CombatManagerRef->IsAboveBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Great])) {
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Great])) {
 		//great hit
 		UE_LOG(LogTemp, Warning, TEXT("GREAT %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Great]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Great]));
-
+		LastHitQuality = Great;
 		PerfectComboCounter = 0;
 		UpdateNote(TargetArray, 80.0f, TopTrack);
 	}
-	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Perfect]) || CombatManagerRef->IsAboveBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Perfect])) {
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Perfect])) {
 		//perfect hit
 		UE_LOG(LogTemp, Warning, TEXT("PERFECT %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Perfect]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Perfect]));
-
+		LastHitQuality = Perfect;
 		PerfectComboCounter += 1;
 		UpdateNote(TargetArray, 100.0f, TopTrack);
 	}
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Perfect])) {
+		//perfect hit
+		UE_LOG(LogTemp, Warning, TEXT("PERFECT %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Perfect]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Perfect]));
+		LastHitQuality = Perfect;
+		PerfectComboCounter += 1;
+		UpdateNote(TargetArray, 100.0f, TopTrack);
+	}
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Great])) {
+		//great hit
+		UE_LOG(LogTemp, Warning, TEXT("GREAT %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Great]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Great]));
+		LastHitQuality = Great;
+		PerfectComboCounter = 0;
+		UpdateNote(TargetArray, 80.0f, TopTrack);
+	}
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Good])) {
+		//good hit
+		UE_LOG(LogTemp, Warning, TEXT("GOOD %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Good]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Good]));
+		LastHitQuality = Good;
+		PerfectComboCounter = 0;
+		UpdateNote(TargetArray, 60.0f, TopTrack);
+	}
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Okay])) {
+		//okay hit
+		UE_LOG(LogTemp, Warning, TEXT("OKAY %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Okay]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Okay]));
+		LastHitQuality = Okay;
+		PerfectComboCounter = 0;
+		UpdateNote(TargetArray, 40.0f, TopTrack);
+	}
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Poor])) {
+		//poor hit
+		UE_LOG(LogTemp, Warning, TEXT("POOR %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Poor]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Poor]));
+		LastHitQuality = Poor;
+		PerfectComboCounter = 0;
+		UpdateNote(TargetArray, 20.0f, TopTrack);
+	}
+	else if (CombatManagerRef->IsBelowBoundary(CurrentPos, TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Miss])) {
+		//miss
+		UE_LOG(LogTemp, Warning, TEXT("MISS %f lower %f upper"), (TargetArray[0].PosInMs - CombatManagerRef->HitBoundaries[Miss]), (TargetArray[0].PosInMs + CombatManagerRef->HitBoundaries[Miss]));
+		LastHitQuality = Miss;
+		PerfectComboCounter = 0;
+		UpdateNote(TargetArray, 0.0f, TopTrack);
+	}
+
 }
 void APlayerCharacter::UpdateNote(TArray<FPatternNote> &TargetArray, float Accuracy, bool TopTrack) {
 	AbilityAccuracyValues.Add(Accuracy);
@@ -242,9 +284,30 @@ void APlayerCharacter::UpdateNote(TArray<FPatternNote> &TargetArray, float Accur
 		case BasicAttack:
 			
 			for (int i = 0; i < TargetArray[0].OwningChar->TargetList.Num(); i++) {
+				UE_LOG(LogTemp, Warning, TEXT("Damage: %d"), TargetArray[0].OwningChar->Level * 2 * accuracyaverage * TargetArray[0].OwningChar->TargetList[i]->DefenseModifier);
 				TargetArray[0].OwningChar->TargetList[i]->CharacterStats.HealthPoints -= 
 					TargetArray[0].OwningChar->Level * 2 * accuracyaverage * TargetArray[0].OwningChar->TargetList[i]->DefenseModifier;
+				//Kill our enemies
 			};
+			for (int i = 0; i < CombatManagerRef->EnemyParty.Num(); i++) {
+				if (CombatManagerRef->EnemyParty[i]->CharacterStats.HealthPoints <= 0) {
+					//enemy is dead
+					for (int j = 0; j < OtherPartyMembers.Num(); j++) {
+						OtherPartyMembers[j]->TargetList.Remove(CombatManagerRef->EnemyParty[i]);
+					};
+					TargetList.Remove(CombatManagerRef->EnemyParty[i]);
+					CombatManagerRef->BattleOrder.RemoveSingleSwap(CombatManagerRef->EnemyParty[i], false);
+					CombatManagerRef->EnemyParty[i]->Destroy();
+					CombatManagerRef->EnemyParty.RemoveAt(i, 1, false);
+					
+				};
+				CombatManagerRef->BattleOrder.Shrink();
+			}
+			CombatManagerRef->RemoveInvalidNotes(CombatManagerRef->Button1Array);
+			CombatManagerRef->RemoveInvalidNotes(CombatManagerRef->Button2Array);
+			CombatManagerRef->RemoveInvalidNotes(CombatManagerRef->Button3Array);
+			CombatManagerRef->RemoveInvalidNotes(CombatManagerRef->Button4Array);
+			CombatManagerRef->EnemyParty.Shrink();
 			
 			break;
 		case BasicDefend:
@@ -266,8 +329,10 @@ void APlayerCharacter::UpdateNote(TArray<FPatternNote> &TargetArray, float Accur
 	TargetArray.RemoveAt(0);
 	CombatManagerRef->ConductorRef->RemoveUI(TopTrack);
 }
+
 void APlayerCharacter::Tick(float DeltaSeconds)
 {
+	Super::Tick(DeltaSeconds);
 	BestInteractable = FindInteractActors();
 }
 
@@ -285,7 +350,7 @@ APlayerCharacter::APlayerCharacter()
 	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere"), true);
 	SphereComponent->SetupAttachment(RootComponent);
 	SphereComponent->InitSphereRadius(300.0f);
-
+	PrimaryActorTick.bCanEverTick = true;
 	SphereComponent->SetCollisionProfileName("Interactable",true);
 }
 
@@ -363,14 +428,15 @@ void APlayerCharacter::UpdateTargetType(int32 moveindex, ABaseCharacter* Targett
 }
 
 
-
 void APlayerCharacter::NavigateUp() {
+	UE_LOG(LogTemp, Warning, TEXT("Some warning message"));
+
 	if (CombatManagerRef->TargetCategory == Ally) {
 		//check if targetted character is the player
 		if (CombatManagerRef->SelectedTarget == this) {
 			//wrap to last member of the party
 			CombatManagerRef->SelectedTarget = OtherPartyMembers[OtherPartyMembers.Num() - 1];
-
+			
 		}
 		//if first member of the party that's not the player, then target the player
 		else if (OtherPartyMembers[0] == CombatManagerRef->SelectedTarget) {
@@ -405,9 +471,11 @@ void APlayerCharacter::NavigateUp() {
 			}
 		}
 	}
-
+	CombatManagerRef->TargetLamp->MovePosition(CombatManagerRef->SelectedTarget->GetTransform());
 };
 void APlayerCharacter::NavigateDown() {
+	UE_LOG(LogTemp, Warning, TEXT("Some warning message"));
+
 	if (CombatManagerRef->TargetCategory == Ally) {
 		//wrap to the player if end of party
 		if (CombatManagerRef->SelectedTarget == OtherPartyMembers[OtherPartyMembers.Num() - 1]) {
@@ -446,6 +514,7 @@ void APlayerCharacter::NavigateDown() {
 			}
 		}
 	};
+	CombatManagerRef->TargetLamp->MovePosition(CombatManagerRef->SelectedTarget->GetTransform());
 };
 
 void APlayerCharacter::UpdateActiveActions(FAction NewAction, EButtonPressed ButtonToAssign, ABaseCharacter* CharacterToUpdate) {
@@ -468,5 +537,5 @@ void APlayerCharacter::UpdateActiveActions(FAction NewAction, EButtonPressed But
 		break;
 	}
 };
-PRAGMA_ENABLE_OPTIMIZATION
+
 

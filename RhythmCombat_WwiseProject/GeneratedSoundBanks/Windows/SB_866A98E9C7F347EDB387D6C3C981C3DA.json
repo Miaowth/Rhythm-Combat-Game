@@ -1,0 +1,38 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "12",
+  "SoundbankVersion": "140",
+  "RootPaths": {
+   "ProjectRoot": "D:\\University\\RhythmCombat\\RhythmCombat_WwiseProject\\",
+   "SourceFilesRoot": "D:\\University\\RhythmCombat\\RhythmCombat_WwiseProject\\.cache\\Windows\\",
+   "SoundBanksRoot": "D:\\University\\RhythmCombat\\RhythmCombat_WwiseProject\\GeneratedSoundBanks\\Windows\\",
+   "ExternalSourcesInputFile": "",
+   "ExternalSourcesOutputRoot": "D:\\University\\RhythmCombat\\RhythmCombat_WwiseProject\\GeneratedSoundBanks\\Windows"
+  },
+  "SoundBanks": [
+   {
+    "Id": "3489510982",
+    "GUID": "{CFFDB646-B646-1646-4646-464646464646}",
+    "Language": "SFX",
+    "Hash": "3644915867",
+    "ObjectPath": "\\SoundBanks\\Default Work Unit\\SB_866A98E9C7F347EDB387D6C3C981C3DA",
+    "ShortName": "SB_866A98E9C7F347EDB387D6C3C981C3DA",
+    "Path": "SB_866A98E9C7F347EDB387D6C3C981C3DA.bnk",
+    "IncludedEvents": [
+     {
+      "Id": "1283546533",
+      "Name": "Stop_ChangedChords",
+      "ObjectPath": "\\Events\\Default Work Unit\\Stop_ChangedChords",
+      "GUID": "{866A98E9-C7F3-47ED-B387-D6C3C981C3DA}",
+      "MaxAttenuation": "0.000000",
+      "DurationType": "OneShot",
+      "DurationMin": "0.000000",
+      "DurationMax": "0.000000"
+     }
+    ]
+   }
+  ]
+ }
+}

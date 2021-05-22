@@ -8,7 +8,21 @@
 						<Action Name="" ID="{3C5A3142-040D-40EF-A233-5A898C199B8D}" ShortID="170048288">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="ChangedChords" ID="{A39CAAC6-CD8A-464E-A30A-CF68FF220D35}" WorkUnitID="{20A002B0-16E2-4928-B8DD-5880A457FB8A}"/>
+									<ObjectRef Name="CombatPlaylist" ID="{3BC0CEC2-A2FC-4EBC-A160-60973C96F700}" WorkUnitID="{20A002B0-16E2-4928-B8DD-5880A457FB8A}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_ChangedChords" ID="{866A98E9-C7F3-47ED-B387-D6C3C981C3DA}">
+					<ChildrenList>
+						<Action Name="" ID="{68026E8C-0622-4D18-94D2-09C23FB9AF47}" ShortID="535292363">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="CombatPlaylist" ID="{3BC0CEC2-A2FC-4EBC-A160-60973C96F700}" WorkUnitID="{20A002B0-16E2-4928-B8DD-5880A457FB8A}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>

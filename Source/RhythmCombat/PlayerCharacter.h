@@ -24,12 +24,15 @@ private:
 
 	USphereComponent* SphereComponent;
 
-	AActor* BestInteractable;
+	
 	
 public:
 	//stores party inventory
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	//TArray<UBaseItemClass*> Inventory;
+
+	UPROPERTY(BlueprintReadOnly)
+	AActor* BestInteractable;
 
 	AActor* FindInteractActors();
 
@@ -58,6 +61,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TEnumAsByte<EButtonPressed> LastPressedButton = None;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TEnumAsByte<EHitQuality> LastHitQuality = Invalid;
+
 public:
 
 	UFUNCTION(BlueprintCallable)

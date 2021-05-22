@@ -6,11 +6,16 @@
 #include "GameFramework/Actor.h"
 #include "BaseCharacter.h"
 #include "Conductor.h"
+#include "TargetIndicator.h"
 
 //#include "PlayerCharacter.h"
 #include "CombatManager.generated.h"
-
+class AEncounterManager;
 class APlayerCharacter;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FBeginCombatDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FEndCombatDelegate);
+
 
 UCLASS()
 class RHYTHMCOMBAT_API ACombatManager : public AActor
@@ -40,7 +45,10 @@ public:
 		TEnumAsByte<ETargetType> TargetCategory;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		AConductor* ConductorRef;
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		AEncounterManager* EncounterManagerRef;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		ATargetIndicator* TargetLamp;
 
 	//arrays for rhythm section
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -55,8 +63,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TMap<TEnumAsByte<EHitQuality>, float> HitBoundaries;
 
-	
+	UPROPERTY(BlueprintAssignable)
+		FBeginCombatDelegate FBeginCombatDelegateDeclaration;
 
+	UPROPERTY(BlueprintAssignable)
+		FEndCombatDelegate FEndCombatDelegateDeclaration;
 
 protected:
 	// Called when the game starts or when spawned
@@ -65,6 +76,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintCallable)
+	void RemoveInvalidNotes(UPARAM(ref) TArray<FPatternNote> &ArrayToClean);
 
 	UFUNCTION(BlueprintCallable)
 	void ChangeETargetType(ETargetType NewType, ABaseCharacter* Targetter);

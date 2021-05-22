@@ -16,7 +16,7 @@
     "Id": "586982346",
     "GUID": "{22FCA3CA-A3CA-13CA-CACA-CACACACACACA}",
     "Language": "SFX",
-    "Hash": "1076243618",
+    "Hash": "3462288233",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\SB_44FE91EAFB2E484DA3D5A4D1621D93CB",
     "ShortName": "SB_44FE91EAFB2E484DA3D5A4D1621D93CB",
     "Path": "SB_44FE91EAFB2E484DA3D5A4D1621D93CB.bnk",
@@ -26,9 +26,7 @@
       "Name": "Play_ChangedChords",
       "ObjectPath": "\\Events\\Default Work Unit\\Play_ChangedChords",
       "GUID": "{44FE91EA-FB2E-484D-A3D5-A4D1621D93CB}",
-      "DurationType": "OneShot",
-      "DurationMin": "42.000000",
-      "DurationMax": "42.000000",
+      "DurationType": "Infinite",
       "ExcludedMemoryFiles": [
        {
         "Id": "473504946",

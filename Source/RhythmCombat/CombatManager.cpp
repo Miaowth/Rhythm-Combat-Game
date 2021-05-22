@@ -3,6 +3,8 @@
 
 #include "CombatManager.h"
 #include "PlayerCharacter.h"
+#include "EncounterManager.h"
+#include "MyPlayerController.h"
 
 #include "Kismet/GameplayStatics.h"
 
@@ -48,6 +50,7 @@ void ACombatManager::InitialiseCombat()
 	InCombat = true;
 	SelectedTarget = EnemyParty[0];
 	PlayerCharacter->CharacterIndex = -1;
+	FBeginCombatDelegateDeclaration.Broadcast();
 	ConductorRef->BeginCombat();
 }
 
@@ -76,6 +79,18 @@ void ACombatManager::CreateTurnOrder() {
 	BattleOrder.Sort([](ABaseCharacter& a, ABaseCharacter& b) {return a.CharacterStats.Speed < b.CharacterStats.Speed; });
 }
 
+void ACombatManager::RemoveInvalidNotes(TArray<FPatternNote> &ArrayToClean) {
+	for (int i = 0; i < ArrayToClean.Num(); i++) {
+		if (IsValid(ArrayToClean[i].OwningChar) && IsValid(ArrayToClean[i].UIElement)) {
+			//do nothing
+		}
+		else {
+			ArrayToClean.RemoveAt(i, 1, false);
+		};
+	}
+	ArrayToClean.Shrink();
+}
+
 void ACombatManager::GenerateEnemyActions() {
 	//TODO - make enemy smort
 	for (int i = 0; i < EnemyParty.Num(); i++) {
@@ -94,6 +109,8 @@ void ACombatManager::EnterRhythmPhase() {
 	//if (ConductorRef->BeatNum > ConductorRef->BeatsPerBar / 2) {
 	//	ConductorRef->PatternBarStart += ConductorRef->BarDuration;
 	//}
+	ConductorRef->CurrentPhase = Rhythm;
+	ConductorRef->UpdatePhaseUI();
 	for (int i = 0; i < BattleOrder.Num(); i++) {
 		switch (BattleOrder[i]->ChosenAction.Type)
 		{
@@ -259,11 +276,26 @@ void ACombatManager::RhythmSectionCompleteCheck()
 		PlayerCharacter->TargetList.Empty();
 		PlayerCharacter->CurrentPerfectComboCounter = 0;
 		PlayerCharacter->AbilityAccuracyValues = {};
+		PlayerCharacter->LastHitQuality = Invalid;
+		ConductorRef->CurrentPhase = ActionSelect;
+		ConductorRef->UpdatePhaseUI();
 	};
+	
 	if (EnemyParty.Num() == 0) {
 		//return to overworld
 		InCombat = false;
-
+		InRhythm = false;
+		SelectedTarget = NULL;
+		PlayerCharacter->CharacterIndex = -1;
+		PlayerCharacter->LastHitQuality = Invalid;
+		EncounterManagerRef->EnableEncounters();
+		FEndCombatDelegateDeclaration.Broadcast();
+		PlayerCharacter->TeleportTo(PlayerCharacter->PosInWorld.GetLocation(), PlayerCharacter->PosInWorld.Rotator());
+		
+		Cast<AMyPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->Possess(PlayerCharacter);
+		ConductorRef->EndCombat();
+		ConductorRef->CurrentPhase = Complete;
+		ConductorRef->UpdatePhaseUI();
 	};
 }
 

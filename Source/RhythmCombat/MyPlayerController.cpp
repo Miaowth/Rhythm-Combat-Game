@@ -19,6 +19,14 @@ void AMyPlayerController::Tick(float DeltaSeconds)
 		{
 			ResettingCamera = false;
 		}
+	}else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, DeltaSeconds, FColor::Emerald,FString::Printf(TEXT("%f"), GetControlRotation().Pitch));
+		if(GetControlRotation().Pitch > 10 && GetControlRotation().Pitch < 200)
+		{
+			SetControlRotation(FRotator(10, GetControlRotation().Yaw, GetControlRotation().Roll));
+		}
+		
 	}
 }
 
@@ -38,8 +46,8 @@ void AMyPlayerController::SetupInputComponent()
 {
 	// Set up gameplay key bindings
 	Super::SetupInputComponent();
-	InputComponent->BindAction("Jump", IE_Pressed, this, &AMyPlayerController::DoJump);
-	InputComponent->BindAction("Jump", IE_Released, this, &AMyPlayerController::StopJump);
+	//InputComponent->BindAction("Jump", IE_Pressed, this, &AMyPlayerController::DoJump);
+	//InputComponent->BindAction("Jump", IE_Released, this, &AMyPlayerController::StopJump);
 
 	//inputs for combat
 	
@@ -53,6 +61,10 @@ void AMyPlayerController::SetupInputComponent()
 
 	InputComponent->BindAxis("MoveForward", this, &AMyPlayerController::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &AMyPlayerController::MoveRight);
+
+	InputComponent->BindAction("UpSelect", IE_Pressed, this, &AMyPlayerController::NavigateUp);
+	InputComponent->BindAction("DownSelect", IE_Pressed, this, &AMyPlayerController::NavigateDown);
+
 
 	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
 	// "turn" handles devices that provide an absolute delta, such as a mouse.
@@ -144,7 +156,7 @@ void AMyPlayerController::StopJump()
 
 void AMyPlayerController::DoInteract()
 {
-	if(PlayerCharacter)
+	if(PlayerCharacter && !HUD->bisInMenu)
 	{
 		UE_LOG(LogTemp,Warning,TEXT("Interact?"))
 		AActor* Interact = PlayerCharacter->FindInteractActors();
@@ -157,6 +169,10 @@ void AMyPlayerController::DoInteract()
 
 void AMyPlayerController::ResetCamera()
 {
+	if (!GetCharacter())
+	{
+		return;
+	}
 	if(!ResettingCamera)
 	{
 		ResettingCamera = true;
@@ -228,8 +244,24 @@ void AMyPlayerController::BattleAction4()
 
 void AMyPlayerController::NavigateUp()
 {
+	if (PlayerCharacter->CombatManagerRef && PlayerCharacter->LastPressedButton != None)
+	{
+		if (PlayerCharacter->CombatManagerRef->InCombat)
+		{
+			PlayerCharacter->NavigateUp();
+		}
+
+	}
 }
 
 void AMyPlayerController::NavigateDown()
 {
+	if (PlayerCharacter->CombatManagerRef && PlayerCharacter->LastPressedButton != None)
+	{
+		if (PlayerCharacter->CombatManagerRef->InCombat)
+		{
+			PlayerCharacter->NavigateDown();
+		}
+
+	}
 }

@@ -6,6 +6,7 @@
 				<Property Name="AudioFilesImporter\Path" Type="string" Value="D:\Ableton Projects\Exports\CollabUni\Music\"/>
 				<Property Name="Event Action List\{44FE91EA-FB2E-484D-A3D5-A4D1621D93CB}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="Event Action List\{4B1F41CC-CD1E-4D91-A296-F9A4F9099430}\x64_Expand States" Type="string" Value=""/>
+				<Property Name="Event Action List\{866A98E9-C7F3-47ED-B387-D6C3C981C3DA}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="EventView\FilterMode1" Type="int32" Value="2"/>
 				<Property Name="ExternalSourcesInputPath" Type="string">
 					<ValueList>
@@ -27,7 +28,7 @@
 				<Property Name="GenerateSoundBanks\x64_SelectedPlatforms" Type="string" Value=""/>
 				<Property Name="GenerateSoundBanks\x64_SelectedSoundBanks" Type="string" Value=""/>
 				<Property Name="HardwareController\CurrentSession" Type="string" Value="{2451DD2E-A7B2-45E6-B93B-6F49B9B887AD}"/>
-				<Property Name="HardwareController\{2451DD2E-A7B2-45E6-B93B-6F49B9B887AD}\x64_ActiveGroups" Type="string" Value="Vw0ZH8eUvEarbDLFWk+I6wHaXtD/////9U+bIT1s4EiphsWjKbH3aAHaXtD/////"/>
+				<Property Name="HardwareController\{2451DD2E-A7B2-45E6-B93B-6F49B9B887AD}\x64_ActiveGroups" Type="string" Value="Vw0ZH8eUvEarbDLFWk+I6wHaxrz/////9U+bIT1s4EiphsWjKbH3aAHaxrz/////"/>
 				<Property Name="Interactive Music\x64_{A39CAAC6-CD8A-464E-A30A-CF68FF220D35} - SegmentEditorZoomInfo" Type="string" Value="AAAAAAAA8D8AAAAAAADwPzEMwzAMwzVAAAAAAAAA8D8AAAAAAAAAAAAAAAAAAAAA"/>
 				<Property Name="MeterView\LastObject1" Type="string" Value="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}"/>
 				<Property Name="MeterView\MeterMode1" Type="int32" Value="1"/>
@@ -58,7 +59,7 @@
 				<Property Name="ProjectExplorer\x64_Expanded_10_1" Type="string" Value=""/>
 				<Property Name="ProjectExplorer\x64_Expanded_11_1" Type="string" Value=""/>
 				<Property Name="ProjectExplorer\x64_Expanded_12_1" Type="string" Value=""/>
-				<Property Name="ProjectExplorer\x64_Expanded_13_1" Type="string" Value="xqqco4rNTkajCs9o/yINNbACoCDiFihJuN1YgKRX+4o="/>
+				<Property Name="ProjectExplorer\x64_Expanded_13_1" Type="string" Value="sAKgIOIWKEm43ViApFf7ig=="/>
 				<Property Name="ProjectExplorer\x64_Expanded_14_1" Type="string" Value=""/>
 				<Property Name="ProjectExplorer\x64_Expanded_15_1" Type="string" Value=""/>
 				<Property Name="ProjectExplorer\x64_Expanded_16_1" Type="string" Value=""/>
