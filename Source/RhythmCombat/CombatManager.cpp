@@ -59,6 +59,7 @@ void ACombatManager::InitialiseCombat()
 	Button3Array.Empty();
 	Button4Array.Empty();
 	ConductorRef->BeginCombat();
+	PlayerCharacter->InCombat = true;
 }
 
 //helper function to change the current type of target and currently selected target
@@ -340,6 +341,7 @@ void ACombatManager::RhythmSectionCompleteCheck()
 		//return to overworld
 		InCombat = false;
 		InRhythm = false;
+		PlayerCharacter->InCombat = false;
 		SelectedTarget = NULL;
 		PlayerCharacter->CharacterIndex = -1;
 		PlayerCharacter->LastHitQuality = Invalid;

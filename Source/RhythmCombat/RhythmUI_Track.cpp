@@ -20,7 +20,8 @@ ARhythmUI_Track::ARhythmUI_Track()
 void ARhythmUI_Track::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	//FBeginCombatDelegateDeclaration.Bind();
+	//FEndCombatDelegateDeclaration.Bind();
 }
 
 // Called every frame

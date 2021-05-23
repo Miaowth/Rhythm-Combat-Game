@@ -30,6 +30,8 @@ public:
 	//stores party inventory
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	//TArray<UBaseItemClass*> Inventory;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool InCombat;
 
 	UPROPERTY(BlueprintReadOnly)
 	AActor* BestInteractable;

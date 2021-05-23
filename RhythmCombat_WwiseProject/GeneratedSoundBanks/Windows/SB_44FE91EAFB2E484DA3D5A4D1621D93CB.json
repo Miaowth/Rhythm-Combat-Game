@@ -16,7 +16,7 @@
     "Id": "586982346",
     "GUID": "{22FCA3CA-A3CA-13CA-CACA-CACACACACACA}",
     "Language": "SFX",
-    "Hash": "3462288233",
+    "Hash": "3889365300",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\SB_44FE91EAFB2E484DA3D5A4D1621D93CB",
     "ShortName": "SB_44FE91EAFB2E484DA3D5A4D1621D93CB",
     "Path": "SB_44FE91EAFB2E484DA3D5A4D1621D93CB.bnk",
@@ -28,6 +28,12 @@
       "GUID": "{44FE91EA-FB2E-484D-A3D5-A4D1621D93CB}",
       "DurationType": "Infinite",
       "ExcludedMemoryFiles": [
+       {
+        "Id": "202661980",
+        "Language": "SFX",
+        "ShortName": "idea_Thu_May_20_2021.wav",
+        "Path": "SFX\\idea_Thu_May_20_2021_D79FB2B7.wem"
+       },
        {
         "Id": "473504946",
         "Language": "SFX",
