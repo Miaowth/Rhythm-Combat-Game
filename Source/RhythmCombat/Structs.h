@@ -76,7 +76,8 @@ enum BattlePhase {
 	ActionSelect,
 	Rhythm,
 	Start,
-	Complete
+	BattleWon,
+	BattleLost
 };
 
 USTRUCT(BlueprintType)

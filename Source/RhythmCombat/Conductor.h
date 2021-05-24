@@ -23,20 +23,6 @@ public:
 	// Sets default values for this actor's properties
 	AConductor();
 
-	//May not need
-
-	
-	float crotchet;
-	float songposition;
-	float deltasongpos;
-	float lasthit; 
-
-	float offset = 0.2f; //this may only be needed when using mp3 not wav
-	float addoffset;
-	float offsetstatic;
-	bool hasoffsetadjusted = false;
-	int32 barnumber = 0;
-	//End May not need
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float bpm = 60.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -54,11 +40,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 BeatsPerBar = 4;
 
-	////Positions for Button UI
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//	AActor* SpawnButtonLocation;
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//	AActor* EndButtonLocation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		USceneComponent* MyRootComponent;
 

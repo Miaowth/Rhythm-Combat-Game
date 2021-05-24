@@ -355,8 +355,14 @@ void ACombatManager::RhythmSectionCompleteCheck()
 		}
 		Cast<AMyPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->Possess(PlayerCharacter);
 		ConductorRef->EndCombat();
-		ConductorRef->CurrentPhase = Complete;
+		ConductorRef->CurrentPhase = BattleWon;
 		ConductorRef->UpdatePhaseUI();
+		//resurrect party members - persona style
+		for (int i = 0; i < PlayerCharacter->OtherPartyMembers.Num(); i++) {
+			if (PlayerCharacter->OtherPartyMembers[i]->CharacterStats.HealthPoints <= 0) {
+				PlayerCharacter->OtherPartyMembers[i]->CharacterStats.HealthPoints = 1;
+			}
+		};
 	};
 }
 
