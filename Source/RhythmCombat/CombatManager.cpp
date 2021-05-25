@@ -92,7 +92,7 @@ void ACombatManager::RemoveInvalidNotes(TArray<FPatternNote> &ArrayToClean, bool
 	TArray<FPatternNote> CleanedArray;
 	for (int i = 0; i < ArrayToClean.Num(); i++) {
 		//(IsValid(ArrayToClean[i].OwningChar) && IsValid(ArrayToClean[i].UIElement)
-		if (ArrayToClean[i].OwningChar->IsAlive && !ArrayToClean[i].UIElement->NeedsDeletion) {
+		if (ArrayToClean[i].OwningChar->IsAlive && ArrayToClean[i].IsSpawned && !ArrayToClean[i].UIElement->NeedsDeletion) {
 				CleanedArray.Add(ArrayToClean[i]);
 		}
 		else {
