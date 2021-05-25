@@ -72,16 +72,33 @@ void AConductor::UpdatePhaseUI_Implementation() {
 }
 void AConductor::RemoveUI(bool IsTopTrack) {
 	if (IsTopTrack) {
+
 		if (RhythmUIManagerRef->TopTrackNoteArray.Num() > 0) {
-			RhythmUIManagerRef->TopTrackNoteArray[0]->Destroy();
-			RhythmUIManagerRef->TopTrackNoteArray.RemoveAt(0);
+			TArray<ARhythmUI_Note*> TempArray;
+			for (int i = 0; i < RhythmUIManagerRef->TopTrackNoteArray.Num(); i++) {
+				if (RhythmUIManagerRef->TopTrackNoteArray[i]->NeedsDeletion) {
+					RhythmUIManagerRef->TopTrackNoteArray[i]->Destroy();
+				}
+				else {
+					TempArray.Add(RhythmUIManagerRef->TopTrackNoteArray[i]);
+				}
+			}
+			RhythmUIManagerRef->TopTrackNoteArray = TempArray;
 		}
 	}
 	else {
 		if (RhythmUIManagerRef->BottomTrackNoteArray.Num() > 0) {
-			RhythmUIManagerRef->BottomTrackNoteArray[0]->Destroy();
-			RhythmUIManagerRef->BottomTrackNoteArray.RemoveAt(0);
-		}
+			TArray<ARhythmUI_Note*> TempArray;
+			for (int i = 0; i < RhythmUIManagerRef->BottomTrackNoteArray.Num(); i++) {
+				if (RhythmUIManagerRef->BottomTrackNoteArray[i]->NeedsDeletion) {
+					RhythmUIManagerRef->BottomTrackNoteArray[i]->Destroy();
+				}
+				else {
+					TempArray.Add(RhythmUIManagerRef->BottomTrackNoteArray[i]);
+				}
+			}
+			RhythmUIManagerRef->BottomTrackNoteArray = TempArray;
+		};
 	};
 	
 }
