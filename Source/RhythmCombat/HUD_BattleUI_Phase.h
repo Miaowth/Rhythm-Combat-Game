@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "WidgetBlueprint.h"
+#include "Blueprint/UserWidget.h"
 #include "HUD_BattleUI_Phase.generated.h"
 
 /**
  * 
  */
 UCLASS(Blueprintable)
-class RHYTHMCOMBAT_API UHUD_BattleUI_Phase : public UWidgetBlueprint
+class RHYTHMCOMBAT_API UHUD_BattleUI_Phase : public UUserWidget
 {
 	GENERATED_BODY()
 public:
