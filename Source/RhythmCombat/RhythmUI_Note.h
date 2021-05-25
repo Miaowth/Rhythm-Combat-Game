@@ -27,6 +27,8 @@ public:
 		float bpm;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		ABaseCharacter* OwningChar;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool NeedsDeletion;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

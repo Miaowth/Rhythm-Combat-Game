@@ -72,12 +72,16 @@ void AConductor::UpdatePhaseUI_Implementation() {
 }
 void AConductor::RemoveUI(bool IsTopTrack) {
 	if (IsTopTrack) {
-		RhythmUIManagerRef->TopTrackNoteArray[0]->Destroy();
-		RhythmUIManagerRef->TopTrackNoteArray.RemoveAt(0);
+		if (RhythmUIManagerRef->TopTrackNoteArray.Num() > 0) {
+			RhythmUIManagerRef->TopTrackNoteArray[0]->Destroy();
+			RhythmUIManagerRef->TopTrackNoteArray.RemoveAt(0);
+		}
 	}
 	else {
-		RhythmUIManagerRef->BottomTrackNoteArray[0]->Destroy();
-		RhythmUIManagerRef->BottomTrackNoteArray.RemoveAt(0);
+		if (RhythmUIManagerRef->BottomTrackNoteArray.Num() > 0) {
+			RhythmUIManagerRef->BottomTrackNoteArray[0]->Destroy();
+			RhythmUIManagerRef->BottomTrackNoteArray.RemoveAt(0);
+		}
 	};
 	
 }

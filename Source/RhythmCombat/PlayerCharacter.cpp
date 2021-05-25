@@ -285,7 +285,7 @@ void APlayerCharacter::UpdateNote(TArray<FPatternNote> &TargetArray, float Accur
 			for (int i = 0; i < TargetArray[0].OwningChar->TargetList.Num(); i++) {
 				UE_LOG(LogTemp, Warning, TEXT("Damage: %d"), TargetArray[0].OwningChar->Level * 2 * accuracyaverage * TargetArray[0].OwningChar->TargetList[i]->DefenseModifier);
 				TargetArray[0].OwningChar->TargetList[i]->CharacterStats.HealthPoints -=
-					TargetArray[0].OwningChar->Level * 2 * accuracyaverage * TargetArray[0].OwningChar->TargetList[i]->DefenseModifier;
+					TargetArray[0].OwningChar->Level * 2 / 100 * accuracyaverage * TargetArray[0].OwningChar->TargetList[i]->DefenseModifier;
 				SpawnProjectile(TargetArray[0].OwningChar->TargetList[i]->GetActorTransform(), CombatManagerRef->ConductorRef->BeatLength);
 				//Kill our enemies
 			};

@@ -94,7 +94,9 @@ void ACombatManager::RemoveInvalidNotes(TArray<FPatternNote> &ArrayToClean, bool
 		//(IsValid(ArrayToClean[i].OwningChar) && IsValid(ArrayToClean[i].UIElement)
 		if (ArrayToClean[i].OwningChar->IsAlive) {
 			//do nothing
-			CleanedArray.Add(ArrayToClean[i]);
+			if (!ArrayToClean[i].UIElement->NeedsDeletion) {
+				CleanedArray.Add(ArrayToClean[i]);
+			}
 		}
 		else {
 			//ArrayToClean[i].UIElement->Destroy();
@@ -178,10 +180,15 @@ void ACombatManager::EnterRhythmPhase() {
 				BattleOrder[i],
 				ConductorRef->PatternBarStart //start of the bar
 				});
+			Button2Array.Add({
+				false,
+				BattleOrder[i],
+				ConductorRef->PatternBarStart + ConductorRef->BeatLength
+				});
 			Button1Array.Add({
 				true,
 				BattleOrder[i],
-				(ConductorRef->PatternBarStart + ConductorRef->BeatLength)
+				(ConductorRef->PatternBarStart + ConductorRef->BeatLength * 2)
 				});
 			if (EnemyParty.Contains(BattleOrder[i])) {
 				//generates the hit value for the note.
