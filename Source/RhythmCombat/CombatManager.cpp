@@ -345,7 +345,7 @@ void ACombatManager::RhythmSectionCompleteCheck()
 		SelectedTarget = NULL;
 		PlayerCharacter->CharacterIndex = -1;
 		PlayerCharacter->LastHitQuality = Invalid;
-		EncounterManagerRef->EnableEncounters();
+		//EncounterManagerRef->EnableEncounters();
 		FEndCombatDelegateDeclaration.Broadcast();
 		PlayerCharacter->TeleportTo(PlayerCharacter->PosInWorld.GetLocation(), PlayerCharacter->PosInWorld.Rotator());
 		TArray<AActor*> FoundActors;
