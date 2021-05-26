@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "Item.generated.h"
 /**
  * 
@@ -11,7 +10,8 @@
 
 class UInventory;
 
-UCLASS(Blueprintable)
+#define LOCTEXT_NAMESPACE "Items"
+UCLASS(Blueprintable, BlueprintType)
 class RHYTHMCOMBAT_API UItem : public UObject
 {
 public:

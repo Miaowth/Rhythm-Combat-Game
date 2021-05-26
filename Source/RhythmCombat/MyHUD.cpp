@@ -21,7 +21,7 @@ void AMyHUD::BeginPlay()
 
 bool AMyHUD::ToggleGameMenu()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Game"))
+	
 	if(!GameMenuWidget)
 	{
 		if(PauseMenuWidget->IsInViewport())
@@ -50,7 +50,7 @@ bool AMyHUD::ToggleGameMenu()
 
 bool AMyHUD::TogglePauseMenu()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Pause"))
+	
 	if(GameMenuWidget->IsInViewport()||!PauseMenuWidget)
 	{
 		return false;
