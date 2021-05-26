@@ -24,12 +24,12 @@ class RHYTHMCOMBAT_API UInventory : public UObject
 {
 	GENERATED_BODY()
 
-private:
-	UPROPERTY()
+public:
+	UPROPERTY(BlueprintReadOnly)
 	TArray<UItem*> Inventory;
 	UPROPERTY()
 	int32 Money;
-public:
+
 	//Add Item
 	UFUNCTION(BlueprintCallable, Category="Inventory|Item")
 		bool AddItemByItemAmt(FItemAmt ItemAmt);
