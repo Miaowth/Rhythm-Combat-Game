@@ -16,16 +16,16 @@ class ARhythmCombatGameMode : public AGameModeBase
 public:
 	ARhythmCombatGameMode();
 
-	UPROPERTY(EditAnywhere, Category="HUD")
-	TSubclassOf<UUserWidget> OverWorldHUDWidget;
-	UPROPERTY(EditAnywhere, Category="HUD")
-	TSubclassOf<UUserWidget> GameMenuWidget;
-	UPROPERTY(EditAnywhere, Category="HUD")
-	TSubclassOf<UUserWidget> PauseMenuWidget;
-	UPROPERTY(EditAnywhere, Category="HUD")
-	TSubclassOf<UUserWidget> DialogBoxWidget;
-	UPROPERTY(EditAnywhere, Category="HUD")
-	TSubclassOf<UUserWidget> InkleDialogWidget;
+	//UPROPERTY(EditAnywhere, Category="HUD")
+	//TSubclassOf<UUserWidget> OverWorldHUDWidget;
+	//UPROPERTY(EditAnywhere, Category="HUD")
+	//TSubclassOf<UUserWidget> GameMenuWidget;
+	//UPROPERTY(EditAnywhere, Category="HUD")
+	//TSubclassOf<UUserWidget> PauseMenuWidget;
+	//UPROPERTY(EditAnywhere, Category="HUD")
+	//TSubclassOf<UUserWidget> DialogBoxWidget;
+	//UPROPERTY(EditAnywhere, Category="HUD")
+	//TSubclassOf<UUserWidget> InkleDialogWidget;
 };
 
 

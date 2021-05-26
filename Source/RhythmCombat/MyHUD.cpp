@@ -10,13 +10,13 @@ AMyHUD::AMyHUD()
 
 void AMyHUD::BeginPlay()
 {
-	GameMode = Cast<ARhythmCombatGameMode>(GetWorld()->GetAuthGameMode());
+	//GameMode = Cast<ARhythmCombatGameMode>(GetWorld()->GetAuthGameMode());
 
-	OverWorldHUDWidget = CreateWidget(GetOwningPlayerController(),GameMode->OverWorldHUDWidget);
-	GameMenuWidget = CreateWidget(GetOwningPlayerController(),GameMode->GameMenuWidget);
-	PauseMenuWidget = CreateWidget(GetOwningPlayerController(),GameMode->PauseMenuWidget);
+	//OverWorldHUDWidget = CreateWidget(GetOwningPlayerController(),GameMode->OverWorldHUDWidget);
+	//GameMenuWidget = CreateWidget(GetOwningPlayerController(),GameMode->GameMenuWidget);
+	//PauseMenuWidget = CreateWidget(GetOwningPlayerController(),GameMode->PauseMenuWidget);
 
-	OverWorldHUDWidget->AddToViewport();
+	//OverWorldHUDWidget->AddToViewport();
 }
 
 bool AMyHUD::ToggleGameMenu()
